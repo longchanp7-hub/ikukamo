@@ -1,0 +1,11 @@
+{
+  "name": "行くかも",
+  "short_name": "行くかも",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f3efe6",
+  "theme_color": "#9c4a2b",
+  "lang": "ja",
+  "icons": [{ "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

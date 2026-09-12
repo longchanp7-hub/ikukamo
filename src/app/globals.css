@@ -1,0 +1,16 @@
+@import "tailwindcss";
+:root {
+  --background: #f3efe6; --foreground: #1c1914; --bg: #f3efe6; --bg-elev: #fffaf1;
+  --ink: #1c1914; --muted: #6b6358; --line: #ddd4c6; --accent: #9c4a2b; --score: #8a3b22; --chip: #ece3d4;
+}
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #161410; --foreground: #f3ece1; --bg: #161410; --bg-elev: #211c16;
+    --ink: #f3ece1; --muted: #b3a898; --line: #3a3228; --accent: #b86a4c; --score: #e0b09a; --chip: #2a241c;
+  }
+}
+html, body { background: var(--bg); color: var(--ink); min-height: 100%; }
+body { font-family: "Hiragino Sans", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif; }
+.card-shadow { box-shadow: 0 10px 30px rgba(28, 25, 20, 0.06); }
+@media (prefers-color-scheme: dark) { .card-shadow { box-shadow: 0 10px 28px rgba(0,0,0,0.28); } }
