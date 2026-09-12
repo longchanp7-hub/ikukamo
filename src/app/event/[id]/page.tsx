@@ -34,7 +34,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       </section>
       <dl className="mt-6 space-y-2 text-sm">
         <Row label="開催日時">{formatRangeJa(event.startAt, event.endAt)}</Row>
-        <Row label="場所">{event.venueName.replace("（サンプル）", "）")}（{event.city}）</Row>
+        <Row label="場所">{event.venueName.replace("（サンプル）", "")}（{event.city}）</Row>
         <Row label="豊橋から">約{event.distanceFromToyohashiKm}km / 車 約{event.driveMinutes}分</Row>
         <Row label="料金">{event.priceText || "未確認"}</Row>
         <Row label="駐車場">{event.parkingText || "未確認"}</Row>
