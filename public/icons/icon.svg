@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="28" fill="#9c4a2b"/><text x="64" y="80" text-anchor="middle" font-size="56" fill="#fffaf1" font-family="sans-serif">行</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a24a31"/>
+      <stop offset="1" stop-color="#6e2c1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#g)"/>
+  <circle cx="96" cy="28" r="18" fill="#f4eee4" opacity=".18"/>
+  <text x="64" y="82" text-anchor="middle" font-size="54" fill="#fff7ef" font-family="serif">行</text>
+</svg>
