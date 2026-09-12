@@ -9,7 +9,7 @@ describe("date classification", () => {
   it("classifies buckets", () => {
     expect(classifyBucket({ startAt: "2026-09-12T12:00:00+09:00", endAt: "2026-09-12T21:00:00+09:00" }, now)).toBe("today");
     expect(classifyBucket({ startAt: "2026-09-13T11:00:00+09:00", endAt: "2026-09-13T17:00:00+09:00" }, now)).toBe("tomorrow");
-    expect(classifyBucket({ startAt: "2026-09-20T10:00:00+09:00", endAt: "2026-09-20T16:00:00+09:00" }, now)).toBe("next_week");
+    expect(classifyBucket({ startAt: "2026-09-16T10:00:00+09:00", endAt: "2026-09-16T16:00:00+09:00" }, now)).toBe("next_week");
     expect(classifyBucket({ startAt: "2026-10-01T10:00:00+09:00", endAt: "2026-10-01T16:00:00+09:00" }, now)).toBe("later");
   });
 });
