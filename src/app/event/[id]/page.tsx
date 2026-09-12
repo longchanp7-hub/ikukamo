@@ -34,7 +34,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       </section>
       <dl className="mt-6 space-y-2 text-sm">
         <Row label="開催日時">{formatRangeJa(event.startAt, event.endAt)}</Row>
-        <Row label="場所">{event.venueName.replace("（サンプル）", "")}（{event.city}）</Row>
+        <Row label="場所">{event.venueName.replace("（サンプル）", "）")}（{event.city}）</Row>
         <Row label="豊橋から">約{event.distanceFromToyohashiKm}km / 車 約{event.driveMinutes}分</Row>
         <Row label="料金">{event.priceText || "未確認"}</Row>
         <Row label="駐車場">{event.parkingText || "未確認"}</Row>
@@ -43,7 +43,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       <div className="mt-5 flex flex-wrap gap-2 text-sm">
         {event.officialUrl && <a className="underline" href={event.officialUrl} target="_blank" rel="noreferrer">公式</a>}
         {event.mapUrl && <a className="underline" href={event.mapUrl} target="_blank" rel="noreferrer">地図</a>}
-        <span style={{ color: "var(--muted)" }}>SNSリンクは未確認</span>
+        {event.instagramUrl && <a className="underline" href={event.instagramUrl} target="_blank" rel="noreferrer">Instagram</a>}
+        {event.xUrl && <a className="underline" href={event.xUrl} target="_blank" rel="noreferrer">X</a>}
       </div>
       <DetailActions eventId={event.id} />
     </main>

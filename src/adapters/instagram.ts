@@ -1,4 +1,9 @@
 import type { OutingEvent } from "@/lib/types";
+
+export function officialInstagramEvents(): OutingEvent[] {
+  return [];
+}
+
 export async function fetchFromInstagram(): Promise<{ events: OutingEvent[]; status: "skipped" | "ok" | "error"; reason?: string }> {
   if (!process.env.INSTAGRAM_ACCESS_TOKEN) {
     return { events: [], status: "skipped", reason: "INSTAGRAM_ACCESS_TOKEN 未設定。無断スクレイピングはしない" };

@@ -14,6 +14,7 @@ export function EventCard({ event, lastAction, onAction }: {
 }) {
   const cat = CATEGORY_META[event.category];
   const actions: CardAction[] = ["want", "save", "dismiss", "went"];
+  const picked = event.id.startsWith("ig-");
   return (
     <article className="card-shadow rounded-3xl p-4" style={{ background: "var(--bg-elev)", border: "1px solid var(--line)" }}>
       <div className="flex gap-3">
@@ -22,6 +23,7 @@ export function EventCard({ event, lastAction, onAction }: {
           <div className="mb-1 flex flex-wrap items-center gap-1.5 text-xs" style={{ color: "var(--muted)" }}>
             <span>{cat.icon} {cat.nameJa}</span><span>·</span><span>確度 {CONF[event.confidence]}</span>
             {event.isSample && <span className="rounded-full px-2 py-0.5 text-[10px]" style={{ background: "var(--chip)" }}>サンプル</span>}
+            {picked && <span className="rounded-full px-2 py-0.5 text-[10px]" style={{ background: "var(--chip)" }}>インスタ</span>}
           </div>
           <h2 className="text-[16px] font-semibold leading-snug">{event.title.replace("【サンプル】", "")}</h2>
           <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>{formatRangeJa(event.startAt, event.endAt)}</p>
@@ -32,7 +34,10 @@ export function EventCard({ event, lastAction, onAction }: {
       <p className="mt-3 text-sm leading-relaxed">{event.aiComment}</p>
       <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>今行く理由: {event.goNowReason}</p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <Link href={`/event/${event.id}`} onClick={() => onAction(event.id, "open_detail")} className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--ink)", color: "var(--bg)" }}>詳細</Link>
+        {!picked && <Link href={`/event/${event.id}`} onClick={() => onAction(event.id, "open_detail")} className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--ink)", color: "var(--bg)" }}>詳細</Link>}
+        {event.instagramUrl && (
+          <a href={event.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--accent)", color: "#fffaf1" }}>インスタ</a>
+        )}
         {actions.map((a) => (
           <button key={a} type="button" onClick={() => onAction(event.id, a)} className="rounded-full px-3 py-1.5 text-sm"
             style={{ background: lastAction === a ? "var(--accent)" : "var(--chip)", color: lastAction === a ? "var(--bg)" : "var(--ink)" }}>

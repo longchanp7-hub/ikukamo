@@ -1,10 +1,12 @@
 "use client";
 import { useMemo, useState } from "react";
 import { EventCard } from "@/components/EventCard";
+import { InstagramPickup } from "@/components/InstagramPickup";
 import { eventsInBucket, BUCKET_LABELS } from "@/lib/time-buckets";
 import { upcomingByDate } from "@/lib/schedule";
 import { pickTodayGo } from "@/lib/today-picks";
 import { latestActionMap, loadFeedback, saveFeedbackRecord } from "@/lib/feedback";
+import { loadPickedEvents } from "@/lib/picked-events";
 import type { FeedbackAction, OutingEvent, TimeBucket, UserFeedback } from "@/lib/types";
 
 type ViewTab = "schedule" | TimeBucket;
@@ -13,11 +15,20 @@ const LABELS: Record<ViewTab, string> = { schedule: "予定", ...BUCKET_LABELS }
 
 export function HomeClient({ events }: { events: OutingEvent[] }) {
   const [feedback, setFeedback] = useState<UserFeedback[]>(() => typeof window === "undefined" ? [] : loadFeedback());
+  const [picked, setPicked] = useState<OutingEvent[]>(() => typeof window === "undefined" ? [] : loadPickedEvents());
   const [tab, setTab] = useState<ViewTab>("schedule");
   const [picks, setPicks] = useState<OutingEvent[] | null>(null);
   const [emptyPick, setEmptyPick] = useState(false);
   const actions = latestActionMap(feedback);
-  const visible = useMemo(() => events.filter((e) => actions[e.id] !== "dismiss"), [events, actions]);
+  const visible = useMemo(() => {
+    const merged = [...picked, ...events];
+    const seen = new Set<string>();
+    return merged.filter((e) => {
+      if (actions[e.id] === "dismiss" || seen.has(e.id)) return false;
+      seen.add(e.id);
+      return true;
+    });
+  }, [events, picked, actions]);
   const list = tab === "schedule" ? [] : eventsInBucket(visible, tab);
   const groups = tab === "schedule" ? upcomingByDate(visible) : [];
   function onAction(id: string, action: FeedbackAction) {
@@ -36,7 +47,8 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
         <h1 className="mt-1 text-3xl font-semibold">行くかも</h1>
         <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>人気より「自分が行きそうか」</p>
       </header>
-      <button type="button" onClick={handleToday} className="mb-5 w-full rounded-3xl py-4 text-lg font-semibold" style={{ background: "var(--accent)", color: "#fffaf1" }}>今日どこ行く？</button>
+      <button type="button" onClick={handleToday} className="mb-4 w-full rounded-3xl py-4 text-lg font-semibold" style={{ background: "var(--accent)", color: "#fffaf1" }}>今日どこ行く？</button>
+      <InstagramPickup onAdded={(next) => { setPicked(next); setTab("schedule"); }} />
       {emptyPick && <p className="mb-4 rounded-2xl px-4 py-3 text-sm" style={{ background: "var(--chip)" }}>今日は特に強いイベントなし</p>}
       {picks && picks.length > 0 && (
         <section className="mb-6">
