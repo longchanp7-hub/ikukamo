@@ -54,6 +54,12 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
         </div>
       </header>
 
+      {screen !== "pickup" && (
+        <button type="button" onClick={() => setScreen("pickup")} className="mb-4 w-full rounded-[28px] py-3.5 text-sm font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }}>
+          インスタから拾う
+        </button>
+      )}
+
       {screen === "home" && (
         <>
           <InstallApp />
@@ -84,7 +90,7 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
 
       {screen === "today" && (
         <>
-          <button type="button" onClick={handleToday} className="mb-5 w-full rounded-[28px] py-5 font-display text-xl" style={{ background: "var(--accent)", color: "#fffaf1" }}>今日どこ行く？</button>
+          <button type="button" onClick={handleToday} className="mb-5 w-full rounded-[28px] py-5 font-display text-xl" style={{ background: "var(--ink)", color: "var(--bg)" }}>今日どこ行く？</button>
           {emptyPick && <Empty text="今日は特に強いイベントなし" />}
           {picks && picks.length > 0 && (
             <section className="mb-6">
@@ -107,7 +113,7 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
         <div className="mx-auto grid max-w-lg grid-cols-3 px-2 pt-2">
           <NavBtn active={screen === "home"} onClick={() => setScreen("home")} label="予定" />
           <NavBtn active={screen === "today"} onClick={() => setScreen("today")} label="今日" />
-          <NavBtn active={screen === "pickup"} onClick={() => setScreen("pickup")} label="拾う" />
+          <NavBtn active={screen === "pickup"} onClick={() => setScreen("pickup")} label="インスタ" />
         </div>
       </nav>
     </div>

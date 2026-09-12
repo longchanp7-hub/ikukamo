@@ -1,4 +1,4 @@
-const CACHE = "ikukamo-v3";
+const CACHE = "ikukamo-v4";
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(["./"])).then(() => self.skipWaiting()));
 });
