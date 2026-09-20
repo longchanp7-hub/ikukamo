@@ -14,8 +14,21 @@ export function EventCard({ event, lastAction, onAction }: {
   const cat = CATEGORY_META[event.category];
   const actions: CardAction[] = ["want", "save", "dismiss", "went"];
   const picked = event.id.startsWith("ig-");
+  const photoHref = event.officialUrl || event.instagramUrl || event.imageUrl;
   return (
     <article className="card-shadow overflow-hidden rounded-[28px]" style={{ background: "var(--bg-elev)", border: "1px solid var(--line)" }}>
+      {event.imageUrl && (
+        photoHref ? (
+          <a href={photoHref} target="_blank" rel="noreferrer" aria-label={event.title + "の公式情報を開く"} className="block">
+            <div
+              className="h-48 w-full bg-cover bg-center"
+              style={{ backgroundImage: `url("${event.imageUrl}")` }}
+            />
+          </a>
+        ) : (
+          <div className="h-48 w-full bg-cover bg-center" style={{ backgroundImage: `url("${event.imageUrl}")` }} />
+        )
+      )}
       <div className="p-4">
         <div className="flex items-start gap-3">
           <ScoreBadge score={event.score} />
@@ -26,7 +39,13 @@ export function EventCard({ event, lastAction, onAction }: {
               {event.isSample && <span className="rounded-full px-2 py-0.5 text-[11px]" style={{ background: "var(--accent-soft)", color: "var(--accent)" }}>サンプル</span>}
               {picked && <span className="rounded-full px-2 py-0.5 text-[11px]" style={{ background: "var(--accent-soft)", color: "var(--accent)" }}>インスタ</span>}
             </div>
-            <h2 className="font-display text-[18px] leading-snug">{event.title.replace("【サンプル】", "")}</h2>
+            <h2 className="font-display text-[18px] leading-snug">
+              {event.officialUrl ? (
+                <a href={event.officialUrl} target="_blank" rel="noreferrer" className="underline-offset-4 hover:underline">
+                  {event.title.replace("【サンプル】", "")}
+                </a>
+              ) : event.title.replace("【サンプル】", "")}
+            </h2>
             <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>{formatRangeJa(event.startAt, event.endAt)}</p>
             <p className="text-sm">{event.venueName.replace("（サンプル）", "")}</p>
           </div>
@@ -35,9 +54,20 @@ export function EventCard({ event, lastAction, onAction }: {
         <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>豊橋から {event.distanceFromToyohashiKm}km / 車{event.driveMinutes}分 · {event.goNowReason}</p>
       </div>
       <div className="flex flex-wrap gap-2 border-t px-4 py-3" style={{ borderColor: "var(--line)" }}>
+        {event.officialUrl && (
+          <a href={event.officialUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }}>
+            公式へ
+          </a>
+        )}
         {!picked && <Link href={`/event/${event.id}`} onClick={() => onAction(event.id, "open_detail")} className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--ink)", color: "var(--bg)" }}>詳細</Link>}
+        {event.mapUrl && (
+          <a href={event.mapUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--chip)", color: "var(--ink)" }}>地図</a>
+        )}
         {event.instagramUrl && (
-          <a href={event.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--accent)", color: "#fffaf1" }}>インスタ</a>
+          <a href={event.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--chip)", color: "var(--ink)" }}>Instagram</a>
+        )}
+        {event.xUrl && (
+          <a href={event.xUrl} target="_blank" rel="noreferrer" className="rounded-full px-3 py-1.5 text-sm" style={{ background: "var(--chip)", color: "var(--ink)" }}>X</a>
         )}
         {actions.map((a) => (
           <button key={a} type="button" onClick={() => onAction(event.id, a)} className="rounded-full px-3 py-1.5 text-sm"
