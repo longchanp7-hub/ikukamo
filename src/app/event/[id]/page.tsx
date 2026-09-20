@@ -16,9 +16,21 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   if (!event) notFound();
   const cat = CATEGORY_META[event.category];
   const conf = event.confidence === "confirmed" ? "公式確認" : event.confidence === "high" ? "高（主催者・公式SNS）" : "未確認";
+  const photoHref = event.officialUrl || event.instagramUrl || event.imageUrl;
   return (
     <main className="app-bg mx-auto min-h-dvh max-w-lg px-4 pb-16 safe-top">
       <Link href="/" className="text-sm" style={{ color: "var(--muted)" }}>← もどる</Link>
+
+      {event.imageUrl && (
+        photoHref ? (
+          <a href={photoHref} target="_blank" rel="noreferrer" className="mt-5 block overflow-hidden rounded-[28px]" aria-label={event.title + "の公式情報を開く"}>
+            <div className="h-60 w-full bg-cover bg-center" style={{ backgroundImage: `url("${event.imageUrl}")` }} />
+          </a>
+        ) : (
+          <div className="mt-5 h-60 w-full rounded-[28px] bg-cover bg-center" style={{ backgroundImage: `url("${event.imageUrl}")` }} />
+        )
+      )}
+
       <div className="mt-6 flex items-start gap-3">
         <ScoreBadge score={event.score} />
         <div>
@@ -41,9 +53,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         <Row label="確度">{conf}</Row>
       </dl>
       <div className="mt-5 flex flex-wrap gap-2 text-sm">
-        {event.officialUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.officialUrl} target="_blank" rel="noreferrer">公式</a>}
+        {event.officialUrl && <a className="rounded-full px-3 py-1.5 font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }} href={event.officialUrl} target="_blank" rel="noreferrer">公式へ</a>}
         {event.mapUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.mapUrl} target="_blank" rel="noreferrer">地図</a>}
-        {event.instagramUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--accent)", color: "#fffaf1" }} href={event.instagramUrl} target="_blank" rel="noreferrer">Instagram</a>}
+        {event.instagramUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.instagramUrl} target="_blank" rel="noreferrer">Instagram</a>}
         {event.xUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.xUrl} target="_blank" rel="noreferrer">X</a>}
       </div>
       <DetailActions eventId={event.id} />
