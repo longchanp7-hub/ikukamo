@@ -4,11 +4,14 @@
 
 公開URL: https://longchanp7-hub.github.io/ikukamo/
 
-> MVPの一覧はすべて **サンプルデータ** です。実在イベントとして表示していません。
+現在は確認済みの実イベントをカード表示します。サンプルデータは通常非表示で、`NEXT_PUBLIC_SHOW_SAMPLE_EVENTS=true` のときだけ表示します。
 
 ## アプリ概要
 - トップは検索ではなくおすすめカード
 - 今日 / 明日 / 今週 / 今週末 / 来週 / その先
+- イベントカードにメイン写真を表示
+- 写真・イベント名・「公式へ」から公式ページへ直接アクセス
+- 地図 / Instagram / X の直接リンク
 - 「今日どこ行く？」で今から行ける候補を最大3件
 - おすすめスコア 0–100（重みは `src/data/score-weights.ts`）
 - 行きたい / 保存 / 興味なし / 行った を記録
@@ -42,7 +45,7 @@ NEXT_PUBLIC_BASE_PATH=/ikukamo npm run build
 2. `supabase/schema.sql` を実行
 3. URL と anon key を設定
 
-未設定でもシードでUI全体を確認できます。
+Supabase未設定でも、`src/data/live-events.ts` の確認済みイベントを表示できます。
 
 ## GitHub Actions
 - `ci.yml` lint / typecheck / test / build
