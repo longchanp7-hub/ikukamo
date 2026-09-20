@@ -22,6 +22,7 @@ export interface OutingEvent {
   startAt: string;
   endAt: string;
   venueName: string;
+  address?: string;
   city: string;
   prefecture: string;
   latitude: number;
