@@ -92,6 +92,7 @@ export const LIVE_EVENTS: OutingEvent[] = [
   },
   {
     id: "toyohashi-night-zoo-2026-09-21",
+    cadence: "seasonal_series",
     title: "のんほいパーク ナイトZOO 2026",
     description: "夜の動物園・植物園・自然史博物館を楽しむ期間限定ナイトイベント。9月21日も開催日。",
     category: "local",
@@ -135,6 +136,7 @@ export const LIVE_EVENTS: OutingEvent[] = [
   },
   {
     id: "arc-riche-beer-garden-2026-09-21",
+    cadence: "seasonal_series",
     title: "THE BEER GARDEN 2026 昭和ビア レトロポップ80’s",
     description: "ホテルアークリッシュ豊橋の3階特設会場で、昭和80年代風の演出とブッフェ料理＋フリードリンクを楽しむビアガーデン。",
     category: "beer",
@@ -178,6 +180,7 @@ export const LIVE_EVENTS: OutingEvent[] = [
   },
   {
     id: "toyotetsu-beer-tram-2026-09-21",
+    cadence: "seasonal_series",
     title: "豊橋鉄道 納涼ビール電車",
     description: "市内線の路面電車が約1時間30分の走るビアホールに。生ビール飲み放題と特製おつまみ弁当付き。",
     category: "beer",
