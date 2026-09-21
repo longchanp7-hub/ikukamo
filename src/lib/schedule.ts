@@ -1,7 +1,7 @@
 import type { OutingEvent } from "@/lib/types";
 import { upcomingEvents } from "@/lib/time-buckets";
 
-const JST = "Asia/Tokyo";
+const JST = "Asia/Tokyo";\n\nfunction statusRank(event: Pick<OutingEvent, "status">): number {\n  if (event.status === "cancelled") return 2;\n  if (event.status === "postponed") return 1;\n  return 0;\n}
 
 export function jstDateKey(iso: string): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -30,7 +30,7 @@ export function formatDayHeading(iso: string, now = new Date()): string {
 }
 
 export function upcomingByDate(events: OutingEvent[], now = new Date()): { key: string; label: string; events: OutingEvent[] }[] {
-  const sorted = upcomingEvents(events, now).slice().sort((a, b) => +new Date(a.startAt) - +new Date(b.startAt) || b.score - a.score);
+  const sorted = upcomingEvents(events, now).slice().sort((a, b) => +new Date(a.startAt) - +new Date(b.startAt) || statusRank(a) - statusRank(b) || b.score - a.score);
   const groups = new Map<string, OutingEvent[]>();
   for (const e of sorted) {
     const key = jstDateKey(e.startAt);
