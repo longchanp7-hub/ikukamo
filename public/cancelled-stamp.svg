@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-label="中止">
+  <defs>
+    <mask id="wear">
+      <rect width="720" height="320" fill="white"/>
+      <g fill="black" opacity=".92">
+        <circle cx="76" cy="54" r="8"/><circle cx="112" cy="270" r="6"/><circle cx="170" cy="92" r="5"/>
+        <circle cx="222" cy="258" r="9"/><circle cx="303" cy="63" r="7"/><circle cx="361" cy="244" r="6"/>
+        <circle cx="428" cy="95" r="9"/><circle cx="505" cy="259" r="7"/><circle cx="608" cy="76" r="10"/>
+        <circle cx="648" cy="232" r="7"/><circle cx="572" cy="143" r="5"/><circle cx="250" cy="151" r="6"/>
+        <rect x="88" y="34" width="44" height="8" rx="4" transform="rotate(-12 88 34)"/>
+        <rect x="146" y="281" width="58" height="7" rx="3" transform="rotate(8 146 281)"/>
+        <rect x="257" y="45" width="70" height="9" rx="4" transform="rotate(-7 257 45)"/>
+        <rect x="390" y="276" width="54" height="8" rx="4" transform="rotate(11 390 276)"/>
+        <rect x="522" y="49" width="62" height="8" rx="4" transform="rotate(8 522 49)"/>
+        <rect x="595" y="284" width="48" height="7" rx="3" transform="rotate(-9 595 284)"/>
+        <path d="M60 132l41-14 7 11-46 17zM168 206l64-9 5 12-61 13zM301 120l51-11 8 14-53 10zM467 200l59-13 6 13-63 16zM579 169l50-7 4 11-48 13z"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="#e00000" stroke="#e00000" mask="url(#wear)">
+    <rect x="28" y="28" width="664" height="264" rx="36" fill="none" stroke-width="28"/>
+    <text x="360" y="220" text-anchor="middle" font-family="Noto Sans JP,Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif" font-size="190" font-weight="900" letter-spacing="18">中止</text>
+  </g>
+</svg>
