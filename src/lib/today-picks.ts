@@ -8,7 +8,7 @@ export function pickTodayGo(events: OutingEvent[], feedback: UserFeedback[] = []
   const dismissed = new Set(feedback.filter((f) => f.action === "dismiss").map((f) => f.eventId));
   const boosted = new Set(feedback.filter((f) => f.action === "want" || f.action === "save").map((f) => f.eventId));
   return events
-    .filter((e) => !isEnded(e, now) && !dismissed.has(e.id))
+    .filter((e) => !isEnded(e, now) && e.status !== "cancelled" && e.status !== "postponed" && !dismissed.has(e.id))
     .filter((e) => new Date(e.startAt).getTime() <= now.getTime() + 12 * 3600_000)
     .filter((e) => new Date(e.endAt).getTime() > now.getTime() + 30 * 60_000)
     .filter((e) => now.getTime() + (e.driveMinutes + 10) * 60_000 < new Date(e.endAt).getTime())
