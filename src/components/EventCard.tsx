@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { CATEGORY_META } from "@/data/score-weights";
 import { formatRangeJa } from "@/lib/jst";
@@ -28,11 +29,14 @@ export function EventCard({ event, lastAction, onAction }: {
         style={{ backgroundImage: `url("${event.imageUrl}")`, filter: cancelled ? "saturate(.68) brightness(.88)" : undefined }}
       />
       {cancelled && (
-        <img
+        <Image
           src={`${base}/cancelled-stamp.svg`}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[72%] -translate-x-1/2 -translate-y-1/2 -rotate-[12deg]"
+          width={720}
+          height={320}
+          unoptimized
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[72%] -translate-x-1/2 -translate-y-1/2 -rotate-[12deg]"
         />
       )}
     </div>
