@@ -9,7 +9,8 @@ import type { OutingEvent } from "@/lib/types";
 export function loadLocalEvents(): OutingEvent[] {
   const samples = process.env.NEXT_PUBLIC_SHOW_SAMPLE_EVENTS === "true" ? SEED_EVENTS : [];
   const merged = mergeDuplicateEvents([...LIVE_EVENTS, ...officialInstagramEvents(), ...samples]);
-  return merged.filter((e) => passesRegionGate(e) || e.isSample || e.sources.some((s) => s.sourceType === "instagram"));
+  return merged.filter((e) => e.cadence !== "seasonal_series" && e.cadence !== "regular")
+    .filter((e) => passesRegionGate(e) || e.isSample || e.sources.some((s) => s.sourceType === "instagram"));
 }
 export function visibleEvents(now = new Date()): OutingEvent[] {
   return upcomingEvents(loadLocalEvents(), now);
