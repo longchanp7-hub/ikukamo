@@ -17,6 +17,7 @@
 - 行きたい / 保存 / 興味なし / 行った を記録
 - PWA（ホーム画面追加）
 - 終了イベントは非表示
+- ビアガーデン・季節運行・ナイトZOO等、季節中ずっと/繰り返し開催される準常設イベントは通常候補から除外（単発・短期イベントを優先）
 
 ## 技術構成
 Next.js 15 / React 19 / TypeScript / Tailwind CSS 4 / Supabase（任意） / GitHub Actions / GitHub Pages または Vercel
