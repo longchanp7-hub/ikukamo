@@ -1,7 +1,13 @@
 import type { OutingEvent } from "@/lib/types";
 import { upcomingEvents } from "@/lib/time-buckets";
 
-const JST = "Asia/Tokyo";\n\nfunction statusRank(event: Pick<OutingEvent, "status">): number {\n  if (event.status === "cancelled") return 2;\n  if (event.status === "postponed") return 1;\n  return 0;\n}
+const JST = "Asia/Tokyo";
+
+function statusRank(event: Pick<OutingEvent, "status">): number {
+  if (event.status === "cancelled") return 2;
+  if (event.status === "postponed") return 1;
+  return 0;
+}
 
 export function jstDateKey(iso: string): string {
   return new Intl.DateTimeFormat("en-CA", {
