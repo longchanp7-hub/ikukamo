@@ -3,6 +3,7 @@ export type FeedbackAction = "want" | "save" | "dismiss" | "went" | "open_detail
 export type CategoryId = "food" | "car" | "night_market" | "morning_market" | "festival" | "wine" | "sake" | "beer" | "ramen" | "sushi" | "hotel" | "onsen" | "music" | "local" | "other";
 export type RegionLevel = "A" | "B" | "C" | "D";
 export type TimeBucket = "today" | "tomorrow" | "this_week" | "this_weekend" | "next_week" | "later";
+export type EventCadence = "one_off" | "short_run" | "seasonal_series" | "regular";
 
 export interface EventSource {
   id: string;
@@ -44,6 +45,7 @@ export interface OutingEvent {
   isSample: boolean;
   weatherDependent: boolean;
   limitedPeriod: boolean;
+  cadence?: EventCadence;
   adultOriented: boolean;
   foodAppeal: number;
   rarity: number;
