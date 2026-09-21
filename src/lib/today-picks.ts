@@ -1,17 +1,17 @@
 import type { OutingEvent, UserFeedback } from "@/lib/types";
 import { isEnded } from "@/lib/time-buckets";
 
-const MIN_STRONG_SCORE = 62;
+const MIN_STRONG_SCORE = 54;
 
-export function pickTodayGo(events: OutingEvent[], feedback: UserFeedback[] = [], now = new Date(), limit = 3): OutingEvent[] {
+export function pickTodayGo(events: OutingEvent[], feedback: UserFeedback[] = [], now = new Date(), limit = 5): OutingEvent[] {
   const hour = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" })).getHours();
   const dismissed = new Set(feedback.filter((f) => f.action === "dismiss").map((f) => f.eventId));
   const boosted = new Set(feedback.filter((f) => f.action === "want" || f.action === "save").map((f) => f.eventId));
   return events
     .filter((e) => !isEnded(e, now) && !dismissed.has(e.id))
-    .filter((e) => new Date(e.startAt).getTime() <= now.getTime() + 8 * 3600_000)
-    .filter((e) => new Date(e.endAt).getTime() > now.getTime() + 45 * 60_000)
-    .filter((e) => now.getTime() + (e.driveMinutes + 20) * 60_000 < new Date(e.endAt).getTime())
+    .filter((e) => new Date(e.startAt).getTime() <= now.getTime() + 12 * 3600_000)
+    .filter((e) => new Date(e.endAt).getTime() > now.getTime() + 30 * 60_000)
+    .filter((e) => now.getTime() + (e.driveMinutes + 10) * 60_000 < new Date(e.endAt).getTime())
     .map((e) => {
       let s = e.score;
       if (boosted.has(e.id)) s += 8;
