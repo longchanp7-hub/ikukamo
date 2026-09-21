@@ -4,6 +4,7 @@ export type CategoryId = "food" | "car" | "night_market" | "morning_market" | "f
 export type RegionLevel = "A" | "B" | "C" | "D";
 export type TimeBucket = "today" | "tomorrow" | "this_week" | "this_weekend" | "next_week" | "later";
 export type EventCadence = "one_off" | "short_run" | "seasonal_series" | "regular";
+export type EventStatus = "scheduled" | "cancelled" | "postponed" | "ended";
 
 export interface EventSource {
   id: string;
@@ -32,6 +33,11 @@ export interface OutingEvent {
   driveMinutes: number;
   score: number;
   confidence: Confidence;
+  status?: EventStatus;
+  statusText?: string;
+  statusReason?: string;
+  statusSourceUrl?: string;
+  statusCheckedAt?: string;
   imageUrl?: string;
   officialUrl?: string;
   xUrl?: string;
