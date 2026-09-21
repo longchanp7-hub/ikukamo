@@ -1,7 +1,13 @@
 import type { OutingEvent, TimeBucket } from "@/lib/types";
 import { addDays, nowJst, startOfDay } from "@/lib/jst";
 
-function statusRank(event: Pick<OutingEvent, "status">): number {\n  if (event.status === "cancelled") return 2;\n  if (event.status === "postponed") return 1;\n  return 0;\n}\n\nexport const BUCKET_LABELS: Record<TimeBucket, string> = {
+function statusRank(event: Pick<OutingEvent, "status">): number {
+  if (event.status === "cancelled") return 2;
+  if (event.status === "postponed") return 1;
+  return 0;
+}
+
+export const BUCKET_LABELS: Record<TimeBucket, string> = {
   today: "今日", tomorrow: "明日", this_week: "今週", this_weekend: "今週末", next_week: "来週", later: "その先",
 };
 
