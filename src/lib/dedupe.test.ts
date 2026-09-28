@@ -60,4 +60,28 @@ describe("mergeDuplicateEvents", () => {
     expect(merged.statusReason).toBe("荒天のため");
     expect(merged.statusSourceUrl).toBe("https://example.com/cancelled");
   });
+
+  it("keeps postponed status when a later confirmed duplicate is scheduled", () => {
+    const postponed = event({
+      id: "postponed",
+      status: "postponed",
+      statusText: "延期",
+      statusReason: "雨天予報のため",
+      statusSourceUrl: "https://example.com/postponed",
+      statusCheckedAt: "2026-09-28T00:00:00.000Z",
+    });
+    const scheduled = event({
+      id: "scheduled",
+      status: "scheduled",
+      statusText: "開催予定",
+      statusCheckedAt: "2026-09-28T01:00:00.000Z",
+    });
+
+    const [merged] = mergeDuplicateEvents([postponed, scheduled]);
+
+    expect(merged.status).toBe("postponed");
+    expect(merged.statusText).toBe("延期");
+    expect(merged.statusReason).toBe("雨天予報のため");
+    expect(merged.statusSourceUrl).toBe("https://example.com/postponed");
+  });
 });
