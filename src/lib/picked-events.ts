@@ -3,7 +3,7 @@ import { mapsUrl } from "@/lib/region";
 import type { CategoryId, OutingEvent } from "@/lib/types";
 import { parseInstagramUrl } from "@/lib/instagram";
 
-const KEY = "ikukamo.picked.v1";
+import { loadPersonal, updatePersonal } from "./personal-store";
 
 const CITY_META: Record<string, { pref: string; lat: number; lng: number; km: number; drive: number }> = {
   "豊橋市": { pref: "愛知県", lat: 34.7692, lng: 137.3915, km: 1, drive: 8 },
@@ -17,11 +17,11 @@ const CITY_META: Record<string, { pref: string; lat: number; lng: number; km: nu
 
 export function loadPickedEvents(): OutingEvent[] {
   if (typeof window === "undefined") return [];
-  try { return JSON.parse(window.localStorage.getItem(KEY) || "[]"); } catch { return []; }
+  return loadPersonal().picked;
 }
 
 export function savePickedEvents(events: OutingEvent[]) {
-  window.localStorage.setItem(KEY, JSON.stringify(events));
+  updatePersonal(data => ({ ...data, picked: events }));
 }
 
 export function createPickedEvent(input: {
@@ -29,10 +29,11 @@ export function createPickedEvent(input: {
 }): OutingEvent | null {
   const parsed = parseInstagramUrl(input.url);
   if (!parsed) return null;
+  if (!Number.isFinite(Date.parse(input.startAt)) || !Number.isFinite(Date.parse(input.endAt)) || Date.parse(input.endAt) <= Date.parse(input.startAt)) throw new Error("終了は開始より後の日時にしてください。");
   const city = input.city || "豊橋市";
   const meta = CITY_META[city] ?? CITY_META["豊橋市"];
   const now = new Date().toISOString();
-  const id = `ig-${Date.now().toString(36)}`;
+  const id = `ig-${crypto.randomUUID()}`;
   const title = input.title.trim() || (parsed.type === "profile" ? `@${parsed.user}` : parsed.type === "tag" ? `#${parsed.tag}` : "インスタから拾った予定");
   const score = computeScore({
     category: input.category, city, prefecture: meta.pref,
@@ -47,7 +48,7 @@ export function createPickedEvent(input: {
     score, confidence: "unverified", instagramUrl: parsed.url, mapUrl: mapsUrl(meta.lat, meta.lng, city),
     aiComment: "自分で拾ったインスタの情報です。", goNowReason: "インスタで見つけた。",
     recommendReason: "自分が気になった投稿を予定に残しています。",
-    isSample: false, weatherDependent: false, limitedPeriod: true, adultOriented: true,
+    isSample: false, weatherDependent: false, venueKind: "unknown", coordinatePrecision: "city", limitedPeriod: true, adultOriented: true,
     foodAppeal: 55, rarity: 50, snsBuzz: 60,
     sources: [{ id: `src-${id}`, eventId: id, sourceType: "instagram", sourceUrl: parsed.url, sourceName: "Instagram", fetchedAt: now }],
     createdAt: now, updatedAt: now,
@@ -55,7 +56,9 @@ export function createPickedEvent(input: {
 }
 
 export function addPickedEvent(event: OutingEvent): OutingEvent[] {
-  const next = [event, ...loadPickedEvents().filter((e) => e.instagramUrl !== event.instagramUrl)];
+  const current = loadPickedEvents();
+  if (current.some(e => e.instagramUrl === event.instagramUrl)) throw new Error("同じInstagramリンクの予定があります。保存 → 自分で拾った予定から編集してください。");
+  const next = [event, ...current];
   savePickedEvents(next);
   return next;
 }

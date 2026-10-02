@@ -1,0 +1,13 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { extractEvents, fetchOfficial } from '../scripts/official-collector.mjs';
+const source={id:'official',name:'Official',url:'https://example.com/event',requiredText:'Event'};
+const event={'@type':'Event',name:'Event',startDate:'2026-10-03T12:00:00+09:00',endDate:'2026-10-03T16:00:00+09:00',location:{name:'Hall',geo:{latitude:34.7,longitude:137.3},address:{addressLocality:'豊橋市',addressRegion:'愛知県'}}};
+const html=e=>'<html><title>Event</title><script type="application/ld+json">'+JSON.stringify(e)+'</script><main>Event official information. This is a valid official page for the test.</main></html>';
+test('structured dates and coordinates are extracted without inference',()=>{const e=extractEvents(html(event),source,'2026-10-03T00:00:00Z')[0];assert.equal(e.venueKind,'unknown');assert.equal(e.startAt,event.startDate);assert.equal(e.status,'scheduled');});
+test('missing end or zone or venue is rejected',()=>{for(const field of ['endDate','location'])assert.throws(()=>extractEvents(html({...event,[field]:null}),source,''));assert.throws(()=>extractEvents(html({...event,startDate:'2026-10-03'}),source,''));});
+test('official cancellation is preserved',()=>assert.equal(extractEvents(html({...event,eventStatus:'https://schema.org/EventCancelled'}),source,'')[0].status,'cancelled'));
+test('broken JSON-LD is a visible failure',()=>assert.throws(()=>extractEvents('<script type="application/ld+json">{broken</script>',source,'')));
+test('unknown coordinates are never converted to zero',()=>{for(const value of [null,undefined,''])assert.throws(()=>extractEvents(html({...event,location:{...event.location,geo:{latitude:value,longitude:137}}}),source,''));});
+test('timeouts and parse failure have a finite retry count',async()=>{let attempts=0;await assert.rejects(()=>fetchOfficial(source,{timeoutMs:1000,attempts:2},async()=>{attempts++;throw Error('timeout');}));assert.equal(attempts,2);});
+test('changed markup is rejected and unchanged content has same hash',async()=>{await assert.rejects(()=>fetchOfficial(source,{timeoutMs:1000,attempts:1},async()=>({ok:true,text:async()=>'<html>not the page</html>'})));const fetcher=async()=>({ok:true,url:source.url,text:async()=>html(event)});const a=await fetchOfficial(source,{timeoutMs:1000,attempts:1},fetcher),b=await fetchOfficial(source,{timeoutMs:1000,attempts:1},fetcher);assert.equal(a.hash,b.hash);});

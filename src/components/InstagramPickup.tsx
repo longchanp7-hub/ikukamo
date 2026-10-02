@@ -1,7 +1,8 @@
 "use client";
 import { useMemo, useState } from "react";
 import { INSTAGRAM_SEARCHES, instagramSearchUrl, parseInstagramUrl } from "@/lib/instagram";
-import { addPickedEvent, createPickedEvent } from "@/lib/picked-events";
+import { addPickedEvent, createPickedEvent, loadPickedEvents, savePickedEvents } from "@/lib/picked-events";
+import { jstInput } from "@/lib/jst";
 import type { CategoryId, OutingEvent } from "@/lib/types";
 
 const CITIES = ["豊橋市", "豊川市", "蒲郡市", "田原市", "新城市", "岡崎市", "浜松市"];
@@ -11,18 +12,18 @@ const CATS: { id: CategoryId; label: string }[] = [
 ];
 
 function toLocalInput(d: Date) {
-  const p = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  return jstInput(d);
 }
 
-export function InstagramPickup({ onAdded }: { onAdded: (events: OutingEvent[]) => void }) {
-  const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
-  const [venueName, setVenueName] = useState("");
-  const [city, setCity] = useState("豊橋市");
-  const [category, setCategory] = useState<CategoryId>("local");
-  const [startAt, setStartAt] = useState(() => toLocalInput(new Date()));
+export function InstagramPickup({ onAdded, existing }: { onAdded: (events: OutingEvent[]) => void; existing?: OutingEvent }) {
+  const [url, setUrl] = useState(existing?.instagramUrl ?? "");
+  const [title, setTitle] = useState(existing?.title ?? "");
+  const [venueName, setVenueName] = useState(existing?.venueName ?? "");
+  const [city, setCity] = useState(existing?.city ?? "豊橋市");
+  const [category, setCategory] = useState<CategoryId>(existing?.category ?? "local");
+  const [startAt, setStartAt] = useState(() => toLocalInput(existing ? new Date(existing.startAt) : new Date()));
   const [endAt, setEndAt] = useState(() => {
+    if (existing) return toLocalInput(new Date(existing.endAt));
     const d = new Date();
     d.setHours(d.getHours() + 4);
     return toLocalInput(d);
@@ -32,24 +33,32 @@ export function InstagramPickup({ onAdded }: { onAdded: (events: OutingEvent[]) 
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
+    try {
     const event = createPickedEvent({
       url, title, venueName, city, category,
-      startAt: new Date(startAt).toISOString(),
-      endAt: new Date(endAt).toISOString(),
+      startAt: new Date(startAt + ":00+09:00").toISOString(),
+      endAt: new Date(endAt + ":00+09:00").toISOString(),
     });
     if (!event) {
       setError("InstagramのURLを貼ってください");
       return;
     }
-    onAdded(addPickedEvent(event));
+    if (existing) {
+      const current = loadPickedEvents();
+      if (!current.some(e => e.id === existing.id)) throw new Error("この予定は別画面で変更されました。保存一覧から開き直してください。");
+      if (current.some(e => e.id !== existing.id && e.instagramUrl === event.instagramUrl)) throw new Error("このリンクは別の予定に登録済みです。");
+      const next = current.map(e => e.id === existing.id ? { ...event, id: existing.id, createdAt: existing.createdAt, sources: event.sources.map(s => ({ ...s, eventId: existing.id })) } : e);
+      savePickedEvents(next); onAdded(next);
+    } else onAdded(addPickedEvent(event));
     setUrl(""); setTitle(""); setVenueName(""); setError("");
+    } catch (e) { setError("保存できませんでした。日時と保存容量を確認してください。" + String(e)); }
   }
 
   return (
     <section>
-      <h2 className="font-display text-2xl">インスタから拾う</h2>
+      <h2 className="font-display text-2xl">{existing ? "拾った予定を編集" : "インスタから拾う"}</h2>
       <p className="mt-1 mb-4 text-sm leading-6" style={{ color: "var(--muted)" }}>
-        投稿を開いてリンクをコピーし、日時を入れて予定へ残します。
+        投稿を開いてリンクをコピーし、日時（日本時間）を入れて予定へ残します。投稿の自動取得は行いません。
       </p>
       <div className="mb-4 flex flex-wrap gap-2">
         {INSTAGRAM_SEARCHES.map((s) => (
@@ -60,7 +69,7 @@ export function InstagramPickup({ onAdded }: { onAdded: (events: OutingEvent[]) 
       </div>
       <form onSubmit={submit} className="card-shadow space-y-3 rounded-[28px] p-4" style={{ background: "var(--bg-elev)", border: "1px solid var(--line)" }}>
         <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://www.instagram.com/p/…" className="w-full rounded-2xl px-3 py-3 text-sm" style={{ background: "var(--chip)", outline: "none" }} />
-        {parsed && <p className="text-xs" style={{ color: "var(--muted)" }}>{parsed.type === "post" ? "投稿を読み取りました" : parsed.type === "profile" ? `@${parsed.user}` : `#${parsed.tag}`}</p>}
+        {parsed && <p className="text-xs" style={{ color: "var(--muted)" }}>Instagramリンクの形式を確認しました</p>}
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="タイトル" className="w-full rounded-2xl px-3 py-3 text-sm" style={{ background: "var(--chip)", outline: "none" }} />
         <input value={venueName} onChange={(e) => setVenueName(e.target.value)} placeholder="場所（任意）" className="w-full rounded-2xl px-3 py-3 text-sm" style={{ background: "var(--chip)", outline: "none" }} />
         <div className="grid grid-cols-2 gap-2">
@@ -80,7 +89,7 @@ export function InstagramPickup({ onAdded }: { onAdded: (events: OutingEvent[]) 
           </select>
         </div>
         {error && <p className="text-xs" style={{ color: "var(--accent)" }}>{error}</p>}
-        <button type="submit" className="w-full rounded-2xl py-3 text-sm font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }}>予定に拾う</button>
+        <button type="submit" className="w-full rounded-2xl py-3 text-sm font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }}>{existing ? "変更を保存" : "予定に拾う"}</button>
       </form>
     </section>
   );

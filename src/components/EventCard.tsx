@@ -5,14 +5,17 @@ import { CATEGORY_META } from "@/data/score-weights";
 import { formatRangeJa } from "@/lib/jst";
 import type { FeedbackAction, OutingEvent } from "@/lib/types";
 import { ScoreBadge } from "./ScoreBadge";
+import { ORIGINS, distanceKm, venueLabel, venueKey, visitTime, weatherAt, weatherLabel, type Origin, type Forecasts } from "@/lib/outing-context";
 
 const ACTION_LABEL = { want: "行きたい", save: "残す", dismiss: "通す", went: "行った" } as const;
 type CardAction = keyof typeof ACTION_LABEL;
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export function EventCard({ event, lastAction, onAction }: {
+export function EventCard({ event, lastAction, onAction, origin = ORIGINS[0], visit = "", forecasts = {} }: {
   event: OutingEvent; lastAction?: FeedbackAction; onAction: (id: string, action: FeedbackAction) => void;
+  origin?: Origin; visit?: string; forecasts?: Forecasts;
 }) {
+  const km = distanceKm(origin, event), point = weatherAt(event, visit, forecasts), forecast = forecasts[venueKey(event)];
   const cat = CATEGORY_META[event.category];
   const actions: CardAction[] = ["want", "save", "dismiss", "went"];
   const picked = event.id.startsWith("ig-");
@@ -79,7 +82,7 @@ export function EventCard({ event, lastAction, onAction }: {
 
         {cancelled && (
           <div className="mt-3 rounded-[18px] px-3.5 py-3" style={{ background: "rgba(180, 35, 24, 0.10)", border: "1px solid rgba(180, 35, 24, 0.22)" }}>
-            <p className="text-sm font-bold" style={{ color: "#b42318" }}>本日は中止</p>
+            <p className="text-sm font-bold" style={{ color: "#b42318" }}>開催中止</p>
             <p className="mt-1 text-xs leading-5" style={{ color: "var(--ink)" }}>{event.statusReason || "主催者発表により開催中止"}</p>
             {event.statusSourceUrl && (
               <a href={event.statusSourceUrl} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs font-medium underline underline-offset-2" style={{ color: "#b42318" }}>
@@ -97,8 +100,10 @@ export function EventCard({ event, lastAction, onAction }: {
 
         <p className="mt-3 text-sm leading-7" style={{ color: "var(--ink)" }}>{event.aiComment}</p>
         <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>
-          豊橋から {event.distanceFromToyohashiKm}km / 車{event.driveMinutes}分 · {event.goNowReason}
+          {origin.name}から直線 約{km === null ? "不明" : km.toFixed(1)}km {event.coordinatePrecision === "city" ? "（市の代表地点）" : "（会場付近）"} · {venueLabel(event)}
         </p>
+        {event.venueEvidenceUrl && <a className="text-xs underline" href={event.venueEvidenceUrl} target="_blank" rel="noreferrer">会場区分の根拠</a>}
+        {visit && <div className="mt-2 text-xs" data-testid="venue-weather"><p>{visitTime(event, visit) ? visitTime(event, visit)?.replace("T", " ") + " 会場付近：" + weatherLabel(point) : "選択日時は会期外です"}</p>{forecast && <p>予報取得 {new Date(forecast.fetchedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}{forecast.error ? " / " + forecast.error : ""}</p>}<p>会期内の開場時間・荒天時の開催可否は公式情報を確認</p></div>}
 
         <div className="mt-4 rounded-[20px] px-3.5 py-3" style={{ background: "var(--chip)" }}>
           <p className="text-[11px] tracking-[0.12em]" style={{ color: "var(--muted)" }}>会場住所</p>

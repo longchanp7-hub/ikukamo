@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "timeoutMs": 12000,
+  "attempts": 2,
+  "sources": [
+    {"id":"plat", "name":"穂の国とよはし芸術劇場PLAT", "url":"https://toyohashi-at.jp/event/performance.php?id=2102", "mode":"watch", "requiredText":"GOOD"},
+    {"id":"riverside", "name":"リバーサイドフェスティバル公式", "url":"https://riverside-fes.com/", "mode":"watch", "requiredText":"2026"},
+    {"id":"yamaha-jazz", "name":"ヤマハ公式ニュース", "url":"https://www.yamaha.com/ja/news_release/2026/26071401/", "mode":"watch", "requiredText":"ジャズ"}
+  ]
+}

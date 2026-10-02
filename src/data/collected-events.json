@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "events": [],
+  "sources": [
+    {
+      "id": "plat",
+      "name": "穂の国とよはし芸術劇場PLAT",
+      "url": "https://toyohashi-at.jp/event/performance.php?id=2102",
+      "title": "HAVE A GOOD DAY！｜穂の国とよはし芸術劇場プラット",
+      "hash": "9ba35b80fdb2acfa962a1f51ed875a76fee86ffdde1dd747b5366c0f4bf495ae",
+      "contentObservedAt": "2026-10-02T22:57:58.344Z",
+      "mode": "watch"
+    },
+    {
+      "id": "riverside",
+      "name": "リバーサイドフェスティバル公式",
+      "url": "https://riverside-fes.com/",
+      "title": "リバーサイドフェスティバルvol.02｜豊橋公園で音楽と光を楽しむ特別な一日",
+      "hash": "8ddb335c2b28621572c94e395e53d48c1193d3ea0bd9feb97083ad0896272133",
+      "contentObservedAt": "2026-10-02T22:57:58.344Z",
+      "mode": "watch"
+    },
+    {
+      "id": "yamaha-jazz",
+      "name": "ヤマハ公式ニュース",
+      "url": "https://www.yamaha.com/ja/news_release/2026/26071401/",
+      "title": "ハママツがジャズを歌い、奏でる9days 「第34回 ハママツ・ジャズ・ウィーク」の開催について 期間：2026年10月17日（土）～10月25日（日） - ニュースリリース - ヤマハ株式会社",
+      "hash": "e5baebd6499ce8be05f02b157562440ce109eddbcd524aa9c45ec6931c31c37e",
+      "contentObservedAt": "2026-10-02T22:57:58.344Z",
+      "mode": "watch"
+    }
+  ]
+}

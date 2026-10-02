@@ -1,18 +1,21 @@
-const CACHE = "ikukamo-v4";
+const CACHE = "ikukamo-v5";
+const SCOPE = new URL(self.registration.scope);
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(["./"])).then(() => self.skipWaiting()));
 });
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith("ikukamo-") && k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())
   );
 });
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  if (event.request.method !== "GET" || url.origin !== SCOPE.origin || !url.pathname.startsWith(SCOPE.pathname)) return;
   event.respondWith(
     fetch(event.request).then((res) => {
       const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(event.request, copy)).catch(() => undefined);
+      if (res.ok) event.waitUntil(caches.open(CACHE).then((c) => c.put(event.request, copy)).catch(() => undefined));
       return res;
-    }).catch(() => caches.match(event.request).then((hit) => hit || caches.match("./")))
+    }).catch(async () => (await caches.match(event.request)) || (event.request.mode === "navigate" ? await caches.match(SCOPE.href) : null) || Response.error())
   );
 });
