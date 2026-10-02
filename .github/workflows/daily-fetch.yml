@@ -1,27 +1,53 @@
-name: daily-fetch
+name: daily-fetch (no AI)
 on:
+  push:
+    branches: [main]
+    paths: ['config/official-sources.json', 'scripts/official-collector.mjs', 'scripts/ingest.mjs', '.github/workflows/daily-fetch.yml']
   schedule:
-    - cron: "20 23 * * *"
+    - cron: '20 23 * * *'
   workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: ikukamo-official-collection
+  cancel-in-progress: false
 jobs:
   ingest:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      changed: ${{ steps.save.outputs.changed }}
+      commit: ${{ steps.save.outputs.commit }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Run adapters (safe without secrets)
-        env:
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          node-version: '24'
+      - run: node --test tests/collector.test.mjs
+      - name: Collect only configured official sources
         run: node scripts/ingest.mjs
-      - name: Upload report
-        uses: actions/upload-artifact@v4
-        continue-on-error: true
-        with:
-          name: ingest-report
-          path: tmp/ingest-report.json
+      - name: Commit validated changes only
+        id: save
+        run: |
+          if ! git diff --quiet -- src/data/collected-events.json; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add src/data/collected-events.json
+            git commit -m "Refresh validated official source information"
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Verify published app
+        if: always()
+        run: node scripts/ops-health.mjs
+  deploy:
+    needs: ingest
+    if: needs.ingest.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy-pages.yml
+    with:
+      ref: ${{ needs.ingest.outputs.commit }}

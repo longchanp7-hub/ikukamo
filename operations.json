@@ -1,0 +1,16 @@
+{
+  "name": "行くかも",
+  "ai": false,
+  "publicUrl": "https://longchanp7-hub.github.io/ikukamo/",
+  "checks": [
+    {
+      "path": "",
+      "contains": "行くかも"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "json": true,
+      "key": "name"
+    }
+  ]
+}

@@ -47,3 +47,9 @@ body {
 .hide-scroll::-webkit-scrollbar { display: none; }
 .hide-scroll { scrollbar-width: none; }
 input, select, textarea { color: var(--ink); }
+.planning { background: var(--chip); }
+.planning button, .planning select, .planning input:not([type=checkbox]):not([type=file]) { background: var(--bg-elev); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; min-width: 0; max-width: 100%; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button, a, input, select, summary { touch-action: manipulation; }
+input[type=datetime-local] { min-width: 0; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

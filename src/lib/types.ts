@@ -1,5 +1,5 @@
 export type Confidence = "confirmed" | "high" | "unverified";
-export type FeedbackAction = "want" | "save" | "dismiss" | "went" | "open_detail";
+export type FeedbackAction = "want" | "save" | "dismiss" | "went" | "open_detail" | "clear";
 export type CategoryId = "food" | "car" | "night_market" | "morning_market" | "festival" | "wine" | "sake" | "beer" | "ramen" | "sushi" | "hotel" | "onsen" | "music" | "local" | "other";
 export type RegionLevel = "A" | "B" | "C" | "D";
 export type TimeBucket = "today" | "tomorrow" | "this_week" | "this_weekend" | "next_week" | "later";
@@ -50,6 +50,9 @@ export interface OutingEvent {
   recommendReason: string;
   isSample: boolean;
   weatherDependent: boolean;
+  venueKind?: "indoor" | "outdoor" | "mixed" | "unknown";
+  venueEvidenceUrl?: string;
+  coordinatePrecision?: "venue" | "city";
   limitedPeriod: boolean;
   cadence?: EventCadence;
   adultOriented: boolean;

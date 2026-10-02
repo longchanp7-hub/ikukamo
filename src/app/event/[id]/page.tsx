@@ -6,6 +6,8 @@ import { findEvent, loadLocalEvents } from "@/lib/events";
 import { formatRangeJa } from "@/lib/jst";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { DetailActions } from "@/components/DetailActions";
+import { distanceKm, ORIGINS, venueLabel } from "@/lib/outing-context";
+import { EventTiming } from "@/components/EventTiming";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -72,7 +74,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
 
       {cancelled && (
         <section className="mt-5 rounded-[22px] px-4 py-4" style={{ background: "rgba(180, 35, 24, 0.10)", border: "1px solid rgba(180, 35, 24, 0.22)" }}>
-          <p className="font-display text-xl font-bold" style={{ color: "#b42318" }}>本日は中止</p>
+          <p className="font-display text-xl font-bold" style={{ color: "#b42318" }}>開催中止</p>
           <p className="mt-1 text-sm leading-6">{event.statusReason || "主催者発表により開催中止"}</p>
           {event.statusSourceUrl && (
             <a href={event.statusSourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm font-medium underline underline-offset-2" style={{ color: "#b42318" }}>
@@ -98,12 +100,14 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         <Row label="日時">{formatRangeJa(event.startAt, event.endAt)}</Row>
         <Row label="場所">{event.venueName.replace("（サンプル）", "")} / {event.city}</Row>
         <Row label="住所">{event.address || `${event.prefecture}${event.city} ${event.venueName.replace("（サンプル）", "")}`}</Row>
-        <Row label="距離">{event.distanceFromToyohashiKm}km / 車{event.driveMinutes}分</Row>
+        <Row label="距離">豊橋市から直線 約{distanceKm(ORIGINS[0],event)?.toFixed(1) ?? "不明"}km（会場付近）。車の時間は地図で確認してください。</Row>
+        <Row label="屋内外">{venueLabel(event)} {event.venueEvidenceUrl && <a href={event.venueEvidenceUrl} target="_blank" rel="noreferrer" className="underline">確認元</a>}</Row>
         <Row label="料金">{event.priceText || "未確認"}</Row>
         <Row label="駐車場">{event.parkingText || "未確認"}</Row>
         <Row label="確度">{conf}</Row>
         {(cancelled || postponed) && <Row label="状態">{event.statusText || (cancelled ? "中止" : "延期")}</Row>}
       </dl>
+      <EventTiming endAt={event.endAt} />
       <div className="mt-5 flex flex-wrap gap-2 text-sm">
         {event.officialUrl && <a className="rounded-full px-3 py-1.5 font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }} href={event.officialUrl} target="_blank" rel="noreferrer">公式へ</a>}
         {event.mapUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.mapUrl} target="_blank" rel="noreferrer">地図</a>}

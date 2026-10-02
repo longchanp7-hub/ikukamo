@@ -6,17 +6,20 @@ import { mergeDuplicateEvents } from "@/lib/dedupe";
 import { passesRegionGate } from "@/lib/scoring";
 import { upcomingEvents } from "@/lib/time-buckets";
 import type { OutingEvent } from "@/lib/types";
+import { withVenueEvidence } from "@/data/venue-evidence";
+import collected from "@/data/collected-events.json";
 
 export function loadLocalEvents(): OutingEvent[] {
   const samples = process.env.NEXT_PUBLIC_SHOW_SAMPLE_EVENTS === "true" ? SEED_EVENTS : [];
   const merged = mergeDuplicateEvents([
+    ...(collected.events as OutingEvent[]),
     ...DAILY_CURATED_EVENTS,
     ...LIVE_EVENTS,
     ...officialInstagramEvents(),
     ...samples,
   ]);
   return merged.filter((e) => e.cadence !== "seasonal_series" && e.cadence !== "regular")
-    .filter((e) => passesRegionGate(e) || e.isSample || e.sources.some((s) => s.sourceType === "instagram"));
+    .filter((e) => passesRegionGate(e) || e.isSample || e.sources.some((s) => s.sourceType === "instagram")).map(withVenueEvidence);
 }
 export function visibleEvents(now = new Date()): OutingEvent[] {
   return upcomingEvents(loadLocalEvents(), now);

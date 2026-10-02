@@ -3,43 +3,61 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: true
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
-  group: pages
-  cancel-in-progress: true
-
+  group: ikukamo-pages
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: npm install
-      - run: npm run build
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm lint && pnpm typecheck && pnpm test --maxWorkers=1
+      - run: node --test tests/collector.test.mjs
+      - run: pnpm build
         env:
           NEXT_PUBLIC_BASE_PATH: /ikukamo
-      - run: touch out/.nojekyll && cp -f public/sw.js out/sw.js && cp -f public/manifest.webmanifest out/manifest.webmanifest || true
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+          NEXT_TELEMETRY_DISABLED: '1'
+      - run: touch out/.nojekyll
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
-
+          retention-days: 1
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/ops-health.mjs
