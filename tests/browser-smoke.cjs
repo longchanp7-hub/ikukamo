@@ -14,7 +14,7 @@ let browser;
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const app=process.env.APP_URL||`http://127.0.0.1:${server.address().port}/ikukamo/`;
 browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
 async function context(mode='ok'){
- const c=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block'}); const p=await c.newPage(); const errors=[];p.on('pageerror',e=>errors.push(e.message));
+ const c=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block'}); c.setDefaultTimeout(30000); const p=await c.newPage(); const errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.clock.install({time:now});
  await c.addInitScript(mode=>{
   if(mode==='corrupt')localStorage.setItem('ikukamo.personal.v2','{broken-personal-data');
@@ -34,7 +34,7 @@ for(const width of [360,390,874,1280]){await p.setViewportSize({width,height:900
 await p.setViewportSize({width:390,height:844});await p.getByRole('button',{name:'現在地を使う',exact:true}).click();await p.getByText(/現在地を使用中/).waitFor();await p.getByLabel('出発地域').selectOption('豊橋市');done.push('GPS success + manual fallback');
 await p.getByRole('button',{name:'会場の天気を取得',exact:true}).click();await p.getByText(/会場ごとの予報を取得しました/).waitFor();assert((await p.locator('[data-testid=venue-weather]').allTextContents()).some(t=>t.includes('降水確率80%')));
 await p.getByLabel('屋内確認済みのみ').check();assert(await p.locator('article').count()===2);await p.getByLabel('屋内確認済みのみ').uncheck();done.push('destination forecast + verified indoor filter');
-const first=p.locator('article').first(), title=await first.locator('h2').innerText();await first.getByRole('button',{name:'行きたい',exact:true}).click();await first.getByRole('link',{name:'詳細',exact:true}).click();await p.getByRole('button',{name:'行きたい',exact:true}).waitFor();await p.goto(app);await p.getByRole('navigation').getByRole('button',{name:'保存',exact:true}).click();await p.getByText(title,{exact:true}).waitFor();done.push('want survives detail access');
+const first=p.locator('article').first(), title=await first.locator('h2').innerText();await first.getByRole('button',{name:'行きたい',exact:true}).click();await first.getByRole('link',{name:'詳細',exact:true}).click();await p.waitForURL('**/event/**');await p.getByRole('link',{name:'← もどる',exact:true}).waitFor();await p.getByRole('button',{name:'行きたい',exact:true}).waitFor();await p.goto(app);await p.getByRole('navigation').getByRole('button',{name:'保存',exact:true}).click();await p.getByText(title,{exact:true}).waitFor();done.push('want survives detail access');
 await p.getByRole('button',{name:'選択を取り消す・再表示'}).first().click();await p.getByText('該当する予定はありません。').waitFor();
 await p.getByRole('navigation').getByRole('button',{name:'インスタ',exact:true}).click();await p.getByPlaceholder('https://www.instagram.com/p/…').fill('https://www.instagram.com/p/Test123/');await p.getByPlaceholder('タイトル',{exact:true}).fill('ブラウザー検証の予定');await p.getByLabel('開始',{exact:true}).fill('2026-10-04T12:00');await p.getByLabel('終了',{exact:true}).fill('2026-10-03T11:00');await p.getByRole('button',{name:'予定に拾う',exact:true}).click();await p.getByText(/保存できませんでした/).waitFor();assert.equal(await p.getByPlaceholder('タイトル',{exact:true}).inputValue(),'ブラウザー検証の予定');await p.getByLabel('終了',{exact:true}).fill('2026-10-04T18:00');await p.getByRole('button',{name:'予定に拾う',exact:true}).click();await p.getByText('ブラウザー検証の予定',{exact:true}).waitFor();
 await p.getByRole('navigation').getByRole('button',{name:'保存',exact:true}).click();await p.getByRole('button',{name:'自分で拾った予定',exact:true}).click();await p.getByRole('button',{name:'予定を編集',exact:true}).click();await p.getByPlaceholder('タイトル',{exact:true}).fill('編集した検証予定');await p.getByRole('button',{name:'変更を保存',exact:true}).click();await p.getByText('編集した検証予定',{exact:true}).waitFor();done.push('manual create validation and edit');
@@ -56,7 +56,7 @@ for(const mode of ['corrupt','quota','bad-cache']){
  }
  assert.deepEqual(errors,[]);await c.close();done.push(mode);
 }
-const pc=await browser.newContext({viewport:{width:390,height:844}}), pp=await pc.newPage();
+const pc=await browser.newContext({viewport:{width:390,height:844}}), pp=await pc.newPage();pc.setDefaultTimeout(30000);
 await pc.route('**/*',r=>new URL(r.request().url()).origin===new URL(app).origin?r.continue():r.abort());
 await pp.clock.install({time:now});
 await pp.goto(app+'__pwa_seed__');
