@@ -6,6 +6,9 @@ const summarize=(method,url,status,body,extra={})=>console.log(JSON.stringify({m
 for(const url of urls){
  console.log(JSON.stringify({url,dns:await dns.lookup(new URL(url).hostname,{all:true}).catch(e=>String(e))}));
  let restricted=false;
+ try{const r=await fetch(url,{signal:AbortSignal.timeout(10000),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});const body=await r.text();summarize('node-default-language',url,r.status,body,{final:r.url});restricted=[401,403,429].includes(r.status);}
+ catch(e){console.log(JSON.stringify({method:'node-default-language',url,error:String(e),cause:e.cause?.code}));}
+ if(restricted)continue;
  try{const r=await fetch(url,{signal:AbortSignal.timeout(10000),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)','accept-language':'ja-JP,ja;q=0.9,en;q=0.5'}});summarize('node',url,r.status,await r.text(),{final:r.url});restricted=[401,403,429].includes(r.status);}
  catch(e){console.log(JSON.stringify({method:'node',url,error:String(e),cause:e.cause?.code}));}
  if(restricted)continue;
