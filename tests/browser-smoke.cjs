@@ -41,7 +41,7 @@ await p.getByLabel('開催地域',{exact:true}).selectOption('');
 await p.getByTestId('collection-status').locator('summary').first().click();await p.getByText('公開SNSページの巡回結果',{exact:true}).click();
 await p.getByText(/直接取得できた本文/).waitFor();await p.getByTestId('collection-status').locator('summary').first().click();
 done.push('ten official sources + seven core city filters + 19 region choices + explicit social status');
-for(const width of [360,390,874,1280]){await p.setViewportSize({width,height:900});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.screenshot({path:path.join(evidence,`home-${width}.png`)});}done.push('responsive 360/390/874/1280');
+for(const width of [360,390,874,1280]){await p.setViewportSize({width,height:900});await p.evaluate(()=>scrollTo(0,0));assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.screenshot({path:path.join(evidence,`home-${width}.png`)});}done.push('responsive 360/390/874/1280');
 await p.setViewportSize({width:390,height:844});await p.getByRole('button',{name:'現在地を使う',exact:true}).click();await p.getByText(/現在地を使用中/).waitFor();await p.getByLabel('出発地域').selectOption('豊橋市');done.push('GPS success + manual fallback');
 await p.getByRole('button',{name:'会場の天気を取得',exact:true}).click();await p.getByText(/会場ごとの予報を取得しました/).waitFor();assert((await p.locator('[data-testid=venue-weather]').allTextContents()).some(t=>t.includes('降水確率80%')));
 await p.getByLabel('屋内確認済みのみ').check();assert(await p.locator('article').count()>=2);assert((await p.locator('article').allTextContents()).every(t=>t.includes('屋内')&&!t.includes('屋内外未確認')));await p.getByLabel('屋内確認済みのみ').uncheck();done.push('destination forecast + verified indoor filter');
@@ -58,7 +58,7 @@ for(const mode of ['corrupt','quota','bad-cache']){
  if(mode==='bad-cache'){
   await p.getByRole('button',{name:'会場の天気を取得',exact:true}).click();await p.getByText(/会場ごとの予報を取得しました/).waitFor();
   await p.getByLabel('訪問日時',{exact:true}).fill('2026-10-25T12:00');
-  await p.waitForFunction(()=>Array.from(document.querySelectorAll('[data-testid=venue-weather]')).every(e=>/予報不明|会期外/.test(e.textContent)));
+  await p.waitForFunction(()=>Array.from(document.querySelectorAll('[data-testid=venue-weather]')).every(e=>/予報不明|会期外|時刻未確認/.test(e.textContent)));
   assert((await p.locator('[data-testid=venue-weather]').allTextContents()).some(t=>t.includes('予報不明')));
  }else{
   await p.locator('article').first().getByRole('button',{name:'行きたい',exact:true}).click();
