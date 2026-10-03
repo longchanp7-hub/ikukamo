@@ -6,17 +6,18 @@ export function validateConfig(c){
  for(const s of c.sources)if(!/^[a-z-]+$/.test(s.id)||!s.urls?.length||s.urls.length>4||s.maxDetails>24||s.maxDetails<1||!s.hosts?.length||s.urls.some(u=>!allowedUrl(u,s)))throw Error('Invalid source configuration');
 }
 export function makeFetcher(config, fetcher=fetch){
- const last=new Map(),cache=new Map();let requests=0;const start=Date.now();
+ const last=new Map(),cache=new Map(),blocked=new Map();let requests=0;const start=Date.now();
  const get=async(url,source)=>{
   if(cache.has(url))return cache.get(url);if(!allowedUrl(url,source))throw Error('Host is not configured');
+  const host=new URL(url).hostname;if(blocked.has(host))throw Error('同一ホストの追加取得を停止: '+blocked.get(host));
   let error;for(let attempt=0;attempt<config.attempts;attempt++){
-   if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達');const host=new URL(url).hostname;
+   if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達');
    await sleep(Math.max(0,config.spacingMs-(Date.now()-(last.get(host)||0))));last.set(host,Date.now());requests++;
    try{const r=await fetcher(url,{signal:AbortSignal.timeout(config.timeoutMs),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});
-    if(!r.ok)throw Error('HTTP '+r.status);if(r.url&&!allowedUrl(r.url,source))throw Error('Redirect host is not configured');const html=await r.text();
+    if([401,403,429].includes(r.status)){blocked.set(host,'HTTP '+r.status);throw Error('HTTP '+r.status);}if(!r.ok)throw Error('HTTP '+r.status);if(r.url&&!allowedUrl(r.url,source))throw Error('Redirect host is not configured');const html=await r.text();
     if(html.length<100||html.length>2000000)throw Error('Unexpected document size');cache.set(url,html);return html;
-   }catch(e){error=e;if(attempt+1<config.attempts)await sleep(800);}
-  }throw error;
+   }catch(e){error=e;if(blocked.has(host))throw e;if(attempt+1<config.attempts)await sleep(800);}
+  }blocked.set(host,error?.message||'通信失敗');throw error;
  };
  get.count=()=>requests;return get;
 }

@@ -77,6 +77,10 @@ test('one failed source does not discard another source update',async()=>{
  assert.equal(b.allFailed,false);assert(b.snapshot.events.some(e=>e.collectorSource==='plat'&&e.updatedAt==='2026-10-03T10:00:00Z'));
  assert.equal(b.snapshot.events.find(e=>e.collectorSource==='machinaka').updatedAt,stamp);
 });
+test('official access restrictions stop the host without retries or probing further pages',async()=>{
+ let n=0;const f=makeFetcher(config,async()=>{n++;return {ok:false,status:403};});
+ await assert.rejects(()=>f(candidate.url,source),/403/);await assert.rejects(()=>f(candidate.url+'?page=2',source),/追加取得を停止/);assert.equal(n,1);
+});
 test('date fields displayed as two endpoints remain a range, not two unrelated days',()=>{
  const html=page.replace('2026.10.04<span class="week">(日)</span></p>','2026.10.04<span class="week">(日)</span></p><p>2026.10.11<span class="week">(日)</span></p>');
  const e=parseDetail(html,source,candidate,regions,stamp);assert.equal(e.length,1);assert.equal(e[0].endAt,'2026-10-12T00:00:00+09:00');

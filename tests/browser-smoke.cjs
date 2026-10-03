@@ -69,7 +69,7 @@ for(const mode of ['corrupt','quota','bad-cache']){
 }
 const aliased=snapshot.events.find(e=>e.aliases?.length);
 if(aliased){const {c,p,errors}=await context();await p.evaluate(e=>localStorage.setItem('ikukamo.personal.v2',JSON.stringify({version:2,picked:[],feedback:[{id:'old-saved-id',eventId:e.aliases[0],action:'want',createdAt:'2026-10-03T00:00:00Z'}]})),aliased);
- await p.reload({waitUntil:'domcontentloaded'});await p.getByRole('navigation').getByRole('button',{name:'保存',exact:true}).click();await p.getByText(aliased.title,{exact:true}).waitFor();assert.equal(await p.getByText(/掲載終了の予定/).count(),0);
+ await p.reload({waitUntil:'domcontentloaded'});await p.locator('article').first().waitFor();await p.getByRole('navigation').getByRole('button',{name:'保存',exact:true}).click();await p.getByRole('heading',{name:'保存・履歴',exact:true}).waitFor();await p.getByText(aliased.title,{exact:true}).waitFor();assert.equal(await p.getByText(/掲載終了の予定/).count(),0);
  await p.getByRole('button',{name:'選択を取り消す・再表示'}).first().click();await p.getByText('該当する予定はありません。').waitFor();
  await p.goto(app+'event/'+aliased.aliases[0]+'/',{waitUntil:'domcontentloaded'});await p.getByRole('heading',{name:aliased.title,exact:true}).waitFor();assert.deepEqual(errors,[]);await c.close();done.push('saved alias survives occurrence merge + clear + old detail route');}
 const pc=await browser.newContext({viewport:{width:390,height:844}}), pp=await pc.newPage();pc.setDefaultTimeout(30000);

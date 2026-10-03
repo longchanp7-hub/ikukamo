@@ -1,8 +1,6 @@
 name: collector-connectivity-diagnostics
 on:
   workflow_dispatch:
-  pull_request:
-    paths: ['scripts/diagnose-connectivity.mjs', '.github/workflows/collector-diagnostics.yml']
 permissions:
   contents: read
 jobs:
@@ -17,3 +15,4 @@ jobs:
         with:
           node-version: '24'
       - run: node scripts/diagnose-connectivity.mjs
+
