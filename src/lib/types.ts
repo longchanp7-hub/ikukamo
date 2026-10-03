@@ -23,6 +23,15 @@ export interface OutingEvent {
   category: CategoryId;
   startAt: string;
   endAt: string;
+  timePrecision?: "time" | "date";
+  dateText?: string;
+  timeText?: string;
+  collectorSource?: string;
+  collectionWarning?: string;
+  collectionExpired?: boolean;
+  socialAcquisition?: "official_site_link" | "instagram_api";
+  locationEvidenceUrl?: string;
+  aliases?: string[];
   venueName: string;
   address?: string;
   city: string;

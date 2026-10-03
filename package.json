@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "node scripts/validate-collection.mjs --publish && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -12,6 +12,7 @@
     "ingest": "node scripts/ingest.mjs"
   },
   "dependencies": {
+    "cheerio": "1.2.0",
     "next": "15.5.27",
     "react": "19.1.4",
     "react-dom": "19.1.4"

@@ -1,8 +1,9 @@
 import type { OutingEvent } from "./types";
 import { jstInput } from "./jst";
+import regions from "../../config/regions.json";
 
 export type Origin = { name: string; latitude: number; longitude: number };
-export const ORIGINS: Origin[] = [
+const CORE_ORIGINS: Origin[] = [
   { name: "豊橋市", latitude: 34.7692, longitude: 137.3915 },
   { name: "豊川市", latitude: 34.8268, longitude: 137.3756 },
   { name: "蒲郡市", latitude: 34.826, longitude: 137.226 },
@@ -11,6 +12,11 @@ export const ORIGINS: Origin[] = [
   { name: "岡崎市", latitude: 34.956, longitude: 137.159 },
   { name: "浜松市", latitude: 34.7108, longitude: 137.7261 },
 ];
+export const ORIGINS: Origin[] = [...CORE_ORIGINS, ...regions.cities.filter(c => !CORE_ORIGINS.some(o => o.name === c.name))];
+export function inCollectionRegion(event: Pick<OutingEvent, "city">) { return regions.cities.some(c => c.name === event.city); }
+export function freshForRecommendation(event: OutingEvent, now = Date.now()) {
+  return !event.collectorSource || !event.collectionExpired && now - Date.parse(event.statusCheckedAt || event.updatedAt) <= 7 * 86400000;
+}
 export function validCoordinates(lat: number, lon: number) { return Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180; }
 export function distanceKm(a: Origin, b: Pick<OutingEvent, "latitude" | "longitude">): number | null {
   if (!validCoordinates(a.latitude, a.longitude) || !validCoordinates(b.latitude, b.longitude)) return null;
@@ -23,6 +29,7 @@ export type Forecast = { fetchedAt: number; points: WeatherPoint[]; error?: stri
 export type Forecasts = Record<string, Forecast>;
 export function venueKey(e: Pick<OutingEvent, "latitude" | "longitude">) { return `${e.latitude.toFixed(2)},${e.longitude.toFixed(2)}`; }
 export function visitTime(e: OutingEvent, selected: string): string | null {
+  if (e.timePrecision === "date") return null;
   const t = Date.parse(`${selected}:00+09:00`), start = Date.parse(e.startAt), end = Date.parse(e.endAt);
   if (![t, start, end].every(Number.isFinite) || t >= end || jstInput(new Date(start)).slice(0, 10) > selected.slice(0, 10)) return null;
   return jstInput(new Date(Math.max(t, start))).slice(0, 13) + ":00";

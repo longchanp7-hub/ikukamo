@@ -1,7 +1,7 @@
 import type { EventStatus, OutingEvent } from "@/lib/types";
 
 function norm(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, "").replace(/[「」『』【】（）() ・ー−-]/g, "").replace(/サンプル|sample|仮/g, "");
+  return s.normalize("NFKC").toLowerCase().replace(/\s+/g, "").replace(/[「」『』【】（）() ・ー−-]/g, "").replace(/サンプル|sample|仮/g, "");
 }
 
 function statusRank(status?: EventStatus): number {
@@ -31,12 +31,17 @@ export function mergeDuplicateEvents(events: OutingEvent[]): OutingEvent[] {
       if (!sources.some((x) => x.sourceUrl === s.sourceUrl && x.sourceType === s.sourceType)) sources.push(s);
     }
 
-    const better = ev.confidence === "confirmed" || (ev.confidence === "high" && existing.confidence === "unverified");
+    const better = !!ev.collectorSource && !ev.collectionWarning && Date.parse(ev.updatedAt) > Date.parse(existing.updatedAt) || !existing.collectorSource && (ev.confidence === "confirmed" || (ev.confidence === "high" && existing.confidence === "unverified"));
     const preferred = better ? ev : existing;
-    const statusSource = statusRank(existing.status) >= statusRank(ev.status) ? existing : ev;
+    const statusSource = existing.officialUrl && existing.officialUrl === ev.officialUrl && (existing.collectorSource || ev.collectorSource)
+      ? Date.parse(existing.statusCheckedAt || existing.updatedAt) >= Date.parse(ev.statusCheckedAt || ev.updatedAt) ? existing : ev
+      : statusRank(existing.status) >= statusRank(ev.status) ? existing : ev;
+    const id = !existing.id.startsWith("auto-") ? existing.id : !ev.id.startsWith("auto-") ? ev.id : existing.id;
 
     map.set(key, {
       ...preferred,
+      id,
+      aliases: [...new Set([existing.id,ev.id,...(existing.aliases||[]),...(ev.aliases||[])])].filter(v=>v!==id),
       sources,
       officialUrl: existing.officialUrl || ev.officialUrl,
       xUrl: existing.xUrl || ev.xUrl,

@@ -1,0 +1,189 @@
+{
+  "version": 2,
+  "timeoutMs": 10000,
+  "attempts": 2,
+  "spacingMs": 700,
+  "cacheHours": 6,
+  "retentionDays": 7,
+  "archiveDays": 365,
+  "maxRequests": 190,
+  "maxRunMs": 480000,
+  "sources": [
+    {
+      "id": "machinaka",
+      "name": "豊橋まちなか情報ステーション",
+      "urls": [
+        "https://1484machinaka.jp/event/",
+        "https://1484machinaka.jp/event/page/2",
+        "https://1484machinaka.jp/event/feed/",
+        "https://1484machinaka.jp/wp-json/wp/v2/event?per_page=20&orderby=date&order=desc"
+      ],
+      "hosts": [
+        "1484machinaka.jp"
+      ],
+      "maxDetails": 24,
+      "cities": [
+        "豊橋市"
+      ],
+      "parser": "machinaka"
+    },
+    {
+      "id": "plat",
+      "name": "穂の国とよはし芸術劇場PLAT",
+      "urls": [
+        "https://toyohashi-at.jp/event/?kind=p"
+      ],
+      "hosts": [
+        "toyohashi-at.jp"
+      ],
+      "maxDetails": 10,
+      "cities": [
+        "豊橋市"
+      ],
+      "parser": "plat"
+    },
+    {
+      "id": "toyokawa",
+      "name": "豊川市観光協会 ぐるっと豊川",
+      "urls": [
+        "https://www.toyokawa-map.net/event/?Mode=search"
+      ],
+      "hosts": [
+        "toyokawa-map.net"
+      ],
+      "maxDetails": 12,
+      "cities": [
+        "豊川市"
+      ],
+      "parser": "toyokawa"
+    },
+    {
+      "id": "tahara",
+      "name": "渥美半島観光ビューロー",
+      "urls": [
+        "https://www.taharakankou.gr.jp/event/index.php"
+      ],
+      "hosts": [
+        "taharakankou.gr.jp"
+      ],
+      "maxDetails": 12,
+      "cities": [
+        "田原市"
+      ],
+      "parser": "tahara"
+    },
+    {
+      "id": "okazaki",
+      "name": "岡崎市観光協会 岡崎おでかけナビ",
+      "urls": [
+        "https://okazaki-kanko.jp/event/list"
+      ],
+      "hosts": [
+        "okazaki-kanko.jp"
+      ],
+      "maxDetails": 16,
+      "cities": [
+        "岡崎市"
+      ],
+      "parser": "okazaki"
+    },
+    {
+      "id": "shinshiro",
+      "name": "新城市観光協会・奥三河観光協議会",
+      "urls": [
+        "https://shinshirokankou.com/",
+        "https://shinshirokankou.com/event/"
+      ],
+      "hosts": [
+        "shinshirokankou.com",
+        "okuminavi.jp"
+      ],
+      "maxDetails": 12,
+      "cities": [
+        "新城市",
+        "設楽町",
+        "東栄町",
+        "豊根村"
+      ],
+      "parser": "shinshiro"
+    },
+    {
+      "id": "aichi",
+      "name": "愛知県 東三河県庁・Aichi Now",
+      "urls": [
+        "https://www.higashimikawa.pref.aichi.jp/odekake/"
+      ],
+      "hosts": [
+        "higashimikawa.pref.aichi.jp",
+        "aichinow.pref.aichi.jp"
+      ],
+      "maxDetails": 12,
+      "cities": [
+        "豊橋市",
+        "豊川市",
+        "蒲郡市",
+        "田原市",
+        "新城市",
+        "設楽町",
+        "東栄町",
+        "豊根村"
+      ],
+      "parser": "aichi"
+    },
+    {
+      "id": "west",
+      "name": "西三河ぐるっとナビ",
+      "urls": [
+        "https://nishimikawanavi.jp/",
+        "https://nishimikawanavi.jp/events/"
+      ],
+      "hosts": [
+        "nishimikawanavi.jp"
+      ],
+      "maxDetails": 24,
+      "cities": [
+        "岡崎市",
+        "豊田市",
+        "安城市",
+        "刈谷市",
+        "西尾市",
+        "碧南市",
+        "高浜市",
+        "知立市",
+        "みよし市",
+        "幸田町"
+      ],
+      "parser": "west"
+    },
+    {
+      "id": "actcity",
+      "name": "アクトシティ浜松",
+      "urls": [
+        "https://www.actcity.jp/event/"
+      ],
+      "hosts": [
+        "actcity.jp"
+      ],
+      "maxDetails": 16,
+      "cities": [
+        "浜松市"
+      ],
+      "parser": "actcity"
+    },
+    {
+      "id": "hamamatsu-city",
+      "name": "浜松市 公開イベントデータ",
+      "urls": [
+        "https://www.city.hamamatsu.shizuoka.jp/api/odpf/event/v1?m=index&s=%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88&t=N&x=221309_hamamatsu_event"
+      ],
+      "hosts": [
+        "city.hamamatsu.shizuoka.jp"
+      ],
+      "maxDetails": 16,
+      "cities": [
+        "浜松市"
+      ],
+      "parser": "hamamatsu-city"
+    }
+  ]
+}

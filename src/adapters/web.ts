@@ -1,5 +1,5 @@
 import type { OutingEvent } from "@/lib/types";
-export async function fetchFromWebSources(): Promise<{ events: OutingEvent[]; status: "skipped" | "ok" | "error"; reason?: string }> {
-  if (process.env.DISABLE_WEB_FETCH === "1") return { events: [], status: "skipped", reason: "DISABLE_WEB_FETCH=1" };
-  return { events: [], status: "ok", reason: "MVPでは公開Webクローラ未接続。シードのみ" };
+import collected from "@/data/collected-events.json";
+export async function fetchFromWebSources() {
+ return {events:collected.events as OutingEvent[],status:collected.sources.some(s=>s.errors>0)?"error":"ok",reason:"日次スクリプトが保存した検証済みスナップショットの読取。今ここで新規取得したものではありません。"};
 }

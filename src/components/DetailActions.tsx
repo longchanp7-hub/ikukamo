@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { PERSONAL_CHANGED } from "@/lib/personal-store";
 import { loadFeedback, latestActionMap, saveFeedbackRecord } from "@/lib/feedback";
 import type { FeedbackAction } from "@/lib/types";
-export function DetailActions({ eventId }: { eventId: string }) {
+export function DetailActions({ eventId, aliases }: { eventId: string; aliases?: string[] }) {
   const [last, setLast] = useState<FeedbackAction | undefined>();
   const [error, setError] = useState("");
-  useEffect(() => { const sync = () => { try { setLast(latestActionMap(loadFeedback())[eventId]); } catch (e) { setError(String(e)); } }; sync(); window.addEventListener("storage", sync); window.addEventListener(PERSONAL_CHANGED,sync); return () => { window.removeEventListener("storage",sync); window.removeEventListener(PERSONAL_CHANGED,sync); }; }, [eventId]);
+  useEffect(() => { const sync = () => { try { setLast(latestActionMap(loadFeedback(),[{id:eventId,aliases}])[eventId]); } catch (e) { setError(String(e)); } }; sync(); window.addEventListener("storage", sync); window.addEventListener(PERSONAL_CHANGED,sync); return () => { window.removeEventListener("storage",sync); window.removeEventListener(PERSONAL_CHANGED,sync); }; }, [eventId,aliases]);
   const items: { action: FeedbackAction; label: string }[] = [
     { action: "want", label: "行きたい" }, { action: "save", label: "保存" },
     { action: "dismiss", label: "興味なし" }, { action: "went", label: "行った" },
