@@ -1,12 +1,4 @@
 import type { OutingEvent } from "@/lib/types";
-
-export function officialInstagramEvents(): OutingEvent[] {
-  return [];
-}
-
-export async function fetchFromInstagram(): Promise<{ events: OutingEvent[]; status: "skipped" | "ok" | "error"; reason?: string }> {
-  if (!process.env.INSTAGRAM_ACCESS_TOKEN) {
-    return { events: [], status: "skipped", reason: "INSTAGRAM_ACCESS_TOKEN 未設定。無断スクレイピングはしない" };
-  }
-  return { events: [], status: "ok", reason: "Graph API クエリ未設定のため0件" };
+export async function fetchFromInstagram(): Promise<{events:OutingEvent[];status:"skipped";reason:string}> {
+  return {events:[],status:"skipped",reason:"利用者の指定により公式APIのアカウント連携を使用しません。ログイン不要の公開HTML・公式埋め込みの取得結果は日次収集の巡回記録に表示します。手動登録も利用できます。"};
 }

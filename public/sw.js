@@ -1,4 +1,4 @@
-const CACHE = "ikukamo-v5";
+const CACHE = "ikukamo-v6";
 const SCOPE = new URL(self.registration.scope);
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(["./"])).then(() => self.skipWaiting()));

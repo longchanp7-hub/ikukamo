@@ -14,7 +14,9 @@ import { PERSONAL_CHANGED } from "@/lib/personal-store";
 import { jstInput } from "@/lib/jst";
 import { ORIGINS, confirmedIndoor, distanceKm, loadForecasts, visitTime, type Origin, type Forecasts } from "@/lib/outing-context";
 import type { FeedbackAction, OutingEvent, TimeBucket, UserFeedback } from "@/lib/types";
-import collected from "@/data/collected-events.json";
+import { CollectionStatus } from "./CollectionStatus";
+import { inCollectionRegion, freshForRecommendation } from "@/lib/outing-context";
+import regions from "../../config/regions.json";
 
 type Screen = "home" | "today" | "pickup" | "library";
 type Filter = "schedule" | TimeBucket;
@@ -34,6 +36,7 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
   const [editing, setEditing] = useState<OutingEvent | undefined>();
   const [now, setNow] = useState<Date | undefined>();
   const [pickRequested, setPickRequested] = useState(false);
+  const [city, setCity] = useState("");
   useEffect(() => {
     setVisit(jstInput()); setNow(new Date());
     const reload = () => { try { setFeedback(loadFeedback()); setPicked(loadPickedEvents()); setError(""); } catch (e) { setError(String(e)); } };
@@ -42,9 +45,9 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
     const timer = setInterval(() => setNow(new Date()), 60000);
     return () => { clearInterval(timer); window.removeEventListener("storage", reload); window.removeEventListener(PERSONAL_CHANGED, reload); };
   }, []);
-  const actions = useMemo(() => latestActionMap(feedback), [feedback]);
   const all = useMemo(() => [...picked, ...events].filter((e, i, a) => a.findIndex(x => x.id === e.id) === i), [picked, events]);
-  const visible = useMemo(() => all.filter(e => actions[e.id] !== "dismiss" && (!indoor || confirmedIndoor(e)) && (!visitOnly || !!visitTime(e, visit))), [all, actions, indoor, visitOnly, visit]);
+  const actions = useMemo(() => latestActionMap(feedback, all), [feedback, all]);
+  const visible = useMemo(() => all.filter(e => (e.id.startsWith("ig-") || inCollectionRegion(e)) && freshForRecommendation(e, now?.getTime()) && (!city || e.city === city) && e.cadence !== "regular" && e.cadence !== "seasonal_series" && actions[e.id] !== "dismiss" && (!indoor || confirmedIndoor(e)) && (!visitOnly || !!visitTime(e, visit))), [all, actions, indoor, visitOnly, visit, now, city]);
   function sorted(list: OutingEvent[]) { return nearby ? [...list].sort((a,b) => (distanceKm(origin,a) ?? Infinity) - (distanceKm(origin,b) ?? Infinity)) : list; }
   const list = now ? (tab === "schedule" ? upcomingEvents(visible, now) : eventsInBucket(visible, tab, now)) : [];
   const groups = now ? upcomingByDate(visible, now) : [];
@@ -59,7 +62,7 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
   async function loadWeather() {
     setBusy(true);
     try {
-      const f = await loadForecasts(all); setForecasts(f);
+      const f = await loadForecasts(visible); setForecasts(f);
       const failures = Object.values(f).filter(v => v.error);
       setWeather(failures.length ? "予報が不明の会場があります（" + failures[0].error + "）。30分後に再試行できます。" : "会場ごとの予報を取得しました。各カードに取得時刻と訪問時間帯を表示します。");
     } catch (e) { setWeather("予報不明：" + String(e)); }
@@ -72,10 +75,11 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
     </header>
     {error && <p role="alert" className="mb-3 rounded-2xl border p-3 text-sm">{error}</p>}
     {(screen === "home" || screen === "today") && <PlanningControls origin={origin} setOrigin={setOrigin} visit={visit} setVisit={setVisit} indoor={indoor} setIndoor={setIndoor} nearby={nearby} setNearby={setNearby} visitOnly={visitOnly} setVisitOnly={setVisitOnly} weather={weather} busy={busy} loadWeather={loadWeather} />}
+    {(screen === "home" || screen === "today") && <label className="mb-4 block text-sm">開催地域<select aria-label="開催地域" className="ml-3 rounded-xl border p-2" value={city} onChange={e => setCity(e.target.value)}><option value="">東三河・西三河・浜松</option>{regions.cities.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}</select></label>}
     {screen !== "pickup" && <button type="button" onClick={() => { setEditing(undefined); setScreen("pickup"); }} className="mb-4 w-full rounded-[28px] py-3.5 text-sm font-medium" style={{ background: "var(--accent)", color: "#fffaf1" }}>インスタから拾う</button>}
     {screen === "home" && <>
       <InstallApp />
-      <details className="mb-4 text-xs"><summary>公式情報の取得状況</summary><p className="my-2">定期処理は公式ページの更新を確認します。本文だけの情報は自動で日時を推測せず、確認後に予定へ反映します。</p>{(collected.sources as {id:string;name:string;url:string;contentObservedAt:string}[]).map(s=><p key={s.id} className="my-2"><a href={s.url} target="_blank" rel="noreferrer" className="underline">{s.name}</a> · 内容取得 {new Date(s.contentObservedAt).toLocaleDateString("ja-JP",{timeZone:"Asia/Tokyo"})}</p>)}<a href="https://github.com/longchanp7-hub/ikukamo/actions/workflows/daily-fetch.yml" target="_blank" rel="noreferrer" className="underline">日次の取得結果・要確認情報</a></details>
+      <CollectionStatus />
       <div className="-mx-4 mb-5 flex gap-2 overflow-x-auto px-4 hide-scroll">
         {FILTERS.map(key => <button key={key} onClick={() => setTab(key)} type="button" className="shrink-0 rounded-full px-3.5 py-1.5 text-sm" style={{ background: tab === key ? "var(--ink)" : "var(--chip)", color: tab === key ? "var(--bg)" : "var(--ink)" }}>{LABELS[key]}</button>)}
       </div>

@@ -5,7 +5,7 @@ import { isEnded } from "./time-buckets";
 import { ORIGINS, confirmedIndoor, distanceKm, isRainy, visitTime, weatherAt, type Origin, type Forecasts } from "./outing-context";
 
 export function pickTodayGo(events: OutingEvent[], feedback: UserFeedback[] = [], now = new Date(), limit = 3, origin: Origin = ORIGINS[0], forecasts: Forecasts = {}, selected = jstInput(now)): OutingEvent[] {
-  const actions = latestActionMap(feedback);
+  const actions = latestActionMap(feedback, events);
   return events.filter(e => !isEnded(e, now) && e.status !== "cancelled" && e.status !== "postponed" && actions[e.id] !== "dismiss" && !!visitTime(e, selected))
     .map(e => {
       const km = distanceKm(origin, e);

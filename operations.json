@@ -11,6 +11,11 @@
       "path": "manifest.webmanifest",
       "json": true,
       "key": "name"
+    },
+    {
+      "path": "data/collection.json",
+      "json": true,
+      "key": "events"
     }
   ]
 }

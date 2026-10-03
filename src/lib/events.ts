@@ -1,9 +1,7 @@
-import { officialInstagramEvents } from "@/adapters/instagram";
 import { DAILY_CURATED_EVENTS } from "@/data/daily-curated-events";
 import { LIVE_EVENTS } from "@/data/live-events";
 import { SEED_EVENTS } from "@/data/seed-events";
 import { mergeDuplicateEvents } from "@/lib/dedupe";
-import { passesRegionGate } from "@/lib/scoring";
 import { upcomingEvents } from "@/lib/time-buckets";
 import type { OutingEvent } from "@/lib/types";
 import { withVenueEvidence } from "@/data/venue-evidence";
@@ -15,15 +13,13 @@ export function loadLocalEvents(): OutingEvent[] {
     ...(collected.events as OutingEvent[]),
     ...DAILY_CURATED_EVENTS,
     ...LIVE_EVENTS,
-    ...officialInstagramEvents(),
     ...samples,
   ]);
-  return merged.filter((e) => e.cadence !== "seasonal_series" && e.cadence !== "regular")
-    .filter((e) => passesRegionGate(e) || e.isSample || e.sources.some((s) => s.sourceType === "instagram")).map(withVenueEvidence);
+  return merged.map(withVenueEvidence);
 }
 export function visibleEvents(now = new Date()): OutingEvent[] {
   return upcomingEvents(loadLocalEvents(), now);
 }
 export function findEvent(id: string): OutingEvent | undefined {
-  return loadLocalEvents().find((e) => e.id === id);
+  return loadLocalEvents().find((e) => e.id === id || e.aliases?.includes(id));
 }

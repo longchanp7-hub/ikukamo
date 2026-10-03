@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CATEGORY_META } from "@/data/score-weights";
 import { findEvent, loadLocalEvents } from "@/lib/events";
-import { formatRangeJa } from "@/lib/jst";
+import { formatEventRange } from "@/lib/jst";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { DetailActions } from "@/components/DetailActions";
 import { distanceKm, ORIGINS, venueLabel } from "@/lib/outing-context";
@@ -12,7 +12,7 @@ import { EventTiming } from "@/components/EventTiming";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function generateStaticParams() {
-  return loadLocalEvents().map((e) => ({ id: e.id }));
+  return loadLocalEvents().flatMap((e) => [e.id,...(e.aliases||[])].map(id=>({id})));
 }
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -20,7 +20,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   const event = findEvent(id);
   if (!event) notFound();
   const cat = CATEGORY_META[event.category];
-  const conf = event.confidence === "confirmed" ? "公式確認" : event.confidence === "high" ? "高（主催者・公式SNS）" : "未確認";
+  const conf = event.confidence === "confirmed" ? "公式確認" : event.confidence === "high" ? event.collectorSource ? "公式情報を自動取得" : "高（主催者・公式SNS）" : "未確認";
   const photoHref = event.officialUrl || event.instagramUrl || event.imageUrl;
   const cancelled = event.status === "cancelled";
   const postponed = event.status === "postponed";
@@ -97,14 +97,15 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         <p>{event.recommendReason}</p>
       </section>
       <dl className="mt-6 space-y-1 text-sm">
-        <Row label="日時">{formatRangeJa(event.startAt, event.endAt)}</Row>
+        <Row label="日時">{formatEventRange(event)}{event.timeText && <p>掲載時刻：{event.timeText}</p>}</Row>
         <Row label="場所">{event.venueName.replace("（サンプル）", "")} / {event.city}</Row>
         <Row label="住所">{event.address || `${event.prefecture}${event.city} ${event.venueName.replace("（サンプル）", "")}`}</Row>
-        <Row label="距離">豊橋市から直線 約{distanceKm(ORIGINS[0],event)?.toFixed(1) ?? "不明"}km（会場付近）。車の時間は地図で確認してください。</Row>
+        <Row label="距離">豊橋市から直線 約{distanceKm(ORIGINS[0],event)?.toFixed(1) ?? "不明"}km（{event.coordinatePrecision === "city" ? "市町村代表点まで。会場位置は未確認" : "会場付近"}）。車の時間は地図で確認してください。</Row>
         <Row label="屋内外">{venueLabel(event)} {event.venueEvidenceUrl && <a href={event.venueEvidenceUrl} target="_blank" rel="noreferrer" className="underline">確認元</a>}</Row>
         <Row label="料金">{event.priceText || "未確認"}</Row>
         <Row label="駐車場">{event.parkingText || "未確認"}</Row>
         <Row label="確度">{conf}</Row>
+        <Row label="出典">{event.sources.map(s=><p key={s.id}><a href={s.sourceUrl} target="_blank" rel="noreferrer" className="underline">{s.sourceName}</a> · 取得 {new Date(s.fetchedAt).toLocaleString("ja-JP",{timeZone:"Asia/Tokyo"})}</p>)}{event.socialAcquisition === "official_site_link" && <p>SNSリンクは公式ページ内で取得。投稿の直接取得ではありません。</p>}{event.collectionWarning && <p>{event.collectionWarning}</p>}</Row>
         {(cancelled || postponed) && <Row label="状態">{event.statusText || (cancelled ? "中止" : "延期")}</Row>}
       </dl>
       <EventTiming endAt={event.endAt} />
@@ -114,7 +115,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         {event.instagramUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.instagramUrl} target="_blank" rel="noreferrer">Instagram</a>}
         {event.xUrl && <a className="rounded-full px-3 py-1.5" style={{ background: "var(--chip)" }} href={event.xUrl} target="_blank" rel="noreferrer">X</a>}
       </div>
-      <DetailActions eventId={event.id} />
+      <DetailActions eventId={event.id} aliases={event.aliases} />
     </main>
   );
 }

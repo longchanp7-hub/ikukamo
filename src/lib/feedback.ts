@@ -1,4 +1,4 @@
-import type { FeedbackAction, UserFeedback } from "@/lib/types";
+import type { FeedbackAction, UserFeedback, OutingEvent } from "@/lib/types";
 import { loadPersonal, updatePersonal } from "./personal-store";
 export function loadFeedback(): UserFeedback[] {
   if (typeof window === "undefined") return [];
@@ -9,8 +9,9 @@ export function saveFeedbackRecord(eventId: string, action: FeedbackAction): Use
   updatePersonal(data => ({ ...data, feedback: [...data.feedback, item] }));
   return item;
 }
-export function latestActionMap(list: UserFeedback[]): Record<string, FeedbackAction> {
+export function latestActionMap(list: UserFeedback[], events: Pick<OutingEvent,"id"|"aliases">[] = []): Record<string, FeedbackAction> {
+  const canonical = new Map(events.flatMap(e => (e.aliases || []).map(a => [a,e.id] as const)));
   const map: Record<string, FeedbackAction> = Object.create(null);
-  for (const f of list) if (f.action !== "open_detail") { if (f.action === "clear") delete map[f.eventId]; else map[f.eventId] = f.action; }
+  for (const f of list) if (f.action !== "open_detail") { const id = canonical.get(f.eventId) || f.eventId; if (f.action === "clear") delete map[id]; else map[id] = f.action; }
   return map;
 }

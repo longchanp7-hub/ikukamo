@@ -11,3 +11,4 @@
 *.tsbuildinfo
 tmp/
 coverage/
+/public/data/collection.json

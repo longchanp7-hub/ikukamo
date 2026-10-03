@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CATEGORY_META } from "@/data/score-weights";
-import { formatRangeJa } from "@/lib/jst";
+import { formatEventRange } from "@/lib/jst";
 import type { FeedbackAction, OutingEvent } from "@/lib/types";
 import { ScoreBadge } from "./ScoreBadge";
 import { ORIGINS, distanceKm, venueLabel, venueKey, visitTime, weatherAt, weatherLabel, type Origin, type Forecasts } from "@/lib/outing-context";
@@ -75,7 +75,7 @@ export function EventCard({ event, lastAction, onAction, origin = ORIGINS[0], vi
                 </a>
               ) : event.title.replace("【サンプル】", "")}
             </h2>
-            <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>{formatRangeJa(event.startAt, event.endAt)}</p>
+            <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>{formatEventRange(event)}</p>
             <p className="text-sm">{event.venueName.replace("（サンプル）", "")}</p>
           </div>
         </div>
@@ -103,7 +103,8 @@ export function EventCard({ event, lastAction, onAction, origin = ORIGINS[0], vi
           {origin.name}から直線 約{km === null ? "不明" : km.toFixed(1)}km {event.coordinatePrecision === "city" ? "（市の代表地点）" : "（会場付近）"} · {venueLabel(event)}
         </p>
         {event.venueEvidenceUrl && <a className="text-xs underline" href={event.venueEvidenceUrl} target="_blank" rel="noreferrer">会場区分の根拠</a>}
-        {visit && <div className="mt-2 text-xs" data-testid="venue-weather"><p>{visitTime(event, visit) ? visitTime(event, visit)?.replace("T", " ") + " 会場付近：" + weatherLabel(point) : "選択日時は会期外です"}</p>{forecast && <p>予報取得 {new Date(forecast.fetchedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}{forecast.error ? " / " + forecast.error : ""}</p>}<p>会期内の開場時間・荒天時の開催可否は公式情報を確認</p></div>}
+        {visit && <div className="mt-2 text-xs" data-testid="venue-weather"><p>{event.timePrecision === "date" ? "時刻未確認：開場時間は公式で確認してください" : visitTime(event, visit) ? visitTime(event, visit)?.replace("T", " ") + (event.coordinatePrecision === "city" ? " 市町村代表点の予報：" : " 会場付近：") + weatherLabel(point) : "選択日時は会期外です"}</p>{forecast && <p>予報取得 {new Date(forecast.fetchedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}{forecast.error ? " / " + forecast.error : ""}</p>}<p>会期内の開場時間・荒天時の開催可否は公式情報を確認</p></div>}
+        {event.collectionWarning && <p className="mt-2 text-xs">{event.collectionWarning}</p>}
 
         <div className="mt-4 rounded-[20px] px-3.5 py-3" style={{ background: "var(--chip)" }}>
           <p className="text-[11px] tracking-[0.12em]" style={{ color: "var(--muted)" }}>会場住所</p>
