@@ -25,7 +25,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-03T00:18:49.617Z",
+      "statusCheckedAt": "2026-10-04T02:56:56.736Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/15092",
       "officialUrl": "https://1484machinaka.jp/event/15092",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E8%B1%8A%E6%A9%8B%E9%A7%85%E5%8D%97%E5%8F%A3%E9%A7%85%E5%89%8D%E5%BA%83%E5%A0%B4",
@@ -52,13 +52,11 @@
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/15092",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-03T00:18:49.617Z"
+          "fetchedAt": "2026-10-04T02:56:56.736Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-03T00:18:49.617Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "id": "auto-376738325635cb83-2026-10-10",
@@ -84,7 +82,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-03T00:18:49.617Z",
+      "statusCheckedAt": "2026-10-04T02:56:56.736Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/14933",
       "officialUrl": "https://1484machinaka.jp/event/14933",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E8%B1%8A%E6%A9%8B%E9%A7%85%20%2F%20%E8%B1%8A%E6%A9%8B%E5%B8%82%E6%B0%91%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%20%2F%20%E8%B1%8A%E6%A9%8B%E5%85%AC%E5%9C%92",
@@ -105,21 +103,74 @@
       "sources": [
         {
           "id": "src-auto-376738325635cb83",
-          "eventId": "auto-376738325635cb83",
+          "eventId": "auto-376738325635cb83-2026-10-10",
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/14933",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-03T00:18:49.617Z"
+          "fetchedAt": "2026-10-04T02:56:56.736Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-03T00:18:49.617Z",
+      "updatedAt": "2026-10-04T02:56:56.736Z",
       "aliases": [
         "auto-376738325635cb83",
         "auto-376738325635cb83-2027-01-14"
+      ]
+    },
+    {
+      "id": "auto-e711b226ecad844c",
+      "title": "スポーツの日記念イベント「まちなかマルシェ-Enjoy Sports Days 2026-」",
+      "embeddedSocial": [],
+      "description": "豊橋まちなか情報ステーションの開催情報。2026.10.11(日) ~ 2026.10.12(月)",
+      "category": "food",
+      "startAt": "2026-10-11T00:00:00+09:00",
+      "endAt": "2026-10-13T00:00:00+09:00",
+      "timePrecision": "date",
+      "dateText": "2026.10.11(日) ~ 2026.10.12(月)",
+      "timeText": "",
+      "venueName": "駅前大通りエリア 豊橋駅南口駅前広場",
+      "address": "",
+      "city": "豊橋市",
+      "prefecture": "愛知県",
+      "latitude": 34.7692,
+      "longitude": 137.3915,
+      "coordinatePrecision": "city",
+      "locationEvidenceUrl": "https://www.city.toyohashi.lg.jp/48116.htm",
+      "distanceFromToyohashiKm": 0,
+      "driveMinutes": 0,
+      "score": 60,
+      "confidence": "high",
+      "status": "scheduled",
+      "statusCheckedAt": "2026-10-04T02:56:56.736Z",
+      "statusSourceUrl": "https://1484machinaka.jp/event/14947",
+      "officialUrl": "https://1484machinaka.jp/event/14947",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E9%A7%85%E5%89%8D%E5%A4%A7%E9%80%9A%E3%82%8A%E3%82%A8%E3%83%AA%E3%82%A2%20%E8%B1%8A%E6%A9%8B%E9%A7%85%E5%8D%97%E5%8F%A3%E9%A7%85%E5%89%8D%E5%BA%83%E5%A0%B4",
+      "priceText": "未確認（公式ページで確認）",
+      "aiComment": "公式情報を通常スクリプトで整理",
+      "goNowReason": "公式の開催日が掲載されています",
+      "recommendReason": "公式の開催情報から見つけた近隣の候補",
+      "isSample": false,
+      "weatherDependent": false,
+      "venueKind": "unknown",
+      "limitedPeriod": true,
+      "cadence": "short_run",
+      "adultOriented": false,
+      "foodAppeal": 0,
+      "rarity": 0,
+      "snsBuzz": 0,
+      "collectorSource": "machinaka",
+      "sources": [
+        {
+          "id": "src-auto-e711b226ecad844c",
+          "eventId": "auto-e711b226ecad844c",
+          "sourceType": "official",
+          "sourceUrl": "https://1484machinaka.jp/event/14947",
+          "sourceName": "豊橋まちなか情報ステーション",
+          "fetchedAt": "2026-10-04T02:56:56.736Z"
+        }
       ],
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "createdAt": "2026-10-04T02:56:56.736Z",
+      "updatedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "id": "auto-63418a27f13d8b86-2026-10-16",
@@ -145,7 +196,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-03T00:18:49.617Z",
+      "statusCheckedAt": "2026-10-04T02:56:56.736Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/14953",
       "officialUrl": "https://1484machinaka.jp/event/14953",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E3%81%A8%E3%81%8D%E3%82%8F%E3%83%BB%E6%9D%BE%E8%91%89%E3%82%A8%E3%83%AA%E3%82%A2%20%E8%B1%8A%E6%A9%8B%E5%B8%82%E6%B0%91%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC",
@@ -166,21 +217,19 @@
       "sources": [
         {
           "id": "src-auto-63418a27f13d8b86",
-          "eventId": "auto-63418a27f13d8b86",
+          "eventId": "auto-63418a27f13d8b86-2026-10-16",
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/14953",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-03T00:18:49.617Z"
+          "fetchedAt": "2026-10-04T02:56:56.736Z"
         }
       ],
       "createdAt": "2026-10-03T00:05:42.102Z",
-      "updatedAt": "2026-10-03T00:18:49.617Z",
+      "updatedAt": "2026-10-04T02:56:56.736Z",
       "aliases": [
         "auto-63418a27f13d8b86",
         "auto-63418a27f13d8b86-2026-10-17"
-      ],
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      ]
     },
     {
       "id": "auto-95bc97f81c06eb94",
@@ -8074,24 +8123,24 @@
       "cities": [
         "豊橋市"
       ],
-      "fingerprint": "a9190babfe99b8718d7466c97b13b45958da0664becdac7ab18bd9ee97d60957",
-      "checkedAt": "2026-10-04T02:43:01.885Z",
-      "lastSuccessAt": "2026-10-03T00:18:49.617Z",
-      "status": "failed",
+      "fingerprint": "80bee16a39bdf9775c69bcb783badcedea09e4b5180d2b609d5e0680ac71a33c",
+      "checkedAt": "2026-10-04T02:56:56.736Z",
+      "lastSuccessAt": "2026-10-04T02:56:56.736Z",
+      "status": "ok",
       "discovered": 25,
-      "fetched": 1,
-      "accepted": 0,
-      "retained": 4,
-      "skipped": 2,
-      "errors": 24,
+      "fetched": 24,
+      "accepted": 4,
+      "retained": 1,
+      "skipped": 21,
+      "errors": 0,
       "methods": {
         "html": 24,
         "feed": 11
       },
       "cityCounts": {
-        "豊橋市": 3
+        "豊橋市": 4
       },
-      "cursor": 1
+      "cursor": 0
     },
     {
       "id": "plat",
@@ -8349,177 +8398,143 @@
   "reviews": [
     {
       "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/wp-json/wp/v2/event?per_page=20&orderby=date&order=desc",
-      "reason": "一覧取得失敗: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "url": "https://1484machinaka.jp/event/15042",
+      "title": "ここにこ秋祭り 食べる 遊ぶ 買う 学ぶ 2026.09.26(土) 2026.10.11(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15052",
       "title": "桜井忍 個展 遊ぶ 2026.10.02(金) 2026.10.12(月) PLAT・水上ビル方面",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14966",
       "title": "パンとお菓子を作ろう!マヨエッグパンとパンケーキ 食べる 遊ぶ 学ぶ 2026.10.04(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14969",
       "title": "レゴのロボットですもう対戦!プログラミングで動かすよ! 遊ぶ 学ぶ 2026.10.04(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14970",
       "title": "薬と薬剤師を体験して学ぼう! 学ぶ 2026.10.04(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15003",
       "title": "劇団四季ファミリーミュージカル『はじまりの樹の神話~こそあどの森の物語~』 学ぶ 2026.10.04(日) 穂の国とよはし芸術劇場PLAT",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15039",
       "title": "ここふぇす2026 遊ぶ 2026.10.04(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15061",
       "title": "第55回 ともも読書会(テーマ:大好きな名作小説) 遊ぶ 学ぶ 2026.10.04(日) 大橋通",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15073",
       "title": "NIKU★CAMPUS 食べる 遊ぶ 2026.10.04(日) まちなか図書館・emCAMPUS",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/15092",
-      "title": "健康美マルシェ 食べる 遊ぶ 買う 2026.10.04(日) 豊橋駅南口駅前広場",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15090",
       "title": "水上ビルの朝市(10月) 食べる 買う 2026.10.05(月) PLAT・水上ビル方面",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15074",
       "title": "WINE PARK 食べる 2026.10.06(火) 2026.11.30(月) まちなか図書館・emCAMPUS",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15069",
       "title": "人蔘湯 避難訓練 学ぶ 2026.10.07(水) 駅前大通り",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14986",
       "title": "東三河ミライ会議2040 学ぶ 2026.10.08(木) 駅前大通り",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14760",
       "title": "まちを知り、まちを伝える~まち歩きで発信する豊橋の魅力~4 学ぶ 2026.10.10(土) まちなか図書館・emCAMPUS",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14933",
-      "title": "まちづくりセミナー&ワークショップ「通りを考える」 学ぶ 2026.10.10(土) 2027.01.14(木) 豊橋市民センター / その他",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14971",
       "title": "和菓子職人になろう!竹皮流しの栗蒸し羊かんをつくろう! 食べる 学ぶ 2026.10.10(土) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15036",
       "title": "くまおのおうち 遊ぶ 学ぶ 2026.10.10(土) 2026.10.25(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14947",
-      "title": "スポーツの日記念イベント「まちなかマルシェ-Enjoy Sports Days 2026-」 食べる 遊ぶ 学ぶ 2026.10.11(日) 2026.10.12(月) 豊橋駅南口駅前広場",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14978",
       "title": "おえかきしよう~えのぐでおえかき~ 遊ぶ 学ぶ 2026.10.11(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/15046",
       "title": "カラフルマルシェ 遊ぶ 買う 学ぶ 2026.10.11(日) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/14958",
       "title": "スポーツの日記念イベント「とよはしスポーツフェス2026」 食べる 遊ぶ 学ぶ 2026.10.12(月) こども未来館ここにこ",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14953",
-      "title": "豊橋市中心市街地活性化基本計画 市民説明会 学ぶ 2026.10.16(金) 2026.10.17(土) 豊橋市民センター",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/feed/",
       "title": "",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14348",
-      "title": "ちわと巡る!豊橋ぐるりん旅~ルナ・メロ・ななとつなぐ笑顔のレール~ 遊ぶ 2026.05.20(水) 2026.10.08(木) 駅前大通り",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 403",
-      "checkedAt": "2026-10-04T02:43:01.885Z"
+      "checkedAt": "2026-10-04T02:56:56.736Z"
     },
     {
       "sourceId": "toyokawa",
