@@ -41,6 +41,7 @@ jobs:
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
+          include-hidden-files: true
           path: out
           retention-days: 1
   deploy:
