@@ -15,8 +15,7 @@
       "urls": [
         "https://1484machinaka.jp/event/",
         "https://1484machinaka.jp/event/page/2",
-        "https://1484machinaka.jp/event/feed/",
-        "https://1484machinaka.jp/wp-json/wp/v2/event?per_page=20&orderby=date&order=desc"
+        "https://1484machinaka.jp/event/feed/"
       ],
       "hosts": [
         "1484machinaka.jp"
