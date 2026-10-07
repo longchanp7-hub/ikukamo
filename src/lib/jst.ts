@@ -24,11 +24,12 @@ export function formatRangeJa(startIso: string, endIso: string): string {
   if (same) return `${formatDateJa(startIso)} ${formatTimeJa(startIso)}–${formatTimeJa(endIso)}`;
   return `${formatDateJa(startIso)} ${formatTimeJa(startIso)} 〜 ${formatDateJa(endIso)} ${formatTimeJa(endIso)}`;
 }
-export function formatEventRange(event: { startAt: string; endAt: string; timePrecision?: string }): string {
+export function formatEventRange(event: { startAt: string; endAt: string; timePrecision?: string; timeText?: string }): string {
   if (event.timePrecision !== "date") return formatRangeJa(event.startAt, event.endAt);
   const last = new Date(Date.parse(event.endAt) - 1).toISOString();
   const a = formatDateJa(event.startAt), b = formatDateJa(last);
-  return `${a}${a === b ? "" : " 〜 " + b}（会期・時刻未確認）`;
+  const note = event.timeText ? "（時刻は下記掲載情報を確認）" : "（時刻未確認）";
+  return `${a}${a === b ? "" : " 〜 " + b}${note}`;
 }
 export function atHour(base: Date, hour: number, minute = 0): Date {
   return new Date(startOfDay(base).getTime() + (hour * 60 + minute) * 60000);
