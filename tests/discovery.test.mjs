@@ -15,7 +15,7 @@ test('all ten real source fragments yield dated events with verified cities',()=
 });
 test('shinshiro parser accepts the current generic h1 event layout',()=>{
  const s=config.sources.find(x=>x.id==='shinshiro');
- const html='<html><main><h1>令和8年 鳳来寺山もみじまつり</h1><dl><dt>【開催期間】</dt><dd>2026年11月9日(月) ～ 12月6日(日)</dd><dt>開催場所</dt><dd>〒441-1944 新城市門谷字鳳来寺1</dd></dl></main></html>';
+ const html='<html><h1>令和8年 鳳来寺山もみじまつり</h1><main><dl><dt>【開催期間】</dt><dd>2026年11月9日(月) ～ 12月6日(日)</dd><dt>開催場所</dt><dd>〒441-1944 新城市門谷字鳳来寺1</dd></dl></main></html>';
  const e=parseDetail(html,s,{url:'https://www.okuminavi.jp/event/detail/1381/',hint:''},regions,stamp)[0];
  assert.equal(e.title,'令和8年 鳳来寺山もみじまつり');assert.equal(e.city,'新城市');assert.match(e.venueName,/新城市門谷字鳳来寺1/);
 });
