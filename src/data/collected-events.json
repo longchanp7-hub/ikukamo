@@ -1543,7 +1543,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T02:26:51.985Z",
+      "statusCheckedAt": "2026-10-07T03:57:16.946Z",
       "statusSourceUrl": "https://www.okuminavi.jp/event/detail/1393/",
       "officialUrl": "https://www.okuminavi.jp/event/detail/1393/",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%9F%8E%E5%B8%82%20%E5%AF%8C%E6%B0%B8%E7%A5%9E%E7%A4%BE",
@@ -1569,11 +1569,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.okuminavi.jp/event/detail/1393/",
           "sourceName": "新城市観光協会・奥三河観光協議会",
-          "fetchedAt": "2026-10-07T02:26:51.985Z"
+          "fetchedAt": "2026-10-07T03:57:16.946Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z"
+      "updatedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "id": "auto-6dadaed9b4d39c91",
@@ -1599,7 +1599,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T02:26:51.985Z",
+      "statusCheckedAt": "2026-10-07T03:57:16.946Z",
       "statusSourceUrl": "https://www.okuminavi.jp/event/detail/1399/",
       "officialUrl": "https://www.okuminavi.jp/event/detail/1399/",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%9F%8E%E5%B8%82%20%E5%AD%A6%E7%AB%A5%E8%BE%B2%E5%9C%92%E5%B1%B1%E3%81%B3%E3%81%93%E3%81%AE%E4%B8%98%20%E4%BC%9D%E6%89%BF%E9%A4%A8",
@@ -1624,11 +1624,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.okuminavi.jp/event/detail/1399/",
           "sourceName": "新城市観光協会・奥三河観光協議会",
-          "fetchedAt": "2026-10-07T02:26:51.985Z"
+          "fetchedAt": "2026-10-07T03:57:16.946Z"
         }
       ],
       "createdAt": "2026-10-06T03:03:51.362Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z"
+      "updatedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "id": "auto-8db4e084b0b2ba89",
@@ -1654,7 +1654,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T02:26:51.985Z",
+      "statusCheckedAt": "2026-10-07T03:57:16.946Z",
       "statusSourceUrl": "https://www.okuminavi.jp/event/detail/1398/",
       "officialUrl": "https://www.okuminavi.jp/event/detail/1398/",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%9F%8E%E5%B8%82%20%E6%97%A7%E9%96%80%E8%B0%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1",
@@ -1679,11 +1679,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.okuminavi.jp/event/detail/1398/",
           "sourceName": "新城市観光協会・奥三河観光協議会",
-          "fetchedAt": "2026-10-07T02:26:51.985Z"
+          "fetchedAt": "2026-10-07T03:57:16.946Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z"
+      "updatedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "id": "auto-9b59a2cb2e25e541",
@@ -1739,7 +1739,9 @@
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z"
+      "updatedAt": "2026-10-07T02:26:51.985Z",
+      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
+      "collectionExpired": false
     },
     {
       "id": "auto-35fd7052eb41ef7c",
@@ -1794,7 +1796,9 @@
         }
       ],
       "createdAt": "2026-10-06T03:03:51.362Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z"
+      "updatedAt": "2026-10-07T02:26:51.985Z",
+      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
+      "collectionExpired": false
     },
     {
       "id": "auto-a5cecbab4347499a",
@@ -11375,14 +11379,14 @@
         "豊根村"
       ],
       "fingerprint": "c1fdd05c72f2d4ecc7d9548f98206f275fcecfc47bbbc3cfa2fece1ffc57cd9e",
-      "checkedAt": "2026-10-07T02:26:51.985Z",
-      "lastSuccessAt": "2026-10-07T02:26:51.985Z",
+      "checkedAt": "2026-10-07T03:57:16.946Z",
+      "lastSuccessAt": "2026-10-07T03:57:16.946Z",
       "status": "partial",
       "discovered": 15,
       "fetched": 12,
-      "accepted": 5,
-      "retained": 1,
-      "skipped": 12,
+      "accepted": 3,
+      "retained": 3,
+      "skipped": 15,
       "errors": 1,
       "methods": {
         "html": 20
@@ -11390,7 +11394,7 @@
       "cityCounts": {
         "新城市": 6
       },
-      "cursor": 9
+      "cursor": 5
     },
     {
       "id": "aichi",
@@ -11869,38 +11873,38 @@
     },
     {
       "sourceId": "shinshiro",
+      "url": "https://www.okuminavi.jp/event/detail/1362/",
+      "title": "ATERA GREEN ACTION 2026.06.06(土) 詳しく見る",
+      "reason": "イベント名・開催会場が確定できません",
+      "checkedAt": "2026-10-07T03:57:16.946Z"
+    },
+    {
+      "sourceId": "shinshiro",
+      "url": "https://www.okuminavi.jp/event/detail/1358/",
+      "title": "朝活Cafe! 詳しく見る",
+      "reason": "開催年・月日が開催欄で確定できません",
+      "checkedAt": "2026-10-07T03:57:16.946Z"
+    },
+    {
+      "sourceId": "shinshiro",
       "url": "https://www.okuminavi.jp/event/detail/1381/",
       "title": "令和8年 鳳来寺山もみじまつり",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-07T02:26:51.985Z"
+      "checkedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "sourceId": "shinshiro",
       "url": "https://www.okuminavi.jp/event/detail/1374/",
       "title": "晴れ風ACTION 2026.07.01(水)~2026.12.31(木) 詳しく見る",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-07T02:26:51.985Z"
+      "checkedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "sourceId": "shinshiro",
       "url": "https://www.okuminavi.jp/event/detail/679/",
       "title": "しんしろ軽トラ市(のんほいルロット) 毎月第4日曜日 詳しく見る",
       "reason": "開催年・月日が開催欄で確定できません",
-      "checkedAt": "2026-10-07T02:26:51.985Z"
-    },
-    {
-      "sourceId": "shinshiro",
-      "url": "https://www.okuminavi.jp/event/detail/693/",
-      "title": "湯谷温泉花まつり 例年2月の土曜日に開催 ※雨天中止。詳細は、当該年度の情報をご確認ください。 詳しく見る",
-      "reason": "開催年・月日が開催欄で確定できません",
-      "checkedAt": "2026-10-07T02:26:51.985Z"
-    },
-    {
-      "sourceId": "shinshiro",
-      "url": "https://www.okuminavi.jp/event/detail/1373/",
-      "title": "新城・奥三河 こだわりのかき氷 guide map2026 新たに2店舗が加わり、10店舗が協力して作る『かき氷マップ』も今年で4年目となりました。 各店舗で作るこだわりのかき氷、ぜひお楽しみください。 詳しく見る",
-      "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-07T02:26:51.985Z"
+      "checkedAt": "2026-10-07T03:57:16.946Z"
     },
     {
       "sourceId": "west",
