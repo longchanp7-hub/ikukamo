@@ -12,7 +12,7 @@ import { latestActionMap, loadFeedback, saveFeedbackRecord } from "@/lib/feedbac
 import { loadPickedEvents } from "@/lib/picked-events";
 import { PERSONAL_CHANGED } from "@/lib/personal-store";
 import { jstInput } from "@/lib/jst";
-import { ORIGINS, confirmedIndoor, distanceKm, loadForecasts, visitTime, type Origin, type Forecasts } from "@/lib/outing-context";
+import { ORIGINS, confirmedIndoor, distanceKm, loadForecasts, recommendationEligible, visitTime, type Origin, type Forecasts } from "@/lib/outing-context";
 import type { FeedbackAction, OutingEvent, TimeBucket, UserFeedback } from "@/lib/types";
 import { CollectionStatus } from "./CollectionStatus";
 import { inCollectionRegion, freshForRecommendation } from "@/lib/outing-context";
@@ -47,7 +47,7 @@ export function HomeClient({ events }: { events: OutingEvent[] }) {
   }, []);
   const all = useMemo(() => [...picked, ...events].filter((e, i, a) => a.findIndex(x => x.id === e.id) === i), [picked, events]);
   const actions = useMemo(() => latestActionMap(feedback, all), [feedback, all]);
-  const visible = useMemo(() => all.filter(e => (e.id.startsWith("ig-") || inCollectionRegion(e)) && freshForRecommendation(e, now?.getTime()) && (!city || e.city === city) && e.cadence !== "regular" && e.cadence !== "seasonal_series" && actions[e.id] !== "dismiss" && (!indoor || confirmedIndoor(e)) && (!visitOnly || !!visitTime(e, visit))), [all, actions, indoor, visitOnly, visit, now, city]);
+  const visible = useMemo(() => all.filter(e => (e.id.startsWith("ig-") || inCollectionRegion(e)) && freshForRecommendation(e, now?.getTime()) && recommendationEligible(e) && (!city || e.city === city) && e.cadence !== "regular" && e.cadence !== "seasonal_series" && actions[e.id] !== "dismiss" && (!indoor || confirmedIndoor(e)) && (!visitOnly || !!visitTime(e, visit))), [all, actions, indoor, visitOnly, visit, now, city]);
   function sorted(list: OutingEvent[]) { return nearby ? [...list].sort((a,b) => (distanceKm(origin,a) ?? Infinity) - (distanceKm(origin,b) ?? Infinity)) : list; }
   const list = now ? (tab === "schedule" ? upcomingEvents(visible, now) : eventsInBucket(visible, tab, now)) : [];
   const groups = now ? upcomingByDate(visible, now) : [];

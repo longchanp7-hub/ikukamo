@@ -17,6 +17,20 @@ export function inCollectionRegion(event: Pick<OutingEvent, "city">) { return re
 export function freshForRecommendation(event: OutingEvent, now = Date.now()) {
   return !event.collectorSource || !event.collectionExpired && now - Date.parse(event.statusCheckedAt || event.updatedAt) <= 7 * 86400000;
 }
+
+const CHILD_CENTRIC_RE = /(子育て|育児|親子|幼児|児童|キッズ|こども|子ども|赤ちゃん|ベビー|読み聞かせ|ちびっこ|小学生向け|小学生対象)/;
+const COMPETITIVE_SPORT_RE = /(野球|サッカー|フットサル|バスケット(?:ボール)?|バレーボール|バドミントン|卓球|テニス大会|陸上競技|マラソン|リレーマラソン|トライアスロン|自転車競技|ロードレース|柔道大会|剣道大会|空手大会|格闘技|新体操|くるくるスポーツ)/;
+const BUSINESS_NOISE_RE = /(就職|求人|採用説明|事業者向け|企業向け|経営相談|創業相談|まちづくりセミナー|セミナー&ワークショップ)/;
+
+export function recommendationEligible(event: OutingEvent): boolean {
+  if (!event.collectorSource) return true;
+  const text = `${event.title} ${event.description} ${event.venueName}`.normalize("NFKC");
+  if (CHILD_CENTRIC_RE.test(text) || COMPETITIVE_SPORT_RE.test(text) || BUSINESS_NOISE_RE.test(text)) return false;
+  const start = Date.parse(event.startAt), end = Date.parse(event.endAt);
+  const durationDays = Number.isFinite(start) && Number.isFinite(end) ? (end - start) / 86400000 : 0;
+  if (durationDays > 35 && event.adultOriented === false && (event.category === "local" || event.category === "other")) return false;
+  return true;
+}
 export function validCoordinates(lat: number, lon: number) { return Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180; }
 export function distanceKm(a: Origin, b: Pick<OutingEvent, "latitude" | "longitude">): number | null {
   if (!validCoordinates(a.latitude, a.longitude) || !validCoordinates(b.latitude, b.longitude)) return null;

@@ -31,7 +31,12 @@ export function mergeDuplicateEvents(events: OutingEvent[]): OutingEvent[] {
       if (!sources.some((x) => x.sourceUrl === s.sourceUrl && x.sourceType === s.sourceType)) sources.push(s);
     }
 
-    const better = !!ev.collectorSource && !ev.collectionWarning && Date.parse(ev.updatedAt) > Date.parse(existing.updatedAt) || !existing.collectorSource && (ev.confidence === "confirmed" || (ev.confidence === "high" && existing.confidence === "unverified"));
+    const existingCurated = !existing.collectorSource;
+    const incomingCurated = !ev.collectorSource;
+    const better = incomingCurated !== existingCurated
+      ? incomingCurated
+      : !!ev.collectorSource && !ev.collectionWarning && Date.parse(ev.updatedAt) > Date.parse(existing.updatedAt)
+        || !existing.collectorSource && (ev.confidence === "confirmed" || (ev.confidence === "high" && existing.confidence === "unverified"));
     const preferred = better ? ev : existing;
     const statusSource = existing.officialUrl && existing.officialUrl === ev.officialUrl && (existing.collectorSource || ev.collectorSource)
       ? Date.parse(existing.statusCheckedAt || existing.updatedAt) >= Date.parse(ev.statusCheckedAt || ev.updatedAt) ? existing : ev
