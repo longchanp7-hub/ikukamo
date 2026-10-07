@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "timeoutMs": 10000,
+  "timeoutMs": 12000,
   "attempts": 2,
   "spacingMs": 700,
   "cacheHours": 6,
