@@ -25,7 +25,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/14933",
       "officialUrl": "https://1484machinaka.jp/event/14933",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E8%B1%8A%E6%A9%8B%E9%A7%85%20%2F%20%E8%B1%8A%E6%A9%8B%E5%B8%82%E6%B0%91%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%20%2F%20%E8%B1%8A%E6%A9%8B%E5%85%AC%E5%9C%92",
@@ -50,17 +50,15 @@
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/14933",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
+      "updatedAt": "2026-10-07T04:07:33.728Z",
       "aliases": [
         "auto-376738325635cb83",
         "auto-376738325635cb83-2027-01-14"
-      ],
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      ]
     },
     {
       "id": "auto-e711b226ecad844c",
@@ -86,7 +84,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/14947",
       "officialUrl": "https://1484machinaka.jp/event/14947",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E9%A7%85%E5%89%8D%E5%A4%A7%E9%80%9A%E3%82%8A%E3%82%A8%E3%83%AA%E3%82%A2%20%E8%B1%8A%E6%A9%8B%E9%A7%85%E5%8D%97%E5%8F%A3%E9%A7%85%E5%89%8D%E5%BA%83%E5%A0%B4",
@@ -111,13 +109,11 @@
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/14947",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-04T02:56:56.736Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-63418a27f13d8b86-2026-10-16",
@@ -143,7 +139,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://1484machinaka.jp/event/14953",
       "officialUrl": "https://1484machinaka.jp/event/14953",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%B8%82%20%E3%81%A8%E3%81%8D%E3%82%8F%E3%83%BB%E6%9D%BE%E8%91%89%E3%82%A8%E3%83%AA%E3%82%A2%20%E8%B1%8A%E6%A9%8B%E5%B8%82%E6%B0%91%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC",
@@ -168,17 +164,15 @@
           "sourceType": "official",
           "sourceUrl": "https://1484machinaka.jp/event/14953",
           "sourceName": "豊橋まちなか情報ステーション",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:05:42.102Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
+      "updatedAt": "2026-10-07T04:07:33.728Z",
       "aliases": [
         "auto-63418a27f13d8b86",
         "auto-63418a27f13d8b86-2026-10-17"
-      ],
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      ]
     },
     {
       "id": "auto-961276eb6171649d",
@@ -880,7 +874,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.toyokawa-map.net/event/000139.html",
       "officialUrl": "https://www.toyokawa-map.net/event/000139.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E5%B7%9D%E5%B8%82%20%E7%82%BA%E5%BD%93%E7%A8%B2%E8%8D%B7%E7%A5%9E%E7%A4%BE(%E8%B1%8A%E5%B7%9D%E5%B8%82%E7%82%BA%E5%BD%93%E7%94%BA%E5%AE%AE%E8%84%8732%E7%95%AA%E5%9C%B0)",
@@ -905,13 +899,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.toyokawa-map.net/event/000139.html",
           "sourceName": "豊川市観光協会 ぐるっと豊川",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-d2b96fd4131e3690",
@@ -937,7 +929,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.toyokawa-map.net/event/000022.html",
       "officialUrl": "https://www.toyokawa-map.net/event/000022.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E5%B7%9D%E5%B8%82%20%E6%9D%89%E6%A3%AE%E5%85%AB%E5%B9%A1%E7%A4%BE%E5%A2%83%E5%86%85%20%E9%9B%A8%E5%A4%A9%E6%99%82%3A%E8%B1%8A%E5%B7%9D%E5%B8%82%E9%9F%B3%E7%BE%BD%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB(%E3%82%A6%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%82%A2%E3%83%9B%E3%83%BC%E3%83%AB)",
@@ -962,13 +954,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.toyokawa-map.net/event/000022.html",
           "sourceName": "豊川市観光協会 ぐるっと豊川",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-61a346cd75439bda",
@@ -994,7 +984,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.toyokawa-map.net/event/000114.html",
       "officialUrl": "https://www.toyokawa-map.net/event/000114.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E5%B7%9D%E5%B8%82%20%E8%B1%8A%E5%B7%9D%E5%B8%82%20%E8%AB%8F%E8%A8%AA%E3%82%A8%E3%83%AA%E3%82%A2",
@@ -1019,13 +1009,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.toyokawa-map.net/event/000114.html",
           "sourceName": "豊川市観光協会 ぐるっと豊川",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-b4283e34b1b8263c",
@@ -1051,7 +1039,7 @@
       "score": 60,
       "confidence": "high",
       "status": "ended",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.toyokawa-map.net/event/000136.html",
       "officialUrl": "https://www.toyokawa-map.net/event/000136.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E5%B7%9D%E5%B8%82%20%E3%82%B7%E3%83%B3%E3%83%88%E3%83%BC%E3%83%BB%E3%83%8F%E3%83%BC%E3%83%88%E3%83%BB%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A%E5%89%8D%E5%BA%83%E5%A0%B4",
@@ -1076,11 +1064,66 @@
           "sourceType": "official",
           "sourceUrl": "https://www.toyokawa-map.net/event/000136.html",
           "sourceName": "豊川市観光協会 ぐるっと豊川",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z"
+      "updatedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "id": "auto-1bf445548f447f93",
+      "title": "第3回 渥美半島花火大会",
+      "embeddedSocial": [],
+      "description": "渥美半島観光ビューローの開催情報。2026.10.10 / 19:00~20:30",
+      "category": "festival",
+      "startAt": "2026-10-10T19:00:00+09:00",
+      "endAt": "2026-10-10T20:30:00+09:00",
+      "timePrecision": "time",
+      "dateText": "2026.10.10",
+      "timeText": "19:00~20:30",
+      "venueName": "田原市総合体育館周辺",
+      "address": "",
+      "city": "田原市",
+      "prefecture": "愛知県",
+      "latitude": 34.67143969999999,
+      "longitude": 137.27500949999998,
+      "coordinatePrecision": "venue",
+      "locationEvidenceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
+      "distanceFromToyohashiKm": 0,
+      "driveMinutes": 0,
+      "score": 60,
+      "confidence": "high",
+      "status": "scheduled",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
+      "statusSourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
+      "officialUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%94%B0%E5%8E%9F%E5%B8%82%20%E7%94%B0%E5%8E%9F%E5%B8%82%E7%B7%8F%E5%90%88%E4%BD%93%E8%82%B2%E9%A4%A8%E5%91%A8%E8%BE%BA",
+      "priceText": "未確認（公式ページで確認）",
+      "aiComment": "公式情報を通常スクリプトで整理",
+      "goNowReason": "公式の開催日が掲載されています",
+      "recommendReason": "公式の開催情報から見つけた近隣の候補",
+      "isSample": false,
+      "weatherDependent": false,
+      "venueKind": "unknown",
+      "limitedPeriod": true,
+      "cadence": "short_run",
+      "adultOriented": false,
+      "foodAppeal": 0,
+      "rarity": 0,
+      "snsBuzz": 0,
+      "collectorSource": "tahara",
+      "sources": [
+        {
+          "id": "src-auto-1bf445548f447f93",
+          "eventId": "auto-1bf445548f447f93",
+          "sourceType": "official",
+          "sourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
+          "sourceName": "渥美半島観光ビューロー",
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
+        }
+      ],
+      "createdAt": "2026-10-03T00:01:50.993Z",
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-757bd64d5585f1eb",
@@ -1106,7 +1149,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=141",
       "officialUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=141",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%94%B0%E5%8E%9F%E5%B8%82%20%E7%94%B0%E5%8E%9F%E5%B8%82%E7%94%B0%E5%8E%9F%E7%94%BA%E5%91%A8%E8%BE%BA",
@@ -1131,13 +1174,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=141",
           "sourceName": "渥美半島観光ビューロー",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-42e13127e970960f",
@@ -1163,7 +1204,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=138",
       "officialUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=138",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%92%B2%E9%83%A1%E5%B8%82%20%E9%9B%86%E5%90%88%E5%A0%B4%E6%89%80%3A%E8%92%B2%E9%83%A1%E5%B8%82%20%E3%83%A9%E3%82%B0%E3%83%BC%E3%83%8A%E3%83%86%E3%83%B3%E3%83%9C%E3%82%B9",
@@ -1188,13 +1229,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=138",
           "sourceName": "渥美半島観光ビューロー",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-c2c7b045f3540f4d",
@@ -1220,7 +1259,7 @@
       "score": 60,
       "confidence": "high",
       "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T03:59:24.390Z",
+      "statusCheckedAt": "2026-10-07T04:07:33.728Z",
       "statusSourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=126",
       "officialUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=126",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%94%B0%E5%8E%9F%E5%B8%82%20%E7%94%B0%E5%8E%9F%E5%B8%82%E5%86%85",
@@ -1245,13 +1284,11 @@
           "sourceType": "official",
           "sourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=126",
           "sourceName": "渥美半島観光ビューロー",
-          "fetchedAt": "2026-10-07T03:59:24.390Z"
+          "fetchedAt": "2026-10-07T04:07:33.728Z"
         }
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T03:59:24.390Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
+      "updatedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "id": "auto-fad22a15b1d7aac0",
@@ -1364,63 +1401,6 @@
       ],
       "createdAt": "2026-10-03T00:01:50.993Z",
       "updatedAt": "2026-10-07T02:26:51.985Z"
-    },
-    {
-      "id": "auto-1bf445548f447f93",
-      "title": "第3回 渥美半島花火大会",
-      "embeddedSocial": [],
-      "description": "渥美半島観光ビューローの開催情報。2026.10.10 / 19:00~20:30",
-      "category": "festival",
-      "startAt": "2026-10-10T19:00:00+09:00",
-      "endAt": "2026-10-10T20:30:00+09:00",
-      "timePrecision": "time",
-      "dateText": "2026.10.10",
-      "timeText": "19:00~20:30",
-      "venueName": "田原市総合体育館周辺",
-      "address": "",
-      "city": "田原市",
-      "prefecture": "愛知県",
-      "latitude": 34.67143969999999,
-      "longitude": 137.27500949999998,
-      "coordinatePrecision": "venue",
-      "locationEvidenceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
-      "distanceFromToyohashiKm": 0,
-      "driveMinutes": 0,
-      "score": 60,
-      "confidence": "high",
-      "status": "scheduled",
-      "statusCheckedAt": "2026-10-07T02:26:51.985Z",
-      "statusSourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
-      "officialUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%94%B0%E5%8E%9F%E5%B8%82%20%E7%94%B0%E5%8E%9F%E5%B8%82%E7%B7%8F%E5%90%88%E4%BD%93%E8%82%B2%E9%A4%A8%E5%91%A8%E8%BE%BA",
-      "priceText": "未確認（公式ページで確認）",
-      "aiComment": "公式情報を通常スクリプトで整理",
-      "goNowReason": "公式の開催日が掲載されています",
-      "recommendReason": "公式の開催情報から見つけた近隣の候補",
-      "isSample": false,
-      "weatherDependent": false,
-      "venueKind": "unknown",
-      "limitedPeriod": true,
-      "cadence": "short_run",
-      "adultOriented": false,
-      "foodAppeal": 0,
-      "rarity": 0,
-      "snsBuzz": 0,
-      "collectorSource": "tahara",
-      "sources": [
-        {
-          "id": "src-auto-1bf445548f447f93",
-          "eventId": "auto-1bf445548f447f93",
-          "sourceType": "official",
-          "sourceUrl": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
-          "sourceName": "渥美半島観光ビューロー",
-          "fetchedAt": "2026-10-07T02:26:51.985Z"
-        }
-      ],
-      "createdAt": "2026-10-03T00:01:50.993Z",
-      "updatedAt": "2026-10-07T02:26:51.985Z",
-      "collectionWarning": "前回の情報です。今回の詳細確認に成功していません",
-      "collectionExpired": false
     },
     {
       "id": "auto-caf12a5c082d01cd",
@@ -12152,20 +12132,23 @@
         "豊橋市"
       ],
       "fingerprint": "da0383ea053be76d1bd93281b5d965c53bd300d2aca612308baf040fea962527",
-      "checkedAt": "2026-10-07T04:03:22.938Z",
-      "lastSuccessAt": "2026-10-07T03:59:24.390Z",
-      "status": "failed",
-      "discovered": 0,
-      "fetched": 0,
-      "accepted": 0,
-      "retained": 5,
-      "skipped": 0,
-      "errors": 7,
-      "methods": {},
+      "checkedAt": "2026-10-07T04:07:33.728Z",
+      "lastSuccessAt": "2026-10-07T04:07:33.728Z",
+      "status": "ok",
+      "discovered": 25,
+      "fetched": 24,
+      "accepted": 3,
+      "retained": 2,
+      "skipped": 22,
+      "errors": 0,
+      "methods": {
+        "html": 24,
+        "feed": 11
+      },
       "cityCounts": {
         "豊橋市": 3
       },
-      "cursor": 1
+      "cursor": 0
     },
     {
       "id": "plat",
@@ -12200,16 +12183,18 @@
         "豊川市"
       ],
       "fingerprint": "90f0bed37df0b52bd4d497e05a94b15c3f8e9637e6a60da60fe0619453bc3543",
-      "checkedAt": "2026-10-07T04:03:22.938Z",
-      "lastSuccessAt": "2026-10-07T03:59:24.390Z",
-      "status": "failed",
-      "discovered": 0,
-      "fetched": 0,
-      "accepted": 0,
-      "retained": 4,
-      "skipped": 0,
-      "errors": 5,
-      "methods": {},
+      "checkedAt": "2026-10-07T04:07:33.728Z",
+      "lastSuccessAt": "2026-10-07T04:07:33.728Z",
+      "status": "ok",
+      "discovered": 9,
+      "fetched": 9,
+      "accepted": 4,
+      "retained": 0,
+      "skipped": 5,
+      "errors": 0,
+      "methods": {
+        "html": 9
+      },
       "cityCounts": {
         "豊川市": 3
       },
@@ -12223,21 +12208,23 @@
         "田原市"
       ],
       "fingerprint": "6156bb8634f034bdbd6a01020b468bd054e9f0c39085754c488d166aec3f7bca",
-      "checkedAt": "2026-10-07T04:03:22.938Z",
-      "lastSuccessAt": "2026-10-07T03:59:24.390Z",
-      "status": "failed",
-      "discovered": 0,
-      "fetched": 0,
-      "accepted": 0,
-      "retained": 6,
-      "skipped": 0,
-      "errors": 7,
-      "methods": {},
+      "checkedAt": "2026-10-07T04:07:33.728Z",
+      "lastSuccessAt": "2026-10-07T04:07:33.728Z",
+      "status": "ok",
+      "discovered": 21,
+      "fetched": 12,
+      "accepted": 4,
+      "retained": 2,
+      "skipped": 17,
+      "errors": 0,
+      "methods": {
+        "html": 21
+      },
       "cityCounts": {
         "田原市": 4,
         "蒲郡市": 1
       },
-      "cursor": 1
+      "cursor": 13
     },
     {
       "id": "okazaki",
@@ -12419,128 +12406,241 @@
   "reviews": [
     {
       "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/",
-      "reason": "一覧取得失敗: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://1484machinaka.jp/event/15042",
+      "title": "ここにこ秋祭り 食べる 遊ぶ 買う 学ぶ 2026.09.26(土) 2026.10.11(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/page/2",
-      "reason": "一覧取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://1484machinaka.jp/event/15052",
+      "title": "桜井忍 個展 遊ぶ 2026.10.02(金) 2026.10.12(月) PLAT・水上ビル方面",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15074",
+      "title": "WINE PARK 食べる 2026.10.06(火) 2026.11.30(月) まちなか図書館・emCAMPUS",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15069",
+      "title": "人蔘湯 避難訓練 学ぶ 2026.10.07(水) 駅前大通り",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14986",
+      "title": "東三河ミライ会議2040 学ぶ 2026.10.08(木) 駅前大通り",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14760",
+      "title": "まちを知り、まちを伝える~まち歩きで発信する豊橋の魅力~4 学ぶ 2026.10.10(土) まちなか図書館・emCAMPUS",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14971",
+      "title": "和菓子職人になろう!竹皮流しの栗蒸し羊かんをつくろう! 食べる 学ぶ 2026.10.10(土) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15036",
+      "title": "くまおのおうち 遊ぶ 学ぶ 2026.10.10(土) 2026.10.25(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14978",
+      "title": "おえかきしよう~えのぐでおえかき~ 遊ぶ 学ぶ 2026.10.11(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15046",
+      "title": "カラフルマルシェ 遊ぶ 買う 学ぶ 2026.10.11(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14958",
+      "title": "スポーツの日記念イベント「とよはしスポーツフェス2026」 食べる 遊ぶ 学ぶ 2026.10.12(月) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15007",
+      "title": "PARCO PRODUCE 2026アメリカン・ドリーム 学ぶ 2026.10.16(金) 2026.10.18(日) 穂の国とよはし芸術劇場PLAT",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14659",
+      "title": "ELECTONE STEP ON STAGE 遊ぶ 2026.10.17(土) まちなか広場",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14972",
+      "title": "SOZOこどもクッキング 南瓜入りハンバーグと南瓜タルト 食べる 学ぶ 2026.10.17(土) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14973",
+      "title": "かんたんプログラミングとUVレジンで光るチャーム作り 遊ぶ 学ぶ 2026.10.17(土) 2026.10.18(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15104",
+      "title": "第6回グローバルラウンジ 遊ぶ 学ぶ 2026.10.17(土) まちなか図書館・emCAMPUS",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14975",
+      "title": "陶芸家になろう!お皿やコップを作ろう! 遊ぶ 学ぶ 2026.10.18(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14980",
+      "title": "「おしゃべり会」ちょっと聞いて!わが子自慢 学ぶ 2026.10.18(日) こども未来館ここにこ",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/15009",
+      "title": "MOA COLLECTION 遊ぶ 2026.10.18(日) 穂の国とよはし芸術劇場PLAT",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "machinaka",
+      "url": "https://1484machinaka.jp/event/14764",
+      "title": "2026年 経営者が書いた100冊を味わう「秋の読書会」 学ぶ 2026.10.21(水) まちなか図書館・emCAMPUS",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "machinaka",
       "url": "https://1484machinaka.jp/event/feed/",
-      "reason": "一覧取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/",
-      "reason": "候補リンクが0件。構造変更または掲載状況を要確認",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14947",
-      "title": "スポーツの日記念イベント「まちなかマルシェ-Enjoy Sports Days 2026-」",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14953",
-      "title": "豊橋市中心市街地活性化基本計画 市民説明会",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
-    },
-    {
-      "sourceId": "machinaka",
-      "url": "https://1484machinaka.jp/event/14933",
-      "title": "まちづくりセミナー&ワークショップ「通りを考える」",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "title": "",
+      "reason": "イベント名・開催会場が確定できません",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "toyokawa",
-      "url": "https://www.toyokawa-map.net/event/?Mode=search",
-      "reason": "一覧取得失敗: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.toyokawa-map.net/event/000020.html",
+      "title": "旧東海道宿場町エリア(御油/赤坂) 杉森八幡社例大祭 大名行列 期間 2026年10月9日~2026年10月11日場所 杉森八幡社・旧東海道赤坂宿一帯",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "toyokawa",
-      "url": "https://www.toyokawa-map.net/event/?Mode=search",
-      "reason": "候補リンクが0件。構造変更または掲載状況を要確認",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.toyokawa-map.net/event/000021.html",
+      "title": "こざかい葵まつり 期間 2026年10月11日~場所 こざかい葵風館周辺",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "toyokawa",
-      "url": "https://www.toyokawa-map.net/event/000139.html",
-      "title": "為当稲荷神社・秋の大祭(tametoマルシェ)",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.toyokawa-map.net/event/000138.html",
+      "title": "豊川お土産グランプリ2026 期間 2026年10月11日~場所 豊川稲荷",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "toyokawa",
-      "url": "https://www.toyokawa-map.net/event/000022.html",
-      "title": "赤坂の舞台伝統芸能公演",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.toyokawa-map.net/event/000026.html",
+      "title": "ほいとも祭 期間 2026年10月11日~場所 豊川稲荷周辺エリア",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "toyokawa",
-      "url": "https://www.toyokawa-map.net/event/000114.html",
-      "title": "すわまちビンGO!with ハロウィン",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.toyokawa-map.net/event/000023.html",
+      "title": "みとふれあいまつり 期間 2026年10月25日~場所 憩いの広場、ハートフルホール、御津体育館",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/index.php",
-      "reason": "一覧取得失敗: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=137",
+      "title": "どんぶりの日2026 期間:2026.10.10 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/index.php",
-      "reason": "候補リンクが0件。構造変更または掲載状況を要確認",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=150",
+      "title": "崋山神社 秋の例大祭 期間:2026.10.10 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=138",
-      "title": "【GOGO三河湾】佐久島・日間賀島・伊良湖クルーズ&クイズイベント",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=148",
+      "title": "集まれちびっこ権現の森 期間:2026.10.25 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=126",
-      "title": "巡ってみよう渥美半島「道の駅✕文化財スタンプラリー」",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=131",
+      "title": "第1回 渥美半島リレーマラソン 期間:2026.10.31 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=142",
-      "title": "企画展『未来へつなぐ、重要文化財 渡辺崋山関係資料』",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=145",
+      "title": "松ぼっくりのハロウィン飾りづくり 期間:2026.09.26~2026.10.31 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=118",
-      "title": "第3回 渥美半島花火大会",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=69",
+      "title": "第37回 渥美半島菊花大会 期間:2026.10.30~2026.11.05 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "tahara",
-      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=141",
-      "title": "令和8年度 田原まつり",
-      "reason": "詳細取得失敗: 同一ホストの追加取得を停止: The operation was aborted due to timeout",
-      "checkedAt": "2026-10-07T04:03:22.938Z"
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=139",
+      "title": "鳥羽♡伊良湖ゆうじょうクイズ 期間:2026.09.01~2026.11.23 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
+    },
+    {
+      "sourceId": "tahara",
+      "url": "https://www.taharakankou.gr.jp/event/detail.php?event_id=119",
+      "title": "渥美半島サマーイベント2026 期間:2026.07.01~2026.11.30 More Info",
+      "reason": "開催地の市町村が不明（発信元の所在地で代用しません）",
+      "checkedAt": "2026-10-07T04:07:33.728Z"
     },
     {
       "sourceId": "okazaki",
