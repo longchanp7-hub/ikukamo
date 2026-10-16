@@ -423,7 +423,7 @@ export const LIVE_EVENTS: OutingEvent[] = [
   },
   {
     "id": "toyota-koromo-shingaku-2026-10-17",
-    "title": "挙母祭り（10/17 試楽祭）",
+    "title": "挙母祭り",
     "description": "挙母祭りの試楽祭。朝5時のお祓い・お越し太鼓に始まり、山車の町内曳き、夜19時〜21時の挙母神社「七度参り」が見どころ。18日の本楽祭とは開始時刻が別です。",
     "category": "festival",
     "startAt": "2026-10-17T05:00:00+09:00",
@@ -476,7 +476,7 @@ export const LIVE_EVENTS: OutingEvent[] = [
   },
   {
     "id": "toyota-koromo-hongaku-2026-10-18",
-    "title": "挙母祭り（10/18 本楽祭）",
+    "title": "挙母祭り",
     "description": "挙母祭り本楽祭。9時から山車が集合し、10時から曳き込み。午後は神輿渡御と山車の曳き出し、19時〜19時30分に矢作川河川敷で奉納花火を予定。",
     "category": "festival",
     "startAt": "2026-10-18T09:00:00+09:00",
