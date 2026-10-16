@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { mergeDuplicateEvents } from "../src/lib/dedupe";
 import { recommendationEligible } from "../src/lib/outing-context";
 import type { OutingEvent } from "../src/lib/types";
+import { LIVE_EVENTS } from "../src/data/live-events";
+import collection from "../src/data/collected-events.json";
 
 function event(overrides: Partial<OutingEvent> = {}): OutingEvent {
   return {
@@ -60,6 +62,23 @@ describe("recommendation policy", () => {
 
   it("does not suppress manually curated events", () => {
     expect(recommendationEligible(event({ title: "親子の伝統祭", collectorSource: undefined }))).toBe(true);
+  });
+
+
+  it("merges the corrected Koromo schedule with the existing collected dates", () => {
+    const original = (collection.events as OutingEvent[]).filter(
+      (e) => e.title === "挙母祭り" && e.startAt.startsWith("2026-10-1"),
+    );
+    const corrected = LIVE_EVENTS.filter((e) => e.title === "挙母祭り");
+    expect(original).toHaveLength(2);
+    expect(corrected).toHaveLength(2);
+    const merged = mergeDuplicateEvents([...original, ...corrected]);
+    expect(merged).toHaveLength(2);
+    expect(merged.find((e) => e.startAt.startsWith("2026-10-17"))?.endAt)
+      .toBe("2026-10-17T21:00:00+09:00");
+    expect(merged.find((e) => e.startAt.startsWith("2026-10-18"))?.endAt)
+      .toBe("2026-10-18T19:30:00+09:00");
+    expect(merged.every((e) => !e.collectorSource)).toBe(true);
   });
 
   it("prefers manually curated data over an automatic duplicate", () => {
