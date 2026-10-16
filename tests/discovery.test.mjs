@@ -33,6 +33,8 @@ test('unknown or multiple hours use day bounds and explicit date precision',()=>
  assert.equal(dateBounds(p,'14:00開演').timePrecision,'date');
  assert.equal(dateBounds(p,'10:00～11:00 / 14:00～15:00').timePrecision,'date');
  assert.equal(dateBounds(p,'10:00～16:00').endAt,'2026-10-03T16:00:00+09:00');
+ assert.equal(dateBounds(p,'【試楽】5:00～【本楽】9:00～').timePrecision,'date');
+ assert.equal(dateBounds(p,'【試楽】5:00～【本楽】9:00～').endAt,'2026-10-04T00:00:00+09:00');
 });
 test('HTML, RSS, Atom, sitemap and public JSON produce candidate links',()=>{
  const u=candidate.url;
