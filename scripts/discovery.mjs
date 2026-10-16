@@ -24,7 +24,7 @@ export function parseDates(value) {
 export function dateBounds(period, timeText) {
   const t=clean(timeText), times=[...t.matchAll(/(\d{1,2})[:時](\d{2})?(?:分)?/g)];
   // Only a single unambiguous time range on one day is treated as opening hours.
-  if(period.start===period.end&&times.length===2&&/[～〜~–—-]/.test(t)&&!/[月日]|休|受付|開場|部|回|\//.test(t)){
+  if(period.start===period.end&&times.length===2&&/[～〜~–—-]/.test(t)&&!/[月日]|休|受付|開場|部|回|\/|【|】|\[|\]/.test(t)){
     const hm=times.map(x=>[+x[1],+(x[2]||0)]);
     if(hm.every(([h,m])=>h<24&&m<60)&&hm[1][0]*60+hm[1][1]>hm[0][0]*60+hm[0][1]){
       const iso=([h,m])=>period.start+'T'+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':00+09:00';
