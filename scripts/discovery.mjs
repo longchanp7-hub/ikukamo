@@ -58,7 +58,8 @@ export function discover(html, source, base, now=new Date()) {
      for(let depth=0;depth<6;depth++){node=node.parent();if(!node.length)break;const text=clean(node.text());if(text&&!contexts.includes(text))contexts.push(text);if(text.length>2000)break;}
      const dated=contexts.filter(text=>/20\d{2}年\s*\d{1,2}月\s*\d{1,2}日/.test(text));
      const direct=base.includes('aichinow.pref.aichi.jp/events');
-     const context=(direct?dated.find(text=>source.cities.some(city=>text.includes(city))):dated[0])||contexts.find(text=>/20\d{2}/.test(text))||title;
+     const datedLocality=dated.find(text=>/[一-龠ぁ-んァ-ン]{1,12}(?:市|町|村)/.test(text));
+     const context=(direct?(datedLocality||dated[0]):dated[0])||contexts.find(text=>/20\d{2}/.test(text))||title;
      hint=context;
      if(direct&&!source.cities.some(city=>context.includes(city)))return;
      try{if(parseDates(context).every(p=>Date.parse(p.end+'T23:59:59+09:00')<+now))return;}catch{return;}
