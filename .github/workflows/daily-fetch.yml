@@ -4,9 +4,9 @@ on:
     branches: [main]
     paths: ['config/**', 'scripts/**', 'package.json', 'pnpm-lock.yaml', '.github/workflows/daily-fetch.yml']
   schedule:
-    # 03:17 JST. Leave a large buffer before the 09:00 operations health check
-    # because GitHub-hosted scheduled workflows can be delayed in the queue.
-    - cron: '17 18 * * *'
+    # 00:17 JST. The hosted scheduler has recently slipped by several hours,
+    # so start shortly after midnight and keep a wide buffer before the 09:00 health check.
+    - cron: '17 15 * * *'
   workflow_dispatch:
 permissions:
   contents: write

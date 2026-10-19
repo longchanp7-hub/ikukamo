@@ -53,7 +53,13 @@ export function discover(html, source, base, now=new Date()) {
  const $=load(html),out=new Map();const patterns={machinaka:/\/event\/\d+\/?$/,plat:/\/event\/performance\.php\?id=\d+$/,toyokawa:/\/event\/\d+\.html$/,tahara:/\/event\/detail\.php\?event_id=\d+$/,okazaki:/\/event\/\d+$/,shinshiro:/\/event\/detail\/\d+\/$/,aichi:/\/events\/detail\/\d+\/$/,west:/\/spots\/detail\/\d+\/$/,actcity:/\/event\/detail\/\?id=\d+$/};
  $('noscript,script,style').remove();
  $('a[href]').each((_,e)=>{const url=allowedUrl($(e).attr('href'),source,base);if(!url||!patterns[source.parser]?.test(new URL(url).pathname+new URL(url).search))return;const title=clean($(e).text());let hint='';
-   if(source.parser==='aichi'){hint=clean($(e).closest('.season-list-event').text());try{if(parseDates(title).every(p=>Date.parse(p.end+'T23:59:59+09:00')<+now))return;}catch{return;}}
+   if(source.parser==='aichi'){
+     const contexts=[title];let node=$(e);
+     for(let depth=0;depth<6;depth++){node=node.parent();if(!node.length)break;const text=clean(node.text());if(text&&!contexts.includes(text))contexts.push(text);if(text.length>2000)break;}
+     const context=contexts.find(text=>/20\d{2}年\s*\d{1,2}月\s*\d{1,2}日/.test(text))||contexts.find(text=>/20\d{2}/.test(text))||title;
+     hint=context;
+     try{if(parseDates(context).every(p=>Date.parse(p.end+'T23:59:59+09:00')<+now))return;}catch{return;}
+   }
    const candidate={url,title:title.slice(0,180),hint:hint.slice(0,500)};if(!out.has(url)||title.length>out.get(url).title.length)out.set(url,candidate);
  });return [...out.values()];
 }
