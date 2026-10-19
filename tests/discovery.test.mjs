@@ -48,6 +48,13 @@ test('aichi discovery reads dates from the event container when the link text ha
  const rows=discover(html,s,s.urls[0],new Date('2026-10-19T00:00:00+09:00'));
  assert.equal(rows.length,1);assert.equal(rows[0].url,url);assert.match(rows[0].hint,/蒲郡市/);assert.match(rows[0].hint,/2026年11月22日/);
 });
+test('aichi direct listing fallback keeps only configured East Mikawa cities',()=>{
+ const s=config.sources.find(x=>x.id==='aichi');
+ const base='https://aichinow.pref.aichi.jp/events/';
+ const html='<article><span>豊橋市</span><a href="/events/detail/1111/">豊橋の催し 2026年11月2日(月)</a></article><article><span>名古屋市</span><a href="/events/detail/2222/">名古屋の催し 2026年11月3日(火)</a></article>';
+ const rows=discover(html,s,base,new Date('2026-10-19T00:00:00+09:00'));
+ assert.equal(rows.length,1);assert.match(rows[0].url,/1111/);assert.match(rows[0].hint,/豊橋市/);
+});
 test('unknown host locality never substitutes for event venue',()=>{
  assert.throws(()=>parseDetail(page.replaceAll('豊橋駅南口駅前広場','会場未定'),source,candidate,regions,stamp),/開催地/);
  const e=parseDetail(page,source,candidate,regions,stamp)[0];assert.equal(e.coordinatePrecision,'city');

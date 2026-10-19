@@ -110,7 +110,8 @@
       "id": "aichi",
       "name": "愛知県 東三河県庁・Aichi Now",
       "urls": [
-        "https://www.higashimikawa.pref.aichi.jp/odekake/"
+        "https://www.higashimikawa.pref.aichi.jp/odekake/",
+        "https://aichinow.pref.aichi.jp/events/"
       ],
       "hosts": [
         "higashimikawa.pref.aichi.jp",
