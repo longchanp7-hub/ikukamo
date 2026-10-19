@@ -50,7 +50,7 @@ export function discover(html, source, base, now=new Date()) {
  if (/^\s*(?:<\?xml|<rss\b|<feed\b|<urlset\b)/i.test(html)) {
   const xml=load(html,{xmlMode:true});return xml('item,entry,url').toArray().flatMap(e=>{const entry=xml(e),value=entry.find('link').attr('href')||entry.find('link,loc').first().text(),url=allowedUrl(value,source,base);return url?[{url,title:clean(entry.find('title').text()).slice(0,180),hint:'',method:entry.is('url')?'sitemap':'feed'}]:[];});
  }
- const $=load(html),out=new Map();const patterns={machinaka:/\/event\/\d+\/?$/,plat:/\/event\/performance\.php\?id=\d+$/,toyokawa:/\/event\/\d+\.html$/,tahara:/\/event\/detail\.php\?event_id=\d+$/,okazaki:/\/event\/\d+$/,shinshiro:/\/event\/detail\/\d+\/$/,aichi:/\/events\/detail\/\d+\/$/,west:/\/spots\/detail\/\d+\/$/,actcity:/\/event\/detail\/\?id=\d+$/};
+ const $=load(html),out=new Map();const patterns={machinaka:/\/event\/\d+\/?$/,plat:/\/event\/performance\.php\?id=\d+$/,toyokawa:/\/event\/\d+\.html$/,tahara:/\/event\/detail\.php\?event_id=\d+$/,okazaki:/\/event\/\d+$/,shinshiro:/\/event\/detail\/\d+\/$/,aichi:/\/events\/detail\/\d+\/?(?:\?.*)?$/,west:/\/spots\/detail\/\d+\/$/,actcity:/\/event\/detail\/\?id=\d+$/};
  $('noscript,script,style').remove();
  $('a[href]').each((_,e)=>{const url=allowedUrl($(e).attr('href'),source,base);if(!url||!patterns[source.parser]?.test(new URL(url).pathname+new URL(url).search))return;const title=clean($(e).text());let hint='';
    if(source.parser==='aichi'){

@@ -43,7 +43,7 @@ test('HTML, RSS, Atom, sitemap and public JSON produce candidate links',()=>{
 });
 test('aichi discovery reads dates from the event container when the link text has no date',()=>{
  const s=config.sources.find(x=>x.id==='aichi');
- const url='https://aichinow.pref.aichi.jp/events/detail/9999/';
+ const url='https://aichinow.pref.aichi.jp/events/detail/9999?ref=east';
  const html='<section class="event-card"><span>蒲郡市</span><a href="'+url+'">秋のイベント</a><time>2026年11月22日(日)</time></section>';
  const rows=discover(html,s,s.urls[0],new Date('2026-10-19T00:00:00+09:00'));
  assert.equal(rows.length,1);assert.equal(rows[0].url,url);assert.match(rows[0].hint,/蒲郡市/);assert.match(rows[0].hint,/2026年11月22日/);
