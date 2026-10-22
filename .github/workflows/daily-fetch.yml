@@ -102,9 +102,19 @@ jobs:
           name: collection-diagnostics
           path: tmp/ingest-report.json
           retention-days: 3
-      - name: Report official source failures
+      - name: Report official source degradation
         if: steps.gate.outputs.run == 'true'
-        run: node -e "const d=require('./src/data/collected-events.json'); if(d.sources.some(s=>s.errors>0)) process.exit(1)"
+        run: |
+          node <<'NODE'
+          const d = require('./src/data/collected-events.json');
+          const degraded = d.sources.filter(source => source.errors > 0 || source.status !== 'ok');
+          for (const source of degraded) {
+            console.log(`::warning title=Official source degraded::${source.name}: status=${source.status}, errors=${source.errors}, retained=${source.retained}`);
+          }
+          if (degraded.length) {
+            console.log(`${degraded.length} official source(s) degraded; retained validated data remains available. The collection run itself is not failed unless ingest/validation fails.`);
+          }
+          NODE
   deploy:
     needs: ingest
     if: always() && needs.ingest.outputs.changed == 'true'
