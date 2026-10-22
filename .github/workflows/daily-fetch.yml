@@ -29,16 +29,53 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
+      - name: Skip a late duplicate scheduled collection
+        id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if node <<'NODE'
+          const fs = require('node:fs');
+          const data = JSON.parse(fs.readFileSync('src/data/collected-events.json','utf8'));
+          const day = value => new Intl.DateTimeFormat('sv-SE', {
+            timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit'
+          }).format(new Date(value));
+          const today = day(new Date());
+          const sources = Array.isArray(data.sources) ? data.sources : [];
+          const fresh = sources.length > 0 && sources.every(source =>
+            source.status === 'ok' &&
+            Number(source.errors || 0) === 0 &&
+            source.checkedAt &&
+            day(source.checkedAt) === today
+          );
+          process.exit(fresh ? 0 : 1);
+          NODE
+          then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Today's JST collection is already healthy; skipping this late scheduled duplicate."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: pnpm/action-setup@v6
+        if: steps.gate.outputs.run == 'true'
         with:
           version: 11.19.0
-      - run: pnpm install --frozen-lockfile --ignore-scripts --prod
-      - run: node --test tests/collector.test.mjs tests/discovery.test.mjs
+      - if: steps.gate.outputs.run == 'true'
+        run: pnpm install --frozen-lockfile --ignore-scripts --prod
+      - if: steps.gate.outputs.run == 'true'
+        run: node --test tests/collector.test.mjs tests/discovery.test.mjs
       - name: Collect only configured official sources
+        if: steps.gate.outputs.run == 'true'
         run: node scripts/ingest.mjs
       - name: Validate dates, places, sources and duplicate IDs
+        if: steps.gate.outputs.run == 'true'
         run: node scripts/validate-collection.mjs
       - name: Commit validated changes only
+        if: steps.gate.outputs.run == 'true'
         id: save
         run: |
           if ! git diff --quiet -- src/data/collected-events.json; then
@@ -51,16 +88,22 @@ jobs:
           fi
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Verify unchanged published app
-        if: always() && steps.save.outputs.changed != 'true'
+        if: always() && steps.gate.outputs.run == 'true' && steps.save.outputs.changed != 'true'
         run: node scripts/ops-health.mjs
+      - name: Verify already-fresh published app
+        if: steps.gate.outputs.run == 'false'
+        run: |
+          node scripts/ops-health.mjs
+          node scripts/verify-public-collection.mjs
       - name: Preserve collection diagnostics
-        if: always()
+        if: always() && steps.gate.outputs.run == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: collection-diagnostics
           path: tmp/ingest-report.json
           retention-days: 3
       - name: Report official source failures
+        if: steps.gate.outputs.run == 'true'
         run: node -e "const d=require('./src/data/collected-events.json'); if(d.sources.some(s=>s.errors>0)) process.exit(1)"
   deploy:
     needs: ingest
