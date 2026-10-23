@@ -234,7 +234,7 @@ const rows: Row[] = [
 export const LATE_OCTOBER_2026_EVENTS: OutingEvent[] = rows.map(([id,title,category,day,begin,finish,city,venueName,address,latitude,longitude,distanceFromToyohashiKm,driveMinutes,score,officialUrl,sourceName,priceText,parkingText,description]) => ({
  id,title,category,description,
  startAt: day+"T"+begin+":00+09:00",endAt: day+"T"+finish+":00+09:00",
- timePrecision:"time",dateText:day.replace(/^(\\d{4})-(\\d{2})-(\\d{2})$/,(_,y,m,d)=>y+"年"+Number(m)+"月"+Number(d)+"日"),
+ timePrecision:"time",dateText:day.replace(/^(\d{4})-(\d{2})-(\d{2})$/,(_,y,m,d)=>y+"年"+Number(m)+"月"+Number(d)+"日"),
  timeText:begin+"〜"+finish,venueName,address,city,prefecture:city==="浜松市"||city==="磐田市"?"静岡県":"愛知県",
  latitude,longitude,coordinatePrecision:"city",distanceFromToyohashiKm,driveMinutes,score,confidence:"confirmed",status:"scheduled",
  statusText:id==="nishio-kira-fireworks-2026-10-31"?"10/31開催予定。11/1は荒天時のみの順延予備日":id==="gamagori-miya-shiraku-2026-10-24"?"祭礼は開催予定。2026年の海中渡御のみ中止":"公式情報では開催予定（直前の中止・変更は主催者公式で確認）",
