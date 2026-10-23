@@ -1,5 +1,6 @@
 import { DAILY_CURATED_EVENTS } from "@/data/daily-curated-events";
 import { LIVE_EVENTS } from "@/data/live-events";
+import { LATE_OCTOBER_2026_EVENTS } from "@/data/late-october-2026-events";
 import { SEED_EVENTS } from "@/data/seed-events";
 import { mergeDuplicateEvents } from "@/lib/dedupe";
 import { upcomingEvents } from "@/lib/time-buckets";
@@ -12,6 +13,7 @@ export function loadLocalEvents(): OutingEvent[] {
   const merged = mergeDuplicateEvents([
     ...(collected.events as OutingEvent[]),
     ...DAILY_CURATED_EVENTS,
+    ...LATE_OCTOBER_2026_EVENTS,
     ...LIVE_EVENTS,
     ...samples,
   ]);
