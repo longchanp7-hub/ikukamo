@@ -28,6 +28,10 @@ test('disjoint dates are not made into a continuous event and recurring notes ad
  assert.deepEqual(parseDates('2026年10月10日・11日（例年10月第2日曜）'),[{start:'2026-10-10',end:'2026-10-10'},{start:'2026-10-11',end:'2026-10-11'}]);
  assert.equal(parseDates('2026年9月12日～11月8日 【前期】9月12日～10月12日 【後期】10月14日～11月8日').length,1);
 });
+test('postponement reserve day is not separately registered as a scheduled event',()=>{
+ assert.deepEqual(parseDates('2026年10月31日(土) ※ 小雨決行、荒天時順延(順延日 11月1日(日))'),[{start:'2026-10-31',end:'2026-10-31'}]);
+ assert.deepEqual(parseDates('2026年10月31日(土)・11月1日(日)'),[{start:'2026-10-31',end:'2026-10-31'},{start:'2026-11-01',end:'2026-11-01'}]);
+});
 test('unknown or multiple hours use day bounds and explicit date precision',()=>{
  const p={start:'2026-10-03',end:'2026-10-03'};
  assert.equal(dateBounds(p,'14:00開演').timePrecision,'date');
