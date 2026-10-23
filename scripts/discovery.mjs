@@ -13,7 +13,9 @@ const nextDay = s => new Date(Date.parse(s+'T00:00:00Z')+86400000).toISOString()
 export function parseDates(value) {
   let s=clean(value).replace(/令和(\d+)年(?:度)?/g,(_,y)=>(2018+Number(y))+'年').replace(/(20\d{2})年(?:度|は)/g,'$1年').replace(/(20\d{2})[./-](\d{1,2})[./-](\d{1,2})/g,'$1年$2月$3日');
   const first=s.search(/20\d{2}年\s*\d{1,2}月\s*\d{1,2}日/);if(first<0)throw Error('開催年・月日が開催欄で確定できません');s=s.slice(first);
-  const tokens=[...s.matchAll(/(?:(20\d{2})年\s*)?(?:(\d{1,2})月\s*)?(\d{1,2})日(?!曜|間)/g)];
+  // A weather-reschedule backup date is a contingency, not an independent event day.
+  const tokens=[...s.matchAll(/(?:(20\d{2})年\s*)?(?:(\d{1,2})月\s*)?(\d{1,2})日(?!曜|間)/g)]
+    .filter(t=>!/(?:順延日|予備日|延期日)\s*[:：]?\s*[(（]?\s*$/.test(s.slice(Math.max(0,t.index-24),t.index)));
   let y,m,lastEnd=0;const periods=[];
   for(const t of tokens){const between=s.slice(lastEnd,t.index);if(t[1])y=+t[1];if(t[2]){if(!t[1]&&m&&+t[2]<m&&/[～〜~–—-]/.test(between))y++;m=+t[2];}const d=day(y,m,+t[3]);if(!d)throw Error('実在しない開催日');
     if(periods.length&&/[～〜~–—-]/.test(between)){const prev=periods.at(-1);prev.end=d;if(Date.parse(d)<Date.parse(prev.start)||Date.parse(d)-Date.parse(prev.start)>180*86400000)throw Error('会期が逆順または長期のため要確認');}
