@@ -2,8 +2,45 @@ import type { OutingEvent } from "@/lib/types";
 
 // All dates and start/end times verified against organizer or official tourism pages on 2026-10-19.
 const checkedAt = "2026-10-18T23:22:55.000Z";
+const newCheckedAt = "2026-10-23T23:47:17.000Z";
 type Row = [string,string,OutingEvent["category"],string,string,string,string,string,string,number,number,number,number,number,string,string,string,string,string];
 const rows: Row[] = [
+  [
+    "hamamatsu-imofes-2026-10-24",
+    "第4回芋フェス！IN浜松城公園",
+    "food", "2026-10-24", "10:00", "16:00",
+    "浜松市", "浜松城公園 中央芝生広場", "静岡県浜松市中央区元城町100-2",
+    34.712, 137.727, 37, 55, 96,
+    "https://prtimes.jp/main/html/rd/p/000000131.000117850.html",
+    "主催・株式会社ロト 2026年10月19日発表",
+    "入場無料／飲食は有料",
+    "浜松城公園有料駐車場約220台。会場は中央芝生広場（前回と異なる）",
+    "2日間限定。熟成焼き芋・芋ブリュレ・芋けんぴなど全国の専門店21店舗を食べ比べ。小雨決行、荒天による変更は主催者公式を確認。"
+  ],
+  [
+    "hamamatsu-imofes-2026-10-25",
+    "第4回芋フェス！IN浜松城公園",
+    "food", "2026-10-25", "10:00", "16:00",
+    "浜松市", "浜松城公園 中央芝生広場", "静岡県浜松市中央区元城町100-2",
+    34.712, 137.727, 37, 55, 95,
+    "https://prtimes.jp/main/html/rd/p/000000131.000117850.html",
+    "主催・株式会社ロト 2026年10月19日発表",
+    "入場無料／飲食は有料",
+    "浜松城公園有料駐車場約220台。会場は中央芝生広場（前回と異なる）",
+    "最終日。21店舗の焼き芋・芋スイーツ食べ歩き。人気商品の売切れに注意。10:00〜16:00、小雨決行。"
+  ],
+  [
+    "iwata-enshu-shirasu-fes-2026-10-25",
+    "第2回 遠州しらすフェス2026",
+    "food", "2026-10-25", "10:00", "15:00",
+    "磐田市", "福田魚市場・渚の交流館", "静岡県磐田市豊浜4127",
+    34.685, 137.898, 50, 75, 95,
+    "https://prtimes.jp/main/html/rd/p/000000184.000102493.html",
+    "磐田市役所 2026年10月22日公式発表",
+    "入場無料／飲食は有料",
+    "福田漁港周辺の主催者指定駐車場を確認。生しらす販売は当日の漁況・天候次第",
+    "10月25日だけ。福田漁港で生しらす・釜揚げしらすの直売、地元飲食店のE-1海鮮グルメグランプリ。子ども向け催しもあるが、港の海鮮グルメを目当てにした大人2人の外出に向く。"
+  ],
   [
     "gamagori-miya-shiraku-2026-10-24",
     "三谷祭 試楽祭（山車曳き・奉納の舞）",
@@ -23,7 +60,7 @@ const rows: Row[] = [
     "三谷祭保存会公式",
     "無料",
     "会場駐車場なし。JR三河三谷駅から徒歩約5分",
-    "初日は美しい山車の曳き回しと奉納行事。海中渡御は翌25日であり、24日には行われない。"
+    "初日は美しい山車の曳き回しと奉納行事。2026年は海中渡御を取り止め、24日・25日のほかの祭礼行事は開催予定。"
   ],
   [
     "toyota-matsudaira-classic-2026-10-25",
@@ -198,10 +235,10 @@ export const LATE_OCTOBER_2026_EVENTS: OutingEvent[] = rows.map(([id,title,categ
  id,title,category,description,
  startAt: day+"T"+begin+":00+09:00",endAt: day+"T"+finish+":00+09:00",
  timePrecision:"time",dateText:day.replace(/^(\\d{4})-(\\d{2})-(\\d{2})$/,(_,y,m,d)=>y+"年"+Number(m)+"月"+Number(d)+"日"),
- timeText:begin+"〜"+finish,venueName,address,city,prefecture:"愛知県",
+ timeText:begin+"〜"+finish,venueName,address,city,prefecture:city==="浜松市"||city==="磐田市"?"静岡県":"愛知県",
  latitude,longitude,coordinatePrecision:"city",distanceFromToyohashiKm,driveMinutes,score,confidence:"confirmed",status:"scheduled",
- statusText:id==="nishio-kira-fireworks-2026-10-31"?"10/31開催予定。11/1は荒天時のみの順延予備日":"公式情報では開催予定（直前の中止・変更は主催者公式で確認）",
- statusSourceUrl:officialUrl,statusCheckedAt:checkedAt,officialUrl,mapUrl:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(address+" "+venueName),
+ statusText:id==="nishio-kira-fireworks-2026-10-31"?"10/31開催予定。11/1は荒天時のみの順延予備日":id==="gamagori-miya-shiraku-2026-10-24"?"祭礼は開催予定。2026年の海中渡御のみ中止":"公式情報では開催予定（直前の中止・変更は主催者公式で確認）",
+ statusSourceUrl:officialUrl,statusCheckedAt:id.startsWith("hamamatsu-imofes-")||id.startsWith("iwata-enshu-shirasu-")||id==="gamagori-miya-shiraku-2026-10-24"?newCheckedAt:checkedAt,officialUrl,mapUrl:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(address+" "+venueName),
  priceText,parkingText,
  aiComment:description,goNowReason:description,recommendReason:description,
  isSample:false,weatherDependent:true,venueKind:category==="music"?"mixed":"outdoor",
