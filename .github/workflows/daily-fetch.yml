@@ -79,12 +79,17 @@ jobs:
         id: save
         run: |
           if ! git diff --quiet -- src/data/collected-events.json; then
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add src/data/collected-events.json
-            git commit -m "Refresh validated official source information"
-            git push origin HEAD:main
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git fetch origin main
+            if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+              echo "::warning title=Concurrent main update::main advanced during collection; skip stale snapshot write. The next scheduled collection retries safely."
+            else
+              git config user.name github-actions[bot]
+              git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+              git add src/data/collected-events.json
+              git commit -m "Refresh validated official source information"
+              git push origin HEAD:main
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+            fi
           fi
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Verify unchanged published app
