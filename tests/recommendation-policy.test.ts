@@ -49,6 +49,8 @@ describe("recommendation policy", () => {
 
   it("filters competitive sports but keeps sports-car events", () => {
     expect(recommendationEligible(event({ title: "市民サッカー大会" }))).toBe(false);
+    expect(recommendationEligible(event({ title: "ゴールキーパークリニック" }))).toBe(false);
+    expect(recommendationEligible(event({ title: "市民ハンドボール大会" }))).toBe(false);
     expect(recommendationEligible(event({ title: "クラシック＆スポーツカー展示会", category: "car" }))).toBe(true);
   });
 
