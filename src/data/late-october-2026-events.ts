@@ -3,6 +3,7 @@ import type { OutingEvent } from "@/lib/types";
 // All dates and start/end times verified against organizer or official tourism pages on 2026-10-19.
 const checkedAt = "2026-10-18T23:22:55.000Z";
 const newCheckedAt = "2026-10-23T23:47:17.000Z";
+const dailyCheckedAt = "2026-10-25T23:30:00.000Z";
 type Row = [string,string,OutingEvent["category"],string,string,string,string,string,string,number,number,number,number,number,string,string,string,string,string];
 const rows: Row[] = [
   [
@@ -229,22 +230,27 @@ const rows: Row[] = [
     "入場無料／純米酒チケット10枚 前売2,800円・当日3,500円",
     "飲酒イベントのため公共交通利用。地下鉄久屋大通駅からすぐ",
     "全国の蔵元が集う純米酒の試飲会。4日間限定、日付により終了時刻が異なる。"
-  ]
+  ],
+  ["toyohashi-be-wonderful-2026-10-31","BE WONDERFUL!! 2026（豊橋ロックフェス）","music","2026-10-31","00:00","23:59","豊橋市","とよはし産業人材育成センター","愛知県豊橋市神野新田町字大浜3-29",34.7692,137.3915,10,25,94,"https://bewon32.com/","BE WONDERFUL!!主催RAD ENTERTAINMENT／office TONK公式","一般1日券6,000円・2日通し券10,000円（税込、在庫は公式購入先で確認）","豊橋駅西口から専用シャトルバス約20分。バス乗車券・駐車券の要否を公式確認","地元豊橋の新しい2ステージのロックフェス。ADAM at、locofrank、アルカラ、KUZIRAなど出演。10:00開場、11:00開演。終演時刻は主催公式のタイムテーブルを参照。"],
+  ["toyohashi-be-wonderful-2026-11-01","BE WONDERFUL!! 2026（豊橋ロックフェス）","music","2026-11-01","00:00","23:59","豊橋市","とよはし産業人材育成センター","愛知県豊橋市神野新田町字大浜3-29",34.7692,137.3915,10,25,93,"https://bewon32.com/","BE WONDERFUL!!主催公式／出演者・四星球公式","11/1の1日券は出演者公式にSOLD OUT案内あり。2日通し券の購入可否は販売サイトを再確認","豊橋駅西口から専用シャトルバス約20分。電子チケット利用時はスマートフォンが必要","地元豊橋の大型ロックフェス2日目。四星球、TOTALFAT、Makiなど出演。10:00開場、11:00開演。11/1の1日券は出演者公式で完売発表済み。通し券を含む購入可否は要確認。"],
+  ["hamamatsu-frespo-music-2026-10-31","浜松プラザフレスポ ミュージックフェス","music","2026-10-31","11:00","18:00","浜松市","浜松プラザフレスポ 南側広場","静岡県浜松市中央区上西町1020-33",34.734,137.759,45,60,86,"https://www.e-frespo.com/hamamatsu/shop/pop-eventnews.jsp?id=5221","浜松プラザフレスポ施設公式","観覧無料・キッチンカー等の飲食は有料","施設駐車場あり。混雑・交通案内は施設公式で確認","土日限定でライブステージとキッチンカーグルメを楽しむ屋外音楽フェス。サスケらが出演予定。11:00〜18:00、小雨決行・荒天中止。"],
+  ["hamamatsu-frespo-music-2026-11-01","浜松プラザフレスポ ミュージックフェス","music","2026-11-01","11:00","18:00","浜松市","浜松プラザフレスポ 南側広場","静岡県浜松市中央区上西町1020-33",34.734,137.759,45,60,86,"https://www.e-frespo.com/hamamatsu/shop/pop-eventnews.jsp?id=5221","浜松プラザフレスポ施設公式","観覧無料・キッチンカー等の飲食は有料","施設駐車場あり。混雑・交通案内は施設公式で確認","2日目も多彩なライブと飲食ブースが揃う浜松の週末限定イベント。11:00〜18:00。小雨決行・荒天中止、出演者や出店内容は変更の可能性あり。"],
+  ["toei-nokiyama-bistro-2026-11-11","NOKIYAMA bistoro days（東三河食材の1日限定コース）","food","2026-11-11","00:00","23:59","東栄町","caféのっきぃ","愛知県北設楽郡東栄町下田軒山13-7",35.08,137.699,67,85,92,"https://www.toeinavi.jp/event/detail/1383/","東栄町観光まちづくり協会公式","1名2,500円（税込）・要事前予約","駐車場あり（観光協会公式）。事前予約必須","11月11日限定。料理歴30年以上のシェフが、設楽の絹姫サーモンと田原ポークを使う特別コース。11:30開場、12:00開始、終了時刻は未掲載。"]
 ];
 export const LATE_OCTOBER_2026_EVENTS: OutingEvent[] = rows.map(([id,title,category,day,begin,finish,city,venueName,address,latitude,longitude,distanceFromToyohashiKm,driveMinutes,score,officialUrl,sourceName,priceText,parkingText,description]) => ({
  id,title,category,description,
  startAt: day+"T"+begin+":00+09:00",endAt: day+"T"+finish+":00+09:00",
- timePrecision:"time",dateText:day.replace(/^(\d{4})-(\d{2})-(\d{2})$/,(_,y,m,d)=>y+"年"+Number(m)+"月"+Number(d)+"日"),
- timeText:begin+"〜"+finish,venueName,address,city,prefecture:city==="浜松市"||city==="磐田市"?"静岡県":"愛知県",
+ timePrecision:/^(toyohashi-be-wonderful|toei-nokiyama-bistro)/.test(id)?"date":"time",dateText:day.replace(/^(\d{4})-(\d{2})-(\d{2})$/,(_,y,m,d)=>y+"年"+Number(m)+"月"+Number(d)+"日"),
+ timeText:id.startsWith("toyohashi-be-wonderful-")?"10:00開場・11:00開演（終了時刻は公式タイムテーブルを確認）":id.startsWith("toei-nokiyama-bistro-")?"11:30開場・12:00開始（終了時刻は未掲載・要予約）":begin+"〜"+finish,venueName,address,city,prefecture:city==="浜松市"||city==="磐田市"?"静岡県":"愛知県",
  latitude,longitude,coordinatePrecision:"city",distanceFromToyohashiKm,driveMinutes,score,confidence:"confirmed",status:"scheduled",
- statusText:id==="nishio-kira-fireworks-2026-10-31"?"10/31開催予定。11/1は荒天時のみの順延予備日":id==="gamagori-miya-shiraku-2026-10-24"?"祭礼は開催予定。2026年の海中渡御のみ中止":"公式情報では開催予定（直前の中止・変更は主催者公式で確認）",
- statusSourceUrl:officialUrl,statusCheckedAt:id.startsWith("hamamatsu-imofes-")||id.startsWith("iwata-enshu-shirasu-")||id==="gamagori-miya-shiraku-2026-10-24"?newCheckedAt:checkedAt,officialUrl,mapUrl:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(address+" "+venueName),
+ statusText:id==="toyohashi-be-wonderful-2026-11-01"?"11/1の1日券は出演者公式が完売を案内。通し券等は販売元で再確認":id==="nishio-kira-fireworks-2026-10-31"?"10/31開催予定。11/1は荒天時のみの順延予備日":id==="gamagori-miya-shiraku-2026-10-24"?"祭礼は開催予定。2026年の海中渡御のみ中止":"公式情報では開催予定（直前の中止・変更は主催者公式で確認）",
+ statusSourceUrl:id==="toyohashi-be-wonderful-2026-11-01"?"https://su-xing-cyu.com/contents/1083794":officialUrl,statusCheckedAt:/^(toyohashi-be-wonderful|hamamatsu-frespo-music|toei-nokiyama-bistro)/.test(id)?dailyCheckedAt:id.startsWith("hamamatsu-imofes-")||id.startsWith("iwata-enshu-shirasu-")||id==="gamagori-miya-shiraku-2026-10-24"?newCheckedAt:checkedAt,officialUrl,mapUrl:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(address+" "+venueName),
  priceText,parkingText,
  aiComment:description,goNowReason:description,recommendReason:description,
- isSample:false,weatherDependent:true,venueKind:category==="music"?"mixed":"outdoor",
+ isSample:false,weatherDependent:!id.startsWith("toei-nokiyama-bistro-"),venueKind:id.startsWith("toei-nokiyama-bistro-")?"indoor":id.startsWith("hamamatsu-frespo-music-")?"outdoor":category==="music"?"mixed":"outdoor",
  limitedPeriod:true,cadence:"one_off",adultOriented:true,
- foodAppeal:category==="sake"?85:category==="festival"?55:20,
+ foodAppeal:id.startsWith("hamamatsu-frespo-music-")?75:id.startsWith("toei-nokiyama-bistro-")?98:category==="sake"?85:category==="festival"?55:20,
  rarity:category==="car"?97:category==="sake"?95:88,snsBuzz:78,
- sources:[{id:"src-"+id,eventId:id,sourceType:"official",sourceUrl:officialUrl,sourceName,fetchedAt:checkedAt}],
- createdAt:checkedAt,updatedAt:checkedAt,
+ sources:[{id:"src-"+id,eventId:id,sourceType:"official",sourceUrl:officialUrl,sourceName,fetchedAt:/^(toyohashi-be-wonderful|hamamatsu-frespo-music|toei-nokiyama-bistro)/.test(id)?dailyCheckedAt:checkedAt}],
+ createdAt:/^(toyohashi-be-wonderful|hamamatsu-frespo-music|toei-nokiyama-bistro)/.test(id)?dailyCheckedAt:checkedAt,updatedAt:/^(toyohashi-be-wonderful|hamamatsu-frespo-music|toei-nokiyama-bistro)/.test(id)?dailyCheckedAt:checkedAt,
 }));
