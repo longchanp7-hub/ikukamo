@@ -15594,7 +15594,7 @@
         "岡崎市"
       ],
       "fingerprint": "40a19933c60444b953b0c7fb4e9b13f36e112274e5a8a181a61d0a1127de8c79",
-      "checkedAt": "2026-10-26T19:33:50.912Z",
+      "checkedAt": "2026-10-26T20:29:08.787Z",
       "lastSuccessAt": "2026-10-21T19:18:10.631Z",
       "status": "failed",
       "discovered": 0,
@@ -16023,27 +16023,27 @@
       "sourceId": "okazaki",
       "url": "https://okazaki-kanko.jp/event/",
       "reason": "一覧取得失敗: HTTP 503",
-      "checkedAt": "2026-10-26T19:33:50.912Z"
+      "checkedAt": "2026-10-26T20:29:08.787Z"
     },
     {
       "sourceId": "okazaki",
       "url": "https://okazaki-kanko.jp/event/",
       "reason": "候補リンクが0件。構造変更または掲載状況を要確認",
-      "checkedAt": "2026-10-26T19:33:50.912Z"
+      "checkedAt": "2026-10-26T20:29:08.787Z"
     },
     {
       "sourceId": "okazaki",
       "url": "https://okazaki-kanko.jp/event/5263",
       "title": "岡崎市美術博物館 市制110周年・開館30周年記念 「四季にうたえば 出光美術館名品展」",
       "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 503",
-      "checkedAt": "2026-10-26T19:33:50.912Z"
+      "checkedAt": "2026-10-26T20:29:08.787Z"
     },
     {
       "sourceId": "okazaki",
       "url": "https://okazaki-kanko.jp/event/5286",
       "title": "岡崎市制110周年記念 第34回岡崎市民クラシックコンサート 第42回岡崎第九演奏会",
       "reason": "詳細取得失敗: 同一ホストの追加取得を停止: HTTP 503",
-      "checkedAt": "2026-10-26T19:33:50.912Z"
+      "checkedAt": "2026-10-26T20:29:08.787Z"
     },
     {
       "sourceId": "shinshiro",
