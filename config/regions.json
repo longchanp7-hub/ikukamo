@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "label": "東三河・西三河・浜松",
+  "label": "東三河・西三河・静岡西部〜中部",
   "cities": [
     {
       "name": "豊橋市",
@@ -41,6 +41,51 @@
       "name": "磐田市",
       "latitude": 34.7184,
       "longitude": 137.8514
+    },
+    {
+      "name": "袋井市",
+      "latitude": 34.75,
+      "longitude": 137.925
+    },
+    {
+      "name": "掛川市",
+      "latitude": 34.768,
+      "longitude": 138.015
+    },
+    {
+      "name": "菊川市",
+      "latitude": 34.757,
+      "longitude": 138.083
+    },
+    {
+      "name": "御前崎市",
+      "latitude": 34.637,
+      "longitude": 138.129
+    },
+    {
+      "name": "森町",
+      "latitude": 34.835,
+      "longitude": 137.93
+    },
+    {
+      "name": "島田市",
+      "latitude": 34.836,
+      "longitude": 138.177
+    },
+    {
+      "name": "藤枝市",
+      "latitude": 34.867,
+      "longitude": 138.257
+    },
+    {
+      "name": "焼津市",
+      "latitude": 34.867,
+      "longitude": 138.323
+    },
+    {
+      "name": "静岡市",
+      "latitude": 34.975,
+      "longitude": 138.383
     },
     {
       "name": "豊田市",
