@@ -1481,10 +1481,10 @@ export const LIVE_EVENTS: OutingEvent[] = [
     "confidence": "confirmed",
     "status": "scheduled",
     "statusSourceUrl": "https://www.toyohashimatsuri.jp/",
-    "statusCheckedAt": "2026-10-16T02:26:30.187Z",
+    "statusCheckedAt": "2026-10-26T23:24:30.000Z",
     "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B1%8A%E6%A9%8B%E5%85%AC%E5%9C%92%20%E8%B1%8A%E6%A9%8B%E5%B8%82",
     "priceText": "入場無料（飲食等は有料の場合あり）",
-    "parkingText": "市街地混雑・交通規制に注意。公共交通機関推奨",
+    "parkingText": "10/31 17:30〜20:30頃は市内線「駅前〜新川」が運休し、駅前〜札木で代行バス運行。11/1もパレードに伴う中心街の交通規制あり。豊鉄の臨時ダイヤと主催公式の交通規制を事前確認",
     "isSample": false,
     "weatherDependent": true,
     "limitedPeriod": true,
@@ -1498,6 +1498,14 @@ export const LIVE_EVENTS: OutingEvent[] = [
         "sourceUrl": "https://www.toyohashimatsuri.jp/",
         "sourceName": "豊橋まつり振興会",
         "fetchedAt": "2026-10-16T02:26:30.187Z"
+      },
+      {
+        "id": "source-toyohashi-matsuri-traffic-2026",
+        "eventId": "toyohashi-matsuri-2026",
+        "sourceType": "official",
+        "sourceUrl": "https://toyotetsu.sakura.ne.jp/news/000669.html",
+        "sourceName": "豊橋鉄道公式 2026年10月19日交通規制・市内線代行運行案内",
+        "fetchedAt": "2026-10-26T23:24:30.000Z"
       }
     ],
     "createdAt": "2026-10-16T02:26:30.187Z",
