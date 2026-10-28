@@ -40,8 +40,9 @@ export function reconcileOccurrences(rows,previous,stamp){
 }
 export async function collect(config,regions,previous,stamp=new Date().toISOString(),get=makeFetcher(config),force=false){
  validateConfig(config);const events=[],sources=[],reviews=[];let fetchedSources=0,failedSources=0;
+ const collectorVersion=fs.readFileSync(new URL('./discovery.mjs',import.meta.url),'utf8')+fs.readFileSync(new URL('./collection-runner.mjs',import.meta.url),'utf8');
  for(const source of config.sources){
-  const old=(previous.sources||[]).find(s=>s.id===source.id), oldEvents=(previous.events||[]).filter(e=>e.collectorSource===source.id),fingerprint=hash(JSON.stringify(source)+JSON.stringify(regions)+fs.readFileSync(new URL('./discovery.mjs',import.meta.url),'utf8'));
+  const old=(previous.sources||[]).find(s=>s.id===source.id), oldEvents=(previous.events||[]).filter(e=>e.collectorSource===source.id),fingerprint=hash(JSON.stringify(source)+JSON.stringify(regions)+collectorVersion);
   if(!force&&old?.fingerprint===fingerprint&&old.status==='ok'&&Date.parse(stamp)-Date.parse(old.lastSuccessAt)<config.cacheHours*3600000){
    sources.push(old);events.push(...oldEvents);reviews.push(...(previous.reviews||[]).filter(r=>r.sourceId===source.id));continue;
   }
