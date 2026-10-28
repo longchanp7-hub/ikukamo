@@ -73,8 +73,8 @@ test('Gamagori parser accepts official citywide and web events without inventing
  const a=parseDetail(citywide,s,{url:'https://www.gamagori.jp/archives/shun/mikanmaturi2026',title:'11/1(日)〜12/31(木) 蒲郡みかん祭り2026',hint:''},regions,stamp)[0];
  assert.equal(a.city,'蒲郡市');assert.equal(a.venueName,'蒲郡市内各所');assert.equal(a.startAt.slice(0,10),'2026-11-01');
  const web='<html><body><h4>おもてなしコンシェルジュ検定募集開始！</h4><p>検定日：2026年12月5日(土)9:00〜12月7日(月)24:00（Web受検）</p></body></html>';
- const b=parseDetail(web,s,{url:'https://www.gamagori.jp/archives/shun/concierge',title:'2026年12月5日(土)〜12月7日(月) おもてなしコンシェルジュ検定募集開始！',hint:''},regions,stamp)[0];
- assert.equal(b.venueName,'オンライン(Web受検)');assert.equal(b.startAt.slice(0,10),'2026-12-05');
+ const webRows=parseDetail(web,s,{url:'https://www.gamagori.jp/archives/shun/concierge',title:'2026年12月5日(土)〜12月7日(月) おもてなしコンシェルジュ検定募集開始！',hint:''},regions,stamp);
+ assert.equal(webRows.length,1);const b=webRows[0];assert.equal(b.venueName,'オンライン(Web受検)');assert.equal(b.startAt.slice(0,10),'2026-12-05');assert.equal(b.endAt.slice(0,10),'2026-12-08');
 });
 test('unknown host locality never substitutes for event venue',()=>{
  assert.throws(()=>parseDetail(page.replaceAll('豊橋駅南口駅前広場','会場未定'),source,candidate,regions,stamp),/開催地/);
