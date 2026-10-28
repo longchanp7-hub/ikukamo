@@ -6,7 +6,7 @@
   "cacheHours": 6,
   "retentionDays": 7,
   "archiveDays": 365,
-  "maxRequests": 190,
+  "maxRequests": 200,
   "maxRunMs": 480000,
   "sources": [
     {

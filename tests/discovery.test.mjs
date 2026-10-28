@@ -67,6 +67,15 @@ test('Toyohashi tourism and Gamagori listings discover only their event detail U
  const gamaRows=discover('<a href="/archives/shun/mikawa-de-1002026">遊び100</a><a href="/archives/spot/foo">spot</a>',gama,gama.urls[0]);
  assert.equal(gamaRows.length,1);assert.match(gamaRows[0].url,/archives\/shun\/mikawa-de-1002026/);
 });
+test('Gamagori parser accepts official citywide and web events without inventing a venue',()=>{
+ const s=config.sources.find(x=>x.id==='gamagori');
+ const citywide='<html><main><h4>蒲郡みかん祭り2026</h4><h2>開催期間:2026年11月1日(日)〜12月31日(木)</h2><p>市内のあちこちでスイーツやグルメを楽しめます。</p></main></html>';
+ const a=parseDetail(citywide,s,{url:'https://www.gamagori.jp/archives/shun/mikanmaturi2026',title:'11/1(日)〜12/31(木) 蒲郡みかん祭り2026',hint:''},regions,stamp)[0];
+ assert.equal(a.city,'蒲郡市');assert.equal(a.venueName,'蒲郡市内各所');assert.equal(a.startAt.slice(0,10),'2026-11-01');
+ const web='<html><main><h4>おもてなしコンシェルジュ検定募集開始！</h4><p>検定日：2026年12月5日(土)9:00〜12月7日(月)24:00（Web受検）</p></main></html>';
+ const b=parseDetail(web,s,{url:'https://www.gamagori.jp/archives/shun/concierge',title:'2026年12月5日(土)〜12月7日(月) おもてなしコンシェルジュ検定募集開始！',hint:''},regions,stamp)[0];
+ assert.equal(b.venueName,'オンライン（Web受検）');assert.equal(b.startAt.slice(0,10),'2026-12-05');
+});
 test('unknown host locality never substitutes for event venue',()=>{
  assert.throws(()=>parseDetail(page.replaceAll('豊橋駅南口駅前広場','会場未定'),source,candidate,regions,stamp),/開催地/);
  const e=parseDetail(page,source,candidate,regions,stamp)[0];assert.equal(e.coordinatePrecision,'city');

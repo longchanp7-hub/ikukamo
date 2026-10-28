@@ -95,13 +95,16 @@ export function parseDetail(html,source,candidate,regions,stamp) {
  }
  if(source.parser==='gamagori'){
   body=$('main,#contents').first();
-  title=clean(candidate.title)||clean($('h1,h2,h3,h4').filter((_,e)=>{const t=clean($(e).text());return t&&!/^(旬の、?がまごおり|イベント|イベントカレンダー|開催日|開催期間|会場|場所)$/.test(t);}).first().text());
   const bodyText=clean(body?.text()||'');
+  title=clean($('h1,h2,h3,h4').filter((_,e)=>{const t=clean($(e).text());return t&&!/^(旬の、?がまごおり|イベント|イベントカレンダー|開催日|開催期間|会場|場所)$/.test(t)&&!/^開催期間[：:]/.test(t)&&!/^推しみかん/.test(t);}).first().text())||clean(candidate.title).replace(/^(?:20\d{2}年)?\d{1,2}[月/]\d{1,2}日?[^ ]*\s*[〜～~-]\s*(?:20\d{2}年)?\d{1,2}[月/]\d{1,2}日?[^ ]*\s*/,'');
   dateText=f['開催期間']||f['開催日']||f['日程']||section($,'開催期間')||section($,'開催日')||section($,'日程');
-  if(!dateText){const m=bodyText.match(/(?:開催(?:期間|日)|日程)\s*[：:]?\s*((?:20\d{2}年)[^。]{0,120})/);dateText=m?.[1]||'';}
+  if(!dateText){const m=bodyText.match(/(?:開催(?:期間|日)|日程|検定日)\s*[：:]?\s*((?:20\d{2}年)[^。]{0,120})/);dateText=m?.[1]||'';}
+  if(!dateText&&/20\d{2}年\s*\d{1,2}月\s*\d{1,2}日/.test(candidate.title))dateText=candidate.title;
   timeText=f['開催時間']||f['時間']||section($,'開催時間')||section($,'時間');
   venue=f['開催場所']||f['会場']||f['場所']||section($,'開催場所')||section($,'会場')||section($,'場所');
   if(!venue){const m=bodyText.match(/(?:開催場所|会場|場所)\s*[：:]?\s*([^。]{2,100})/);venue=m?.[1]||'';}
+  if(!venue&&/Web受検/.test(bodyText))venue='オンライン（Web受検）';
+  if(!venue&&/(?:蒲郡市内|市内の(?:あちこち|飲食店|店舗|施設))/.test(bodyText))venue='蒲郡市内各所';
   address=f['住所']||f['所在地']||'';
   city='蒲郡市';
  }
