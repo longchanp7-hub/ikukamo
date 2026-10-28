@@ -31,7 +31,7 @@ async function context(mode='ok'){
  await p.goto(app,{waitUntil:'domcontentloaded'});await p.getByLabel('訪問日時',{exact:true}).waitFor();await p.locator('article').first().waitFor();return {c,p,errors};}
 const {c,p,errors}=await context();
 const snapshot=await (await p.request.get(app+'data/collection.json')).json();
-assert.equal(snapshot.version,2);assert.equal(snapshot.sources.length,10);assert(snapshot.events.length>0);
+assert.equal(snapshot.version,2);const configuredSourceCount=JSON.parse(fs.readFileSync(path.resolve('config/discovery-sources.json'),'utf8')).sources.length;assert.equal(snapshot.sources.length,configuredSourceCount);assert(snapshot.events.length>0);
 const regionCount=JSON.parse(fs.readFileSync(path.resolve('config/regions.json'),'utf8')).cities.length;
 assert.equal(await p.getByLabel('開催地域',{exact:true}).locator('option').count(),regionCount+1);
 for(const city of ['豊橋市','豊川市','田原市','蒲郡市','新城市','岡崎市','浜松市']){
@@ -41,7 +41,7 @@ for(const city of ['豊橋市','豊川市','田原市','蒲郡市','新城市','
 await p.getByLabel('開催地域',{exact:true}).selectOption('');
 await p.getByTestId('collection-status').locator('summary').first().click();await p.getByText('公開SNSページの巡回結果',{exact:true}).click();
 await p.getByText(/直接取得できた本文/).waitFor();await p.getByTestId('collection-status').locator('summary').first().click();
-done.push('ten official sources + seven core city filters + configured region choices + explicit social status');
+done.push(`${configuredSourceCount} official sources + seven core city filters + configured region choices + explicit social status`);
 for(const width of [360,390,874,1280]){await p.setViewportSize({width,height:900});await p.evaluate(()=>scrollTo(0,0));assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.screenshot({path:path.join(evidence,`home-${width}.png`)});}done.push('responsive 360/390/874/1280');
 await p.setViewportSize({width:390,height:844});await p.getByRole('button',{name:'現在地を使う',exact:true}).click();await p.getByText(/現在地を使用中/).waitFor();await p.getByLabel('出発地域').selectOption('豊橋市');done.push('GPS success + manual fallback');
 await p.getByRole('button',{name:'会場の天気を取得',exact:true}).click();await p.getByText(/会場ごとの予報を取得しました/).waitFor();assert((await p.locator('[data-testid=venue-weather]').allTextContents()).some(t=>t.includes('降水確率80%')));

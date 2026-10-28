@@ -92,6 +92,14 @@ test('real-shaped discovery adds a new event; cached repeat makes no requests or
  validateSnapshot(a.snapshot,regions);
  const b=await collect(tiny,regions,a.snapshot,stamp,async()=>{throw Error('cache failed')});assert.deepEqual(b.snapshot.events,a.snapshot.events);assert.deepEqual(b.snapshot.sources,a.snapshot.sources);
 });
+test('changed collector fingerprint restarts source rotation from the newest listing entries',async()=>{
+ const rotating={...config,sources:[{...source,urls:[source.urls[0]],maxDetails:1}]};
+ const first='https://1484machinaka.jp/event/15092',second='https://1484machinaka.jp/event/15093';
+ const read=async u=>u===source.urls[0]?'<a href="'+first+'">新着1</a><a href="'+second+'">新着2</a>':page;
+ const previous={events:[],sources:[{id:source.id,fingerprint:'stale-fingerprint',status:'review',cursor:1,lastSuccessAt:null}],reviews:[]};
+ const result=await collect(rotating,regions,previous,stamp,read,true);
+ assert.equal(result.snapshot.events.length,1);assert.equal(result.snapshot.events[0].officialUrl,first);
+});
 test('partial failures preserve actual last verification, then expire recommendations after seven days',async()=>{
  const a=await collect(tiny,regions,{events:[],sources:[]},stamp,get);
  const b=await collect(tiny,regions,a.snapshot,'2026-10-03T10:00:00Z',async()=>{throw Error('HTTP 503')},true);

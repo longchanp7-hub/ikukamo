@@ -53,7 +53,7 @@ export async function collect(config,regions,previous,stamp=new Date().toISOStri
   // Recheck previously accepted upcoming pages even after they disappear from a listing.
   const queue=[...candidates.values()];
   for(const e of oldEvents.filter(e=>Date.parse(e.endAt)>=Date.parse(stamp)))if(!candidates.has(e.officialUrl)&&!queue.some(c=>c.url===e.officialUrl))queue.push({url:e.officialUrl,title:e.title,hint:e.city});
-  const offset=(old?.cursor||0)%Math.max(1,queue.length);const rotated=[...queue.slice(offset),...queue.slice(0,offset)];const limited=rotated.slice(0,source.maxDetails);record.cursor=(offset+limited.length)%Math.max(1,queue.length);record.skipped=Math.max(0,queue.length-limited.length);
+  const offset=((old?.fingerprint===fingerprint?old?.cursor:0)||0)%Math.max(1,queue.length);const rotated=[...queue.slice(offset),...queue.slice(0,offset)];const limited=rotated.slice(0,source.maxDetails);record.cursor=(offset+limited.length)%Math.max(1,queue.length);record.skipped=Math.max(0,queue.length-limited.length);
   for(const candidate of limited){
    let html;try{const fetchUrl=source.parser==='hamamatsu-city'?candidate.url.replace('/odpf/','/api/odpf/').replace('v1.html','v1'):candidate.url;html=await get(fetchUrl,source);record.fetched++;}catch(e){record.errors++;reviews.push({sourceId:source.id,url:candidate.url,title:candidate.title,reason:'詳細取得失敗: '+e.message,checkedAt:stamp});continue;}
    try{const rows=reconcileOccurrences(parseDetail(html,source,candidate,regions,stamp),oldEvents.filter(e=>e.officialUrl===candidate.url),stamp);handled.add(candidate.url);
