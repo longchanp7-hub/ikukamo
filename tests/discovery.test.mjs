@@ -9,8 +9,8 @@ const config=JSON.parse(fs.readFileSync('config/discovery-sources.json')),region
 const stamp='2026-10-03T00:00:00Z',source=config.sources[0];
 const fixture=id=>fs.readFileSync('tests/fixtures/'+id+'.html','utf8');
 const page=fixture('machinaka'),candidate={url:'https://1484machinaka.jp/event/15092',hint:''};
-test('all ten real source fragments yield dated events with verified cities',()=>{
- const cities=['豊橋市','豊橋市','豊川市','田原市','岡崎市','新城市','蒲郡市','豊田市','浜松市','浜松市'];
+test('all configured real source fragments yield dated events with verified cities',()=>{
+ const cities=['豊橋市','豊橋市','豊川市','田原市','岡崎市','新城市','蒲郡市','豊田市','浜松市','浜松市','豊橋市','蒲郡市'];
  config.sources.forEach((s,i)=>{const rows=parseDetail(fixture(s.id),s,{url:s.urls[0],hint:''},regions,stamp);assert(rows.length,s.id);assert.equal(rows[0].city,cities[i],s.id);assert(rows.every(e=>e.dateText&&e.timePrecision));});
 });
 test('shinshiro parser accepts the current generic h1 event layout',()=>{
@@ -58,6 +58,14 @@ test('aichi direct listing fallback keeps only configured East Mikawa cities',()
  const html='<article><span>豊橋市</span><a href="/events/detail/1111/">豊橋の催し 2026年11月2日(月)</a></article><article><span>名古屋市</span><a href="/events/detail/2222/">名古屋の催し 2026年11月3日(火)</a></article>';
  const rows=discover(html,s,base,new Date('2026-10-19T00:00:00+09:00'));
  assert.equal(rows.length,1);assert.match(rows[0].url,/1111/);assert.match(rows[0].hint,/豊橋市/);
+});
+test('Toyohashi tourism and Gamagori listings discover only their event detail URLs',()=>{
+ const toy=config.sources.find(x=>x.id==='toyohashi-tourism');
+ const toyRows=discover('<a href="/toyohashi/event-info/?Mode=detail&code=997">豊橋まつり</a><a href="/toyohashi/topics/?Mode=detail&code=1">topic</a>',toy,toy.urls[0]);
+ assert.equal(toyRows.length,1);assert.match(toyRows[0].url,/Mode=detail&code=997/);
+ const gama=config.sources.find(x=>x.id==='gamagori');
+ const gamaRows=discover('<a href="/archives/shun/mikawa-de-1002026">遊び100</a><a href="/archives/spot/foo">spot</a>',gama,gama.urls[0]);
+ assert.equal(gamaRows.length,1);assert.match(gamaRows[0].url,/archives\/shun\/mikawa-de-1002026/);
 });
 test('unknown host locality never substitutes for event venue',()=>{
  assert.throws(()=>parseDetail(page.replaceAll('豊橋駅南口駅前広場','会場未定'),source,candidate,regions,stamp),/開催地/);

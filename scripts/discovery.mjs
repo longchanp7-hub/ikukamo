@@ -52,7 +52,7 @@ export function discover(html, source, base, now=new Date()) {
  if (/^\s*(?:<\?xml|<rss\b|<feed\b|<urlset\b)/i.test(html)) {
   const xml=load(html,{xmlMode:true});return xml('item,entry,url').toArray().flatMap(e=>{const entry=xml(e),value=entry.find('link').attr('href')||entry.find('link,loc').first().text(),url=allowedUrl(value,source,base);return url?[{url,title:clean(entry.find('title').text()).slice(0,180),hint:'',method:entry.is('url')?'sitemap':'feed'}]:[];});
  }
- const $=load(html),out=new Map();const patterns={machinaka:/\/event\/\d+\/?$/,plat:/\/event\/performance\.php\?id=\d+$/,toyokawa:/\/event\/\d+\.html$/,tahara:/\/event\/detail\.php\?event_id=\d+$/,okazaki:/\/event\/\d+$/,shinshiro:/\/event\/detail\/\d+\/$/,aichi:/\/events\/detail\/\d+\/?(?:\?.*)?$/,west:/\/spots\/detail\/\d+\/$/,actcity:/\/event\/detail\/\?id=\d+$/};
+ const $=load(html),out=new Map();const patterns={machinaka:/\/event\/\d+\/?$/,plat:/\/event\/performance\.php\?id=\d+$/,toyokawa:/\/event\/\d+\.html$/,tahara:/\/event\/detail\.php\?event_id=\d+$/,okazaki:/\/event\/\d+$/,shinshiro:/\/event\/detail\/\d+\/$/,aichi:/\/events\/detail\/\d+\/?(?:\?.*)?$/,west:/\/spots\/detail\/\d+\/$/,actcity:/\/event\/detail\/\?id=\d+$/,'toyohashi-tourism':/\/toyohashi\/event-info\/\?Mode=detail&code=\d+$/,gamagori:/\/archives\/shun\/[^/?#]+\/?$/};
  $('noscript,script,style').remove();
  $('a[href]').each((_,e)=>{const url=allowedUrl($(e).attr('href'),source,base);if(!url||!patterns[source.parser]?.test(new URL(url).pathname+new URL(url).search))return;const title=clean($(e).text());let hint='';
    if(source.parser==='aichi'){
@@ -84,6 +84,27 @@ export function parseDetail(html,source,candidate,regions,stamp) {
  if(source.parser==='west'){body=$('main,#contents').first();title=clean($('h1').filter((_,e)=>$(e).text().trim()).first().text()).replace(/\s*\([^)]*\)\s*$/,'');dateText=f['開催時期'];timeText=f['開催時間'];venue=f['開催場所'];}
  if(source.parser==='actcity'){body=$('#contents,main').first();title=clean($('h3').filter((_,e)=>$(e).text().trim()&&!/イベントカレンダー/.test($(e).text())).first().text());dateText=f['開催日'];timeText=f['時間'];venue=f['会場'];if(venue?.startsWith('アクトシティ浜松'))city='浜松市';}
  if(source.parser==='hamamatsu-city'){body=$('body');title=publicTitle;dateText=section($,'開催日時').replaceAll('から','~');timeText=dateText.replace(/20\d{2}年\d{1,2}月\d{1,2}日/g,'').replace(/^[\s~]+/,'');venue=f['場所'];address=f['場所'];}
+ if(source.parser==='toyohashi-tourism'){
+  body=$('main,#contents').first();
+  title=clean(candidate.title)||clean($('h1,h2,h3').filter((_,e)=>{const t=clean($(e).text());return t&&!/^(イベント|イベント一覧|豊橋イベントカレンダー)$/.test(t)&&!/^[0-9]{4}年/.test(t);}).first().text());
+  dateText=f['開催期間']||section($,'開催期間');
+  timeText=f['開催時間']||f['時間']||'';
+  venue=f['開催場所']||f['会場']||section($,'開催場所')||section($,'会場');
+  address=f['住所']||f['所在地']||'';
+  city='豊橋市';
+ }
+ if(source.parser==='gamagori'){
+  body=$('main,#contents').first();
+  title=clean(candidate.title)||clean($('h1,h2,h3,h4').filter((_,e)=>{const t=clean($(e).text());return t&&!/^(旬の、?がまごおり|イベント|イベントカレンダー|開催日|開催期間|会場|場所)$/.test(t);}).first().text());
+  const bodyText=clean(body?.text()||'');
+  dateText=f['開催期間']||f['開催日']||f['日程']||section($,'開催期間')||section($,'開催日')||section($,'日程');
+  if(!dateText){const m=bodyText.match(/(?:開催(?:期間|日)|日程)\s*[：:]?\s*((?:20\d{2}年)[^。]{0,120})/);dateText=m?.[1]||'';}
+  timeText=f['開催時間']||f['時間']||section($,'開催時間')||section($,'時間');
+  venue=f['開催場所']||f['会場']||f['場所']||section($,'開催場所')||section($,'会場')||section($,'場所');
+  if(!venue){const m=bodyText.match(/(?:開催場所|会場|場所)\s*[：:]?\s*([^。]{2,100})/);venue=m?.[1]||'';}
+  address=f['住所']||f['所在地']||'';
+  city='蒲郡市';
+ }
  title=clean(title);venue=clean(venue);dateText=clean(dateText);timeText=clean(timeText);if(!title||title.length>200||!venue)throw Error('イベント名・開催会場が確定できません');
  const rule=venueRules.find(r=>r.pattern.test(venue));city=city||cityFrom(address+' '+venue,regions)||rule?.city||cityFrom(candidate.hint,regions);
  if(!city)throw Error('開催地の市町村が不明（発信元の所在地で代用しません）');const place=regions.cities.find(c=>c.name===city);if(!place)throw Error('対象地域外: '+city);

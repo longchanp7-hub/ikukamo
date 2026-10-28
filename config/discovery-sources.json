@@ -91,13 +91,14 @@
       "name": "新城市観光協会・奥三河観光協議会",
       "urls": [
         "https://shinshirokankou.com/",
-        "https://shinshirokankou.com/event/"
+        "https://shinshirokankou.com/event/",
+        "https://www.okuminavi.jp/event"
       ],
       "hosts": [
         "shinshirokankou.com",
         "okuminavi.jp"
       ],
-      "maxDetails": 12,
+      "maxDetails": 18,
       "cities": [
         "新城市",
         "設楽町",
@@ -184,6 +185,36 @@
         "浜松市"
       ],
       "parser": "hamamatsu-city"
+    },
+    {
+      "id": "toyohashi-tourism",
+      "name": "豊橋観光コンベンション協会 ええじゃないか豊橋",
+      "urls": [
+        "https://www.honokuni.or.jp/toyohashi/event-info/"
+      ],
+      "hosts": [
+        "honokuni.or.jp"
+      ],
+      "maxDetails": 18,
+      "cities": [
+        "豊橋市"
+      ],
+      "parser": "toyohashi-tourism"
+    },
+    {
+      "id": "gamagori",
+      "name": "蒲郡市観光協会 がまごおり、ナビ",
+      "urls": [
+        "https://www.gamagori.jp/archives/shun_category/event"
+      ],
+      "hosts": [
+        "gamagori.jp"
+      ],
+      "maxDetails": 16,
+      "cities": [
+        "蒲郡市"
+      ],
+      "parser": "gamagori"
     }
   ]
 }
