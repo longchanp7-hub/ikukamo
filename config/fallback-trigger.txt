@@ -1,4 +1,4 @@
 # Fallback trigger for daily-fetch.
 # The ChatGPT automation updates only the last_fallback line when the GitHub
 # scheduled run has not completed by the morning safety window.
-last_fallback=2026-10-28T23:35:00+09:00
+last_fallback=2026-10-29T06:47:00+09:00
