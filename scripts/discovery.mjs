@@ -94,7 +94,7 @@ export function parseDetail(html,source,candidate,regions,stamp) {
   city='豊橋市';
  }
  if(source.parser==='gamagori'){
-  body=$('main,#contents').first();
+  body=$('main,#contents').first();if(!body.length)body=$('body');
   const bodyText=clean(body?.text()||'');
   title=clean($('h1,h2,h3,h4').filter((_,e)=>{const t=clean($(e).text());return t&&!/^(旬の、?がまごおり|イベント|イベントカレンダー|開催日|開催期間|会場|場所)$/.test(t)&&!/^開催期間[：:]/.test(t)&&!/^推しみかん/.test(t);}).first().text())||clean(candidate.title).replace(/^(?:20\d{2}年)?\d{1,2}[月/]\d{1,2}日?[^ ]*\s*[〜～~-]\s*(?:20\d{2}年)?\d{1,2}[月/]\d{1,2}日?[^ ]*\s*/,'');
   dateText=f['開催期間']||f['開催日']||f['日程']||section($,'開催期間')||section($,'開催日')||section($,'日程');
