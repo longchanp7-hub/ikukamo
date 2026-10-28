@@ -18241,7 +18241,7 @@
         "蒲郡市"
       ],
       "fingerprint": "6fbe8c6f66f7bde2832e4a8d9ed7eed37147bc3049c2be13978e987d7b4f7bda",
-      "checkedAt": "2026-10-28T21:57:56.414Z",
+      "checkedAt": "2026-10-28T22:03:07.200Z",
       "lastSuccessAt": null,
       "status": "review",
       "discovered": 100,
@@ -18254,7 +18254,7 @@
         "html": 100
       },
       "cityCounts": {},
-      "cursor": 32
+      "cursor": 48
     }
   ],
   "reviews": [
@@ -18736,115 +18736,115 @@
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/r8shiohigari",
-      "title": "各海岸の潮見表を要確認! 令和8年 潮干狩りご案内",
+      "url": "https://www.gamagori.jp/archives/shun/24382",
+      "title": "予約満了いたしました。 こはぜの会 〜ハーバリウム体験〜",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/26542",
-      "title": "2/1(日)〜2/28(土) 『にしがまレモン煮』が誕生いたしました!",
+      "url": "https://www.gamagori.jp/archives/shun/gogomikawakuru-zu",
+      "title": "予約満了いたしました。ありがとうございます。 GoGo三河湾クルーズ開催!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/%e3%81%ab%e3%81%97%e3%81%8c%e3%81%be%e7%b7%9a%e3%81%a7%e5%b7%a1%e3%82%8b%e8%ac%8e%e8%a7%a3%e3%81%8d%e3%83%87%e3%82%b8%e3%82%bf%e3%83%ab%e3%82%b9%e3%82%bf%e3%83%b3%e3%83%97%e3%83%a9%e3%83%aa%e3%83%bc",
-      "title": "2/8(日)〜3/15(日) にしがま線で巡る謎解きデジタルスタンプラリー",
+      "url": "https://www.gamagori.jp/archives/shun/groundgolf202510",
+      "title": "10/1(水) 【参加申込受付中】令和7年度第2回グラウンド・ゴルフ大会",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/okamigosyuin",
-      "title": "2026/2/11(水・祝) 女将と一緒に御朱印巡り こはぜの会体験プログラム〜2月編〜",
-      "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "url": "https://www.gamagori.jp/archives/shun/mikawawansunset2025",
+      "title": "8/23(土) 三河湾サンセットクルーズ 2025",
+      "reason": "開催年・月日が開催欄で確定できません",
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/honokuniitigo",
-      "title": "1/10(土)〜3/31(火) 『ほの国いちご一会スタンプラリー』 開催!",
+      "url": "https://www.gamagori.jp/archives/shun/%e3%83%8f%e3%83%b3%e3%83%89%e3%82%b1%e3%82%a2%ef%bc%86%e3%83%8d%e3%82%a4%e3%83%ab%e4%bd%93%e9%a8%93",
+      "title": "2025/7/15(火) こはぜの会 〜ハンドケア&ネイル体験〜",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/tua-matiaruki",
-      "title": "2026/2/22(日) 海辺のまちがまごおり まち歩きツアー開催!",
+      "url": "https://www.gamagori.jp/archives/shun/shoubumeshi2025",
+      "title": "6/12(木)〜8/31(日) 第83期名人戦七番勝負 第6局 蒲郡対局【勝負めし】を食べよう!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/%e8%a5%bf%e5%b0%be%e3%81%a8%e8%92%b2%e9%83%a1%e3%81%ae%e3%82%93%e3%81%b3%e3%82%8a%e9%89%84%e9%81%93%e3%81%ae%e6%97%85%e9%96%8b%e5%82%ac%ef%bc%81",
-      "title": "1/4(日)~2/1(日) 西尾と蒲郡のんびり鉄道の旅開催!",
+      "url": "https://www.gamagori.jp/archives/shun/morimichiichiba2025",
+      "title": "5/23(金)〜25(日) 森、道、市場2025",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/onrainsoudan",
-      "title": "令和8年1/18(日)・2/7(土)・3/7(土) オンラインde移住相談会の開催決定!",
+      "url": "https://www.gamagori.jp/archives/shun/83_meijinsen_gamagori",
+      "title": "6/9(月)、10(火)、11(水) 第83期名人戦七番勝負 第6局 蒲郡対局【前夜祭】【大盤解説会】抽選お申し込み受付中!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/concierge-seminar",
-      "title": "1/12(月・祝) これを受ければ検定試験も完璧!?おもてなしコンシェルジュ検定直前対策セミナーを開催します",
+      "url": "https://www.gamagori.jp/archives/shun/azisai2025",
+      "title": "6/1(日)〜6/30(月) あじさい祭り2025開催!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/concierge2025",
-      "title": "1/24(土)~1/26(月) 第17回蒲郡市観光交流おもてなしコンシェルジュ検定&第9回蒲郡キッズコンシェルジュ検定を開催します",
+      "url": "https://www.gamagori.jp/archives/shun/kohaze202504",
+      "title": "2025/5/20(火) リースづくりと美味しいスイーツ〜こはぜの会体験プラン5月編〜",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/kittinnka",
-      "title": "2025/12/14(日) 東三河だいすキッチンカーズ",
+      "url": "https://www.gamagori.jp/archives/shun/mitiekisutanp",
+      "title": "2025/4/15(火)~6/30(月) ほの国東三河 「道の駅&花スポットスタンプラリー」開催!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/asobi100_2025_24onoresho",
-      "title": "11/19(水) 己書体験 こはぜの会体験プログラム〜11月編〜",
+      "url": "https://www.gamagori.jp/archives/shun/gamagorihakurankai2025",
+      "title": "6/28(土)〜9/30(火) がま氷博覧会2025",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/mikan_matsuri2025",
-      "title": "11/4(火)〜12/31(水) 蒲郡みかん祭り2025",
+      "url": "https://www.gamagori.jp/archives/shun/mikwadesousenkyo2025",
+      "title": "7/1(火)〜9/30(火) MIKAWAdeかき氷総選挙",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/mikawa-de2025-2026",
-      "title": "10/1(水)〜3/22(日) Mikawa de 遊び100<2025-2026>スタート!",
+      "url": "https://www.gamagori.jp/archives/shun/tutuzi2025",
+      "title": "4/12(土)〜4/30(水) つつじ祭り開催!",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/kohazeink",
-      "title": "10/15(水) こはぜの会 〜アルコールインクアート体験〜",
+      "url": "https://www.gamagori.jp/archives/shun/kohaze202503",
+      "title": "3/18(火) こはぜの会〜女将たちと体験プログラム〜3月編",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     },
     {
       "sourceId": "gamagori",
-      "url": "https://www.gamagori.jp/archives/shun/nisigamatowarai",
-      "title": "予約満了いたしました。ありがとうございました。 名鉄 にしがま線 トワイライト・ナイトトレイン開催ご案内!",
+      "url": "https://www.gamagori.jp/archives/shun/businesscardgame",
+      "title": "2025/03/16 SDGs×観光まちづくりビジネスカードゲームを開催します",
       "reason": "イベント名・開催会場が確定できません",
-      "checkedAt": "2026-10-28T21:57:56.414Z"
+      "checkedAt": "2026-10-28T22:03:07.200Z"
     }
   ],
   "social": {
