@@ -115,6 +115,41 @@ test('same URL is updated to cancellation without a new id',async()=>{
  const b=await collect(tiny,regions,a.snapshot,'2026-10-03T10:00:00Z',async u=>(await get(u)).replace('健康美マルシェ','【中止】健康美マルシェ'),true);
  assert.equal(b.snapshot.events[0].id,a.snapshot.events[0].id);assert.equal(b.snapshot.events[0].status,'cancelled');
 });
+
+test('IPv4 alternate transport recovers a network fetch error and shares request budget/cache',async()=>{
+ let primary=0,alternate=0;
+ const f=makeFetcher({...config,attempts:1,maxRequests:2},async()=>{
+  primary++;throw Object.assign(new TypeError('fetch failed'),{cause:{code:'ENETUNREACH'}});
+ },async(url,s,timeout)=>{
+  alternate++;assert.equal(url,candidate.url);assert.equal(s.id,source.id);assert.equal(timeout,config.timeoutMs);
+  return {ok:true,status:200,url,text:async()=>page};
+ });
+ assert.equal(await f(candidate.url,source),page);
+ assert.equal(await f(candidate.url,source),page);
+ assert.equal(primary,1);assert.equal(alternate,1);assert.equal(f.count(),2);
+});
+test('HTTP 403 is never retried with an alternate transport',async()=>{
+ let alternate=0;
+ const f=makeFetcher({...config,attempts:2},async()=>({ok:false,status:403}),async()=>{
+  alternate++;throw Error('not expected');
+ });
+ await assert.rejects(()=>f(candidate.url,source),/HTTP 403/);
+ assert.equal(alternate,0);assert.equal(f.count(),1);
+});
+test('IPv4 fallback does not bypass the collection request budget',async()=>{
+ let alternate=0;
+ const f=makeFetcher({...config,attempts:1,maxRequests:1},async()=>{throw new TypeError('fetch failed');},async()=>{
+  alternate++;return {ok:true,status:200,url:candidate.url,text:async()=>page};
+ });
+ await assert.rejects(()=>f(candidate.url,source),/収集の上限に到達/);
+ assert.equal(alternate,0);assert.equal(f.count(),1);
+});
+test('unlisted redirect hosts from alternate transport are not accepted',async()=>{
+ const f=makeFetcher({...config,attempts:1},async()=>{throw new TypeError('fetch failed');},async()=>({
+  ok:true,status:200,url:'https://unlisted.invalid/event/',text:async()=>page
+ }));
+ await assert.rejects(()=>f(candidate.url,source),/Redirect host is not configured/);
+});
 test('HTTP failures have a finite retry bound',async()=>{
  let n=0;const f=makeFetcher({...config,timeoutMs:1000,maxRequests:2},async()=>{n++;throw Error('timeout')});
  await assert.rejects(()=>f(candidate.url,source));assert.equal(n,2);

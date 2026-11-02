@@ -1,11 +1,19 @@
 import fs from 'node:fs';
+import {fetchWithIPv4} from './ipv4-transport.mjs';
 import { allowedUrl, discover, parseDetail, hash } from './discovery.mjs';
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 export function validateConfig(c){
  if(c.version!==2||!Array.isArray(c.sources)||c.sources.length>12||c.attempts<1||c.attempts>2||c.timeoutMs<1000||c.timeoutMs>12000||c.maxRequests>200||c.maxRequests<1||c.maxRunMs>480000||c.maxRunMs<1000||c.spacingMs<500||c.cacheHours<1||c.retentionDays>7||c.archiveDays>365)throw Error('Collector configuration outside bounded limits');
  for(const s of c.sources)if(!/^[a-z-]+$/.test(s.id)||!s.urls?.length||s.urls.length>4||s.maxDetails>24||s.maxDetails<1||!s.hosts?.length||s.urls.some(u=>!allowedUrl(u,s)))throw Error('Invalid source configuration');
 }
-export function makeFetcher(config, fetcher=fetch){
+const transportFailure=e=>{
+ const code=e?.cause?.code||e?.code||'';
+ if(['CERT_HAS_EXPIRED','UNABLE_TO_VERIFY_LEAF_SIGNATURE','DEPTH_ZERO_SELF_SIGNED_CERT','ERR_TLS_CERT_ALTNAME_INVALID'].includes(code))return false;
+ return ['ETIMEDOUT','ENETUNREACH','EAI_AGAIN','ECONNRESET','ECONNREFUSED','EHOSTUNREACH','UND_ERR_CONNECT_TIMEOUT'].includes(code)||
+  (['TypeError','TimeoutError','AbortError'].includes(e?.name)&&/fetch failed|network|timeout|aborted/i.test(e?.message||''));
+};
+const failureReason=e=>[e?.name,e?.message,e?.cause?.code].filter(Boolean).join(':').slice(0,180);
+export function makeFetcher(config, fetcher=fetch, ipv4Fetcher=fetcher===fetch?fetchWithIPv4:null){
  const last=new Map(),cache=new Map(),blocked=new Map();let requests=0;const start=Date.now();
  const get=async(url,source)=>{
   if(cache.has(url))return cache.get(url);if(!allowedUrl(url,source))throw Error('Host is not configured');
@@ -13,7 +21,19 @@ export function makeFetcher(config, fetcher=fetch){
   let error;for(let attempt=0;attempt<config.attempts;attempt++){
    if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達');
    await sleep(Math.max(0,config.spacingMs-(Date.now()-(last.get(host)||0))));last.set(host,Date.now());requests++;
-   try{const r=await fetcher(url,{signal:AbortSignal.timeout(config.timeoutMs),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});
+   try{
+    let r;
+    try{
+     r=await fetcher(url,{signal:AbortSignal.timeout(config.timeoutMs),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});
+    }catch(primaryError){
+     if(!ipv4Fetcher||!transportFailure(primaryError))throw primaryError;
+     // Count fallback requests against the same overall budget and host spacing.
+     if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達: '+failureReason(primaryError));
+     await sleep(Math.max(0,config.spacingMs-(Date.now()-(last.get(host)||0))));
+     last.set(host,Date.now());requests++;
+     try{r=await ipv4Fetcher(url,source,Math.min(config.timeoutMs,Math.max(1000,config.maxRunMs-(Date.now()-start))));}
+     catch(ipv4Error){throw Error('通信失敗 node='+failureReason(primaryError)+' / ipv4='+failureReason(ipv4Error));}
+    }
     if([401,403,429].includes(r.status)){blocked.set(host,'HTTP '+r.status);throw Error('HTTP '+r.status);}if(!r.ok)throw Error('HTTP '+r.status);if(r.url&&!allowedUrl(r.url,source))throw Error('Redirect host is not configured');const html=await r.text();
     if(html.length<100||html.length>2000000)throw Error('Unexpected document size');cache.set(url,html);return html;
    }catch(e){error=e;if(blocked.has(host))throw e;if(attempt+1<config.attempts)await sleep(800);}
