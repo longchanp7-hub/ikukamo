@@ -76,6 +76,26 @@ test('Gamagori parser accepts official citywide and web events without inventing
  const webRows=parseDetail(web,s,{url:'https://www.gamagori.jp/archives/shun/concierge',title:'2026年12月5日(土)〜12月7日(月) おもてなしコンシェルジュ検定募集開始！',hint:''},regions,stamp);
  assert.equal(webRows.length,1);const b=webRows[0];assert.equal(b.venueName,'オンライン(Web受検)');assert.equal(b.startAt.slice(0,10),'2026-12-05');assert.equal(b.endAt.slice(0,10),'2026-12-08');
 });
+
+test('verified venue names resolve a city without substituting a publisher address',()=>{
+ const cases=[
+  ['toyokawa','シントー・ハート・アリーナ前広場','豊川稲荷','豊川市','https://www.toyokawa-map.net/my_story_toyokawa/000186.html'],
+  ['toyokawa','シントー・ハート・アリーナ前広場','豊川駐屯地','豊川市','https://www.toyokawa-map.net/event/000064.html'],
+  ['machinaka','豊橋駅南口駅前広場','まちなか広場','豊橋市','https://www.city.toyohashi.lg.jp/48117.htm'],
+  ['machinaka','豊橋駅南口駅前広場','水上ビル','豊橋市','https://1484machinaka.jp/event/15202'],
+  ['tahara','田原市総合体育館周辺','崋山神社','田原市','https://www.taharakankou.gr.jp/spot/spot.php?spot_id=41']
+ ];
+ for(const [id,oldName,venue,city,evidence] of cases){
+  const s=config.sources.find(x=>x.id===id);
+  const html=fixture(id).replaceAll(oldName,venue);
+  const rows=parseDetail(html,s,{url:s.urls[0],hint:''},regions,stamp);
+  assert(rows.length>0,id+' '+venue);
+  assert(rows.every(e=>e.city===city&&e.locationEvidenceUrl===evidence),id+' '+venue);
+ }
+ const s=config.sources.find(x=>x.id==='tahara');
+ const invalid=fixture('tahara').replaceAll('田原市総合体育館周辺','会場未定');
+ assert.throws(()=>parseDetail(invalid,s,{url:s.urls[0],hint:''},regions,stamp),/開催地/);
+});
 test('unknown host locality never substitutes for event venue',()=>{
  assert.throws(()=>parseDetail(page.replaceAll('豊橋駅南口駅前広場','会場未定'),source,candidate,regions,stamp),/開催地/);
  const e=parseDetail(page,source,candidate,regions,stamp)[0];assert.equal(e.coordinatePrecision,'city');

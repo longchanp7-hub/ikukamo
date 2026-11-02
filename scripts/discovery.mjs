@@ -42,7 +42,19 @@ const cityFrom = (text,regions) => regions.cities.find(c=>text.includes(c.name))
 const venueRules=[
  {pattern:/シントー[・\s-]*ハート[・\s-]*アリーナ|Sinto Heart Arena/i,city:'豊川市',url:'https://www.city.toyokawa.lg.jp/soshiki/kyoikuiinkai/sports/2/1/396.html'},
  {pattern:/豊橋駅南口駅前広場/,city:'豊橋市',url:'https://www.city.toyohashi.lg.jp/48116.htm'},
- {pattern:/岡崎げんき館/,city:'岡崎市',url:'https://okazaki-kanko.jp/event/711'}
+ {pattern:/岡崎げんき館/,city:'岡崎市',url:'https://okazaki-kanko.jp/event/711'},
+ // Only locations whose municipality is independently verified are mapped.
+ // Generic names are restricted to their actual official local event source.
+ {pattern:/豊川稲荷/,city:'豊川市',url:'https://www.toyokawa-map.net/my_story_toyokawa/000186.html'},
+ {pattern:/豊川駐屯地/,city:'豊川市',url:'https://www.toyokawa-map.net/event/000064.html'},
+ {pattern:/イオンモール豊川/,city:'豊川市',url:'https://www.toyokawa-map.net/event/000100.html'},
+ {pattern:/サーラプラザ豊川/,city:'豊川市',url:'https://www.toyokawa-map.net/event/000140.html'},
+ {pattern:/まちなか広場/,city:'豊橋市',url:'https://www.city.toyohashi.lg.jp/48117.htm',sourceIds:['machinaka','toyohashi-tourism']},
+ {pattern:/まちなか図書館|emCAMPUS/i,city:'豊橋市',url:'https://www.city.toyohashi.lg.jp/48589.htm',sourceIds:['machinaka','toyohashi-tourism']},
+ {pattern:/水上ビル/,city:'豊橋市',url:'https://1484machinaka.jp/event/15202',sourceIds:['machinaka']},
+ {pattern:/穂の国とよはし芸術劇場|\bPLAT\b/i,city:'豊橋市',url:'https://www.city.toyohashi.lg.jp/7010.htm',sourceIds:['machinaka','toyohashi-tourism']},
+ {pattern:/こども未来館|ここにこ/,city:'豊橋市',url:'https://www.city.toyohashi.lg.jp/7010.htm',sourceIds:['machinaka','toyohashi-tourism']},
+ {pattern:/崋山神社/,city:'田原市',url:'https://www.taharakankou.gr.jp/spot/spot.php?spot_id=41',sourceIds:['tahara']}
 ];
 export function discover(html, source, base, now=new Date()) {
  if(source.parser==='hamamatsu-city'){const data=JSON.parse(html);if(data.success!=='Y')throw Error('浜松市公開JSONの取得失敗');const $=load(data.odpf_body);return $('tr td a[href]').toArray().flatMap(e=>{const url=allowedUrl($(e).attr('href'),source,base);return url&&new URL(url).searchParams.get('m')==='show'?[{url,title:clean($(e).text()).slice(0,180),hint:'',method:'public_json'}]:[];});}
@@ -108,7 +120,7 @@ export function parseDetail(html,source,candidate,regions,stamp) {
   city='蒲郡市';
  }
  title=clean(title);venue=clean(venue);dateText=clean(dateText);timeText=clean(timeText);if(!title||title.length>200||!venue)throw Error('イベント名・開催会場が確定できません');
- const rule=venueRules.find(r=>r.pattern.test(venue));city=city||cityFrom(address+' '+venue,regions)||rule?.city||cityFrom(candidate.hint,regions);
+ const rule=venueRules.find(r=>(!r.sourceIds||r.sourceIds.includes(source.id))&&r.pattern.test(venue));city=city||cityFrom(address+' '+venue,regions)||rule?.city||cityFrom(candidate.hint,regions);
  if(!city)throw Error('開催地の市町村が不明（発信元の所在地で代用しません）');const place=regions.cities.find(c=>c.name===city);if(!place)throw Error('対象地域外: '+city);
  const periods=parseDates(dateText),geo=coordinates($),text=clean(body?.text()||'');
  const cancelled=/[【\[]中止[】\]]|開催中止/.test(title)||/(?:開催|本イベント|本公演)(?:を|は)中止(?:いたします|します|となりました)/.test(text);
