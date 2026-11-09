@@ -1,0 +1,97 @@
+name: Live public sites browser check
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-sites-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and Chromium
+        run: |
+          mkdir -p /tmp/live-check
+          cd /tmp/live-check
+          npm init -y
+          npm install --no-fund --no-audit --no-package-lock playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Open every published site in a real browser
+        run: |
+          cd /tmp/live-check
+          node <<'NODE'
+          const {chromium} = require('playwright');
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const origin = 'https://longchanp7-hub.github.io';
+          const sites = [
+            ['ikukamo','行くかも'],
+            ['sushi-fair-app','寿司フェア'],
+            ['meat-fair-app','肉フェア'],
+            ['restaurant-ops-app','店舗運営'],
+            ['shift-manager-app','シフト管理'],
+            ['ai-data-guard','AI Data Guard']
+          ];
+          const sizes = [['phone',360,800],['fold',768,1024],['desktop',1280,900]];
+          const output = path.join(process.env.GITHUB_WORKSPACE || process.cwd(), 'live-check-report');
+          fs.mkdirSync(output,{recursive:true});
+          const results=[];
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            try {
+              for(const [slug,label] of sites){
+                for(const [size,width,height] of sizes){
+                  const url=origin+'/'+slug+'/';
+                  const row={slug,label,size,width,height,url,checkedAt:new Date().toISOString(),status:null,title:'',bodyLength:0,horizontalOverflow:0,pageErrors:[],consoleErrors:[],badAssets:[],requestFailures:[],screenshot:null,ok:false,error:null};
+                  const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1,locale:'ja-JP',isMobile:size!=='desktop',hasTouch:size!=='desktop',serviceWorkers:'block'});
+                  const page=await context.newPage();
+                  page.on('pageerror',e=>row.pageErrors.push(String(e.message||e).slice(0,300)));
+                  page.on('console',m=>{if(m.type()==='error' && row.consoleErrors.length<6)row.consoleErrors.push(m.text().slice(0,300));});
+                  page.on('response',r=>{try{if(new URL(r.url()).origin===origin && r.status()>=400 && row.badAssets.length<8)row.badAssets.push(r.status()+' '+r.url().slice(0,160));}catch{}});
+                  page.on('requestfailed',r=>{try{if(new URL(r.url()).origin===origin && row.requestFailures.length<8)row.requestFailures.push(r.url().slice(0,160)+': '+(r.failure()||''));}catch{}});
+                  try {
+                    const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+                    row.status=response?response.status():null;
+                    try{await page.waitForLoadState('networkidle',{timeout:4500});}catch{}
+                    await page.waitForTimeout(2200);
+                    row.title=(await page.title()).slice(0,160);
+                    const info=await page.evaluate(()=>({body:(document.body?.innerText||''),width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}));
+                    row.bodyLength=info.body.trim().length;
+                    row.horizontalOverflow=Math.max(0,info.width-info.viewport);
+                    row.screenshot=slug+'-'+size+'.png';
+                    await page.screenshot({path:path.join(output,row.screenshot),fullPage:false,animations:'disabled',timeout:12000});
+                    const is404=/there isn't a github pages site here|404 page not found|site not found|page not found/i.test(info.body.slice(0,500));
+                    row.ok=row.status===200 && row.bodyLength>10 && !is404 && row.pageErrors.length===0;
+                  }catch(e){
+                    row.error=String(e.message||e).slice(0,600);
+                  }finally{
+                    await context.close().catch(()=>{});
+                    results.push(row);
+                    console.log((row.ok?'PASS':'FAIL')+' '+slug+' '+size+' HTTP '+row.status+' body='+row.bodyLength+' overflow='+row.horizontalOverflow+' JS='+row.pageErrors.length+(row.error?' error='+row.error:''));
+                  }
+                }
+              }
+            }finally{await browser.close().catch(()=>{});}
+            fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({checkedAt:new Date().toISOString(),results},null,2));
+            const lines=['# Public GitHub Pages live Chromium check','','Date (UTC): '+new Date().toISOString(),'','| App | Viewport | HTTP | Body chars | Horizontal overflow (px) | JS errors | Result |','|---|---|---:|---:|---:|---:|---|'];
+            for(const r of results)lines.push('| '+r.label+' | '+r.size+' '+r.width+'x'+r.height+' | '+(r.status??'-')+' | '+r.bodyLength+' | '+r.horizontalOverflow+' | '+r.pageErrors.length+' | '+(r.ok?'PASS':'FAIL')+' |');
+            lines.push('','Failures, console errors, broken assets, and timeouts are in results.json. Screenshots show the visible viewport. No user data is entered or changed.');
+            fs.writeFileSync(path.join(output,'summary.md'),lines.join('\n'));
+            console.log('SUMMARY '+results.filter(r=>r.ok).length+'/'+results.length+' passed; artifacts saved in '+output);
+            if(results.some(r=>!r.ok))process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exitCode=1;});
+          NODE
+      - name: Preserve 18 screenshots and check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-public-sites-browser-report
+          path: live-check-report/
+          retention-days: 7
