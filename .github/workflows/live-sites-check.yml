@@ -68,7 +68,7 @@ jobs:
                     row.screenshot=slug+'-'+size+'.png';
                     await page.screenshot({path:path.join(output,row.screenshot),fullPage:false,animations:'disabled',timeout:12000});
                     const is404=/there isn't a github pages site here|404 page not found|site not found|page not found/i.test(info.body.slice(0,500));
-                    row.ok=row.status===200 && row.bodyLength>10 && !is404 && row.pageErrors.length===0;
+                    row.ok=row.status===200 && row.bodyLength>10 && !is404 && row.pageErrors.length===0 && row.horizontalOverflow<=8;
                   }catch(e){
                     row.error=String(e.message||e).slice(0,600);
                   }finally{
@@ -92,6 +92,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: live-public-sites-browser-report
+          name: live-public-sites-browser-report-${{ github.run_attempt }}
           path: live-check-report/
           retention-days: 7
