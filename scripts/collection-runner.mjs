@@ -3,7 +3,7 @@ import {fetchWithIPv4} from './ipv4-transport.mjs';
 import { allowedUrl, discover, parseDetail, hash } from './discovery.mjs';
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 export function validateConfig(c){
- if(c.version!==2||!Array.isArray(c.sources)||c.sources.length>12||c.attempts<1||c.attempts>2||c.timeoutMs<1000||c.timeoutMs>12000||c.maxRequests>200||c.maxRequests<1||c.maxRunMs>480000||c.maxRunMs<1000||c.spacingMs<500||c.cacheHours<1||c.retentionDays>7||c.archiveDays>365)throw Error('Collector configuration outside bounded limits');
+ if(c.version!==2||!Array.isArray(c.sources)||c.sources.length>12||c.attempts<1||c.attempts>2||c.timeoutMs<1000||c.timeoutMs>12000||c.maxRequests>230||c.maxRequests<1||c.maxRunMs>480000||c.maxRunMs<1000||c.spacingMs<500||c.cacheHours<1||c.retentionDays>7||c.archiveDays>365)throw Error('Collector configuration outside bounded limits');
  for(const s of c.sources)if(!/^[a-z-]+$/.test(s.id)||!s.urls?.length||s.urls.length>4||s.maxDetails>24||s.maxDetails<1||!s.hosts?.length||s.urls.some(u=>!allowedUrl(u,s)))throw Error('Invalid source configuration');
 }
 const transportFailure=e=>{
@@ -36,7 +36,7 @@ export function makeFetcher(config, fetcher=fetch, ipv4Fetcher=fetcher===fetch?f
     }
     if([401,403,429].includes(r.status)){blocked.set(host,'HTTP '+r.status);throw Error('HTTP '+r.status);}if(!r.ok)throw Error('HTTP '+r.status);if(r.url&&!allowedUrl(r.url,source))throw Error('Redirect host is not configured');const html=await r.text();
     if(html.length<100||html.length>2000000)throw Error('Unexpected document size');cache.set(url,html);return html;
-   }catch(e){error=e;if(blocked.has(host))throw e;if(attempt+1<config.attempts)await sleep(800);}
+   }catch(e){error=e; if(/^HTTP (?:404|410)$/.test(e?.message||''))throw e; if(blocked.has(host))throw e;if(attempt+1<config.attempts)await sleep(800);}
   }blocked.set(host,error?.message||'通信失敗');throw error;
  };
  get.count=()=>requests;return get;

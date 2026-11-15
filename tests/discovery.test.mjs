@@ -170,6 +170,20 @@ test('unlisted redirect hosts from alternate transport are not accepted',async()
  }));
  await assert.rejects(()=>f(candidate.url,source),/Redirect host is not configured/);
 });
+test('a missing official detail returns 404 without blocking other details on the same host',async()=>{
+  const s=config.sources.find(s=>s.id==='hamamatsu-city');
+  const first=new URL(s.urls[0]);first.searchParams.set('m','show');first.searchParams.set('y','missing');
+  const second=new URL(first);second.searchParams.set('y','valid');
+  const requests=[];
+  const f=makeFetcher({...config,attempts:2,maxRequests:2},async url=>{
+    requests.push(url);
+    return url===first.href?{ok:false,status:404,url}:{ok:true,status:200,url,text:async()=>page};
+  });
+  await assert.rejects(()=>f(first.href,s),/HTTP 404/);
+  assert.equal(await f(second.href,s),page);
+  assert.deepEqual(requests,[first.href,second.href]);
+  assert.equal(f.count(),2);
+});
 test('HTTP failures have a finite retry bound',async()=>{
  let n=0;const f=makeFetcher({...config,timeoutMs:1000,maxRequests:2},async()=>{n++;throw Error('timeout')});
  await assert.rejects(()=>f(candidate.url,source));assert.equal(n,2);
