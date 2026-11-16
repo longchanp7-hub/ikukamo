@@ -148,6 +148,23 @@ test('IPv4 alternate transport recovers a network fetch error and shares request
  assert.equal(await f(candidate.url,source),page);
  assert.equal(primary,1);assert.equal(alternate,1);assert.equal(f.count(),2);
 });
+test('Aichi Now requests use its official www host while keeping the existing event URLs',async()=>{
+ const s=config.sources.find(s=>s.id==='aichi');
+ const oldListing=s.urls[1];
+ const oldDetail='https://aichinow.pref.aichi.jp/events/detail/160/';
+ const requested=[];
+ const f=makeFetcher({...config,attempts:1,maxRequests:2},async url=>{
+  requested.push(url);
+  return {ok:true,status:200,url,text:async()=>page};
+ });
+ assert.equal(await f(oldListing,s),page);
+ assert.equal(await f(oldDetail,s),page);
+ assert.deepEqual(requested,[
+  'https://www.aichinow.pref.aichi.jp/events/',
+  'https://www.aichinow.pref.aichi.jp/events/detail/160/'
+ ]);
+ assert.equal(f.count(),2);
+});
 test('HTTP 403 is never retried with an alternate transport',async()=>{
  let alternate=0;
  const f=makeFetcher({...config,attempts:2},async()=>({ok:false,status:403}),async()=>{

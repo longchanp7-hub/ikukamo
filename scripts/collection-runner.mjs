@@ -12,26 +12,38 @@ const transportFailure=e=>{
  return ['ETIMEDOUT','ENETUNREACH','EAI_AGAIN','ECONNRESET','ECONNREFUSED','EHOSTUNREACH','UND_ERR_CONNECT_TIMEOUT'].includes(code)||
   (['TypeError','TimeoutError','AbortError'].includes(e?.name)&&/fetch failed|network|timeout|aborted/i.test(e?.message||''));
 };
+// Aichi Now serves the same official pages reliably on the www hostname.
+// Normalize only this allowlisted source; never reroute access-denied responses.
+function preferredOfficialEndpoint(url, source){
+ const u=new URL(url);
+ if(source.id==='aichi'&&u.hostname==='aichinow.pref.aichi.jp'){
+  u.hostname='www.aichinow.pref.aichi.jp';
+  return u.href;
+ }
+ return url;
+}
 const failureReason=e=>[e?.name,e?.message,e?.cause?.code].filter(Boolean).join(':').slice(0,180);
 export function makeFetcher(config, fetcher=fetch, ipv4Fetcher=fetcher===fetch?fetchWithIPv4:null){
  const last=new Map(),cache=new Map(),blocked=new Map();let requests=0;const start=Date.now();
  const get=async(url,source)=>{
   if(cache.has(url))return cache.get(url);if(!allowedUrl(url,source))throw Error('Host is not configured');
-  const host=new URL(url).hostname;if(blocked.has(host))throw Error('同一ホストの追加取得を停止: '+blocked.get(host));
+  const requestUrl=preferredOfficialEndpoint(url,source);
+  if(!allowedUrl(requestUrl,source))throw Error('Host is not configured');
+  const host=new URL(requestUrl).hostname;if(blocked.has(host))throw Error('同一ホストの追加取得を停止: '+blocked.get(host));
   let error;for(let attempt=0;attempt<config.attempts;attempt++){
    if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達');
    await sleep(Math.max(0,config.spacingMs-(Date.now()-(last.get(host)||0))));last.set(host,Date.now());requests++;
    try{
     let r;
     try{
-     r=await fetcher(url,{signal:AbortSignal.timeout(config.timeoutMs),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});
+     r=await fetcher(requestUrl,{signal:AbortSignal.timeout(config.timeoutMs),headers:{'user-agent':'ikukamo-official-collector/2.0 (+https://github.com/longchanp7-hub/ikukamo)'}});
     }catch(primaryError){
      if(!ipv4Fetcher||!transportFailure(primaryError))throw primaryError;
      // Count fallback requests against the same overall budget and host spacing.
      if(requests>=config.maxRequests||Date.now()-start>=config.maxRunMs)throw Error('収集の上限に到達: '+failureReason(primaryError));
      await sleep(Math.max(0,config.spacingMs-(Date.now()-(last.get(host)||0))));
      last.set(host,Date.now());requests++;
-     try{r=await ipv4Fetcher(url,source,Math.min(config.timeoutMs,Math.max(1000,config.maxRunMs-(Date.now()-start))));}
+     try{r=await ipv4Fetcher(requestUrl,source,Math.min(config.timeoutMs,Math.max(1000,config.maxRunMs-(Date.now()-start))));}
      catch(ipv4Error){throw Error('通信失敗 node='+failureReason(primaryError)+' / ipv4='+failureReason(ipv4Error));}
     }
     if([401,403,429].includes(r.status)){blocked.set(host,'HTTP '+r.status);throw Error('HTTP '+r.status);}if(!r.ok)throw Error('HTTP '+r.status);if(r.url&&!allowedUrl(r.url,source))throw Error('Redirect host is not configured');const html=await r.text();
