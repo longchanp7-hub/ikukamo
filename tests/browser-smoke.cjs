@@ -32,6 +32,10 @@ async function context(mode='ok'){
 const {c,p,errors}=await context();
 const snapshot=await (await p.request.get(app+'data/collection.json')).json();
 assert.equal(snapshot.version,2);const configuredSourceCount=JSON.parse(fs.readFileSync(path.resolve('config/discovery-sources.json'),'utf8')).sources.length;assert.equal(snapshot.sources.length,configuredSourceCount);assert(snapshot.events.length>0);
+// The retired Gamagori tourism source must not survive in published diagnostics or events.
+assert(!snapshot.sources.some(s=>s.id==='gamagori'));
+assert(!snapshot.events.some(e=>e.collectorSource==='gamagori'));
+assert(!snapshot.reviews.some(r=>r.sourceId==='gamagori'));
 const regionCount=JSON.parse(fs.readFileSync(path.resolve('config/regions.json'),'utf8')).cities.length;
 assert.equal(await p.getByLabel('開催地域',{exact:true}).locator('option').count(),regionCount+1);
 for(const city of ['豊橋市','豊川市','田原市','蒲郡市','新城市','岡崎市','浜松市']){
