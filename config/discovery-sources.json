@@ -200,21 +200,6 @@
         "豊橋市"
       ],
       "parser": "toyohashi-tourism"
-    },
-    {
-      "id": "gamagori",
-      "name": "蒲郡市観光協会 がまごおり、ナビ",
-      "urls": [
-        "https://www.gamagori.jp/archives/shun_category/event"
-      ],
-      "hosts": [
-        "gamagori.jp"
-      ],
-      "maxDetails": 16,
-      "cities": [
-        "蒲郡市"
-      ],
-      "parser": "gamagori"
     }
   ]
 }

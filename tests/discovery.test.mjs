@@ -10,7 +10,7 @@ const stamp='2026-10-03T00:00:00Z',source=config.sources[0];
 const fixture=id=>fs.readFileSync('tests/fixtures/'+id+'.html','utf8');
 const page=fixture('machinaka'),candidate={url:'https://1484machinaka.jp/event/15092',hint:''};
 test('all configured real source fragments yield dated events with verified cities',()=>{
- const cities=['豊橋市','豊橋市','豊川市','田原市','岡崎市','新城市','蒲郡市','豊田市','浜松市','浜松市','豊橋市','蒲郡市'];
+ const cities=['豊橋市','豊橋市','豊川市','田原市','岡崎市','新城市','蒲郡市','豊田市','浜松市','浜松市','豊橋市'];
  config.sources.forEach((s,i)=>{const rows=parseDetail(fixture(s.id),s,{url:s.urls[0],hint:''},regions,stamp);assert(rows.length,s.id);assert.equal(rows[0].city,cities[i],s.id);assert(rows.every(e=>e.dateText&&e.timePrecision));});
 });
 test('shinshiro parser accepts the current generic h1 event layout',()=>{
@@ -59,22 +59,15 @@ test('aichi direct listing fallback keeps only configured East Mikawa cities',()
  const rows=discover(html,s,base,new Date('2026-10-19T00:00:00+09:00'));
  assert.equal(rows.length,1);assert.match(rows[0].url,/1111/);assert.match(rows[0].hint,/豊橋市/);
 });
-test('Toyohashi tourism and Gamagori listings discover only their event detail URLs',()=>{
+test('Toyohashi tourism listing discovers only event detail URLs',()=>{
  const toy=config.sources.find(x=>x.id==='toyohashi-tourism');
  const toyRows=discover('<a href="/toyohashi/event-info/?Mode=detail&code=997">豊橋まつり</a><a href="/toyohashi/topics/?Mode=detail&code=1">topic</a>',toy,toy.urls[0]);
  assert.equal(toyRows.length,1);assert.match(toyRows[0].url,/Mode=detail&code=997/);
- const gama=config.sources.find(x=>x.id==='gamagori');
- const gamaRows=discover('<a href="/archives/shun/mikawa-de-1002026">遊び100</a><a href="/archives/spot/foo">spot</a>',gama,gama.urls[0]);
- assert.equal(gamaRows.length,1);assert.match(gamaRows[0].url,/archives\/shun\/mikawa-de-1002026/);
 });
-test('Gamagori parser accepts official citywide and web events without inventing a venue',()=>{
- const s=config.sources.find(x=>x.id==='gamagori');
- const citywide='<html><body><h4>蒲郡みかん祭り2026</h4><h2>開催期間:2026年11月1日(日)〜12月31日(木)</h2><p>市内のあちこちでスイーツやグルメを楽しめます。</p></body></html>';
- const a=parseDetail(citywide,s,{url:'https://www.gamagori.jp/archives/shun/mikanmaturi2026',title:'11/1(日)〜12/31(木) 蒲郡みかん祭り2026',hint:''},regions,stamp)[0];
- assert.equal(a.city,'蒲郡市');assert.equal(a.venueName,'蒲郡市内各所');assert.equal(a.startAt.slice(0,10),'2026-11-01');
- const web='<html><body><h4>おもてなしコンシェルジュ検定募集開始！</h4><p>検定日：2026年12月5日(土)9:00〜12月7日(月)24:00（Web受検）</p></body></html>';
- const webRows=parseDetail(web,s,{url:'https://www.gamagori.jp/archives/shun/concierge',title:'2026年12月5日(土)〜12月7日(月) おもてなしコンシェルジュ検定募集開始！',hint:''},regions,stamp);
- assert.equal(webRows.length,1);const b=webRows[0];assert.equal(b.venueName,'オンライン(Web受検)');assert.equal(b.startAt.slice(0,10),'2026-12-05');assert.equal(b.endAt.slice(0,10),'2026-12-08');
+test('Gamagori tourism is excluded but Gamagori city remains in coverage',()=>{
+ assert.equal(config.sources.some(s=>s.id==='gamagori'),false);
+ assert(regions.cities.some(c=>c.name==='蒲郡市'));
+ assert(config.sources.some(s=>s.cities.includes('蒲郡市')));
 });
 
 test('verified venue names resolve a city without substituting a publisher address',()=>{
