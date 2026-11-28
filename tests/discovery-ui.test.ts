@@ -11,9 +11,14 @@ it("keeps events from the seven core cities and their departure choices",()=>{
  for(const city of ["豊橋市","豊川市","田原市","蒲郡市","新城市","岡崎市","浜松市"]){expect(inCollectionRegion({city})).toBe(true);expect(ORIGINS.some(o=>o.name===city)).toBe(true);expect(loadLocalEvents().some(e=>e.city===city)).toBe(true);}
  expect(inCollectionRegion({city:"東京都千代田区"})).toBe(false);
 });
-it("date-only bounds are never displayed as midnight opening hours or exact-time recommendations",()=>{
- const e={...sample(),timePrecision:"date",startAt:"2026-10-03T00:00:00+09:00",endAt:"2026-10-04T00:00:00+09:00"} as OutingEvent;
- expect(formatEventRange(e)).toContain("時刻未確認");expect(formatEventRange(e)).not.toContain("00:00");expect(visitTime(e,"2026-10-03T12:00")).toBeNull();
+it.each([
+ {timeText:undefined,note:"時刻未確認"},
+ {timeText:"開催時刻は公式案内を参照",note:"時刻は下記掲載情報を確認"},
+])("date-only events never imply exact hours ($note)",({timeText,note})=>{
+ const e:OutingEvent={...sample(),timePrecision:"date",startAt:"2026-10-03T00:00:00+09:00",endAt:"2026-10-04T00:00:00+09:00",timeText};
+ expect(formatEventRange(e)).toContain(note);
+ expect(formatEventRange(e)).not.toContain("00:00");
+ expect(visitTime(e,"2026-10-03T12:00")).toBeNull();
 });
 it("expired collection data stays loadable as history but stops recommendations",()=>{
  const e={...sample(),collectorSource:"test",statusCheckedAt:"2026-10-01T00:00:00Z"};expect(freshForRecommendation(e,Date.parse("2026-10-09T00:00:00Z"))).toBe(false);expect(freshForRecommendation(e,Date.parse("2026-10-02T00:00:00Z"))).toBe(true);expect(findEvent(sample().id)).toBeTruthy();
